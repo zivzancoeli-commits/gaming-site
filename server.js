@@ -28,18 +28,48 @@ const uvPaths = [
 let foundUvPath = uvPaths.find(p => existsSync(p)) || null;
 if (foundUvPath) console.log('UV static files found at:', foundUvPath);
 
-// Service-Worker-Allowed header MUST come before static middleware
-app.get('/uv/uv.sw.js', (req, res) => {
-  res.setHeader('Service-Worker-Allowed', '/');
-  if (foundUvPath) {
-    res.sendFile(join(foundUvPath, 'uv.sw.js'));
-  } else {
-    res.status(404).send('UV not installed');
-  }
-});
+// Corrected UV config — package default uses wrong root paths, we fix them to /uv/
+const UV_CONFIG = `/*global Ultraviolet*/
+self.__uv$config = {
+  prefix: '/service/',
+  encodeUrl: Ultraviolet.codec.xor.encode,
+  decodeUrl: Ultraviolet.codec.xor.decode,
+  handler: '/uv/uv.handler.js',
+  client: '/uv/uv.client.js',
+  bundle: '/uv/uv.bundle.js',
+  config: '/uv/uv.config.js',
+  sw: '/uv/uv.sw.js',
+};`;
 
-// Serve remaining UV static files
 if (foundUvPath) {
+  // uv.sw.js needs Service-Worker-Allowed + must come before static middleware
+  app.get('/uv/uv.sw.js', (req, res) => {
+    res.setHeader('Service-Worker-Allowed', '/');
+    res.sendFile(join(foundUvPath, 'uv.sw.js'));
+  });
+
+  // Serve corrected config at /uv/uv.config.js
+  app.get('/uv/uv.config.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.send(UV_CONFIG);
+  });
+
+  // The compiled uv.sw.js calls importScripts('/uv.bundle.js') with absolute root paths
+  // so we also serve UV files at root level
+  const uvFiles = ['uv.bundle.js', 'uv.handler.js', 'uv.client.js'];
+  uvFiles.forEach(f => {
+    app.get(`/${f}`, (req, res) => res.sendFile(join(foundUvPath, f)));
+  });
+  app.get('/uv.config.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.send(UV_CONFIG);
+  });
+  app.get('/uv.sw.js', (req, res) => {
+    res.setHeader('Service-Worker-Allowed', '/');
+    res.sendFile(join(foundUvPath, 'uv.sw.js'));
+  });
+
+  // Serve all UV files at /uv/ path
   app.use('/uv/', express.static(foundUvPath));
 }
 
