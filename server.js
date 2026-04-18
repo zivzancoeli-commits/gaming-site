@@ -19,6 +19,16 @@ try {
   console.log('Bare server not available — proxy disabled, site still works');
 }
 
+// Try to load Wisp server (required by epoxy transport)
+let wispServer = null;
+try {
+  const { createWispServer } = await import('wisp-server-node');
+  wispServer = createWispServer();
+  console.log('Wisp server loaded');
+} catch {
+  console.log('Wisp server not available');
+}
+
 // Find UV static files location
 const uvPaths = [
   join(__dirname, 'node_modules', '@titaniumnetwork-dev', 'ultraviolet', 'dist'),
@@ -114,7 +124,9 @@ server.on('request', (req, res) => {
 });
 
 server.on('upgrade', (req, socket, head) => {
-  if (bareServer && bareServer.shouldRoute(req)) {
+  if (req.url.startsWith('/wisp/') && wispServer) {
+    wispServer.routeRequest(req, socket, head);
+  } else if (bareServer && bareServer.shouldRoute(req)) {
     bareServer.routeUpgrade(req, socket, head);
   } else {
     socket.destroy();
