@@ -36,11 +36,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* ── UV Service Worker registration ────────────────────────── */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/uv/sw.js', { scope: '/service/' })
-    .catch(() => { /* UV not configured yet – games will open in new tab fallback */ });
-}
+/* ── UV Service Worker is registered in index.html ─────────── */
 
 function encodeProxyUrl(url) {
   // Use UV encoding if available, else base64 fallback
