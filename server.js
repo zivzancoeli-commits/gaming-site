@@ -20,13 +20,29 @@ try {
 }
 
 // Try to load Wisp server (required by epoxy transport)
-let wispServer = null;
+let wispRouteRequest = null;
 try {
-  const { createWispServer } = await import('wisp-server-node');
-  wispServer = createWispServer();
-  console.log('Wisp server loaded');
-} catch {
-  console.log('Wisp server not available');
+  const wispMod = await import('@mercuryworkshop/wisp-js/wisp-server.js');
+  const WispServer = wispMod.WispServer || wispMod.default?.WispServer || wispMod.default;
+  if (typeof WispServer === 'function') {
+    const ws = new WispServer();
+    wispRouteRequest = (req, socket, head) =>
+      (ws.routeRequest || ws.handleUpgrade || ws.handle).call(ws, req, socket, head);
+    console.log('Wisp server loaded');
+  }
+} catch (e) {
+  try {
+    const wispMod2 = await import('wisp-server-node');
+    const WispServer = wispMod2.WispServer || wispMod2.default;
+    if (typeof WispServer === 'function') {
+      const ws = new WispServer();
+      wispRouteRequest = (req, socket, head) =>
+        (ws.routeRequest || ws.handleUpgrade).call(ws, req, socket, head);
+      console.log('Wisp server loaded (legacy)');
+    }
+  } catch {
+    console.log('Wisp server not available:', e.message);
+  }
 }
 
 // Find UV static files location
@@ -124,8 +140,8 @@ server.on('request', (req, res) => {
 });
 
 server.on('upgrade', (req, socket, head) => {
-  if (req.url.startsWith('/wisp/') && wispServer) {
-    wispServer.routeRequest(req, socket, head);
+  if (req.url.startsWith('/wisp/') && wispRouteRequest) {
+    wispRouteRequest(req, socket, head);
   } else if (bareServer && bareServer.shouldRoute(req)) {
     bareServer.routeUpgrade(req, socket, head);
   } else {
