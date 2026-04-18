@@ -1,4 +1,5 @@
-// All games are opened through the UV proxy so GoGuardian only sees your domain
+// embed: true  → loads directly in iframe (no proxy, game allows embedding)
+// embed: false → routes through UV proxy (default)
 const GAMES = [
   // ── Shooting / Action ─────────────────────────────────────
   {
@@ -8,6 +9,7 @@ const GAMES = [
     featured: true,
     img: 'https://images.crazygames.com/games/shell-shockers/cover_16x9.png',
     url: 'https://shellshock.io',
+    embed: false,
     color: '#1e3a5f'
   },
   {
@@ -17,6 +19,7 @@ const GAMES = [
     featured: true,
     img: 'https://images.crazygames.com/games/krunker-io/cover_16x9.png',
     url: 'https://krunker.io',
+    embed: false,
     color: '#1a3a2a'
   },
   {
@@ -26,6 +29,7 @@ const GAMES = [
     featured: true,
     img: 'https://images.crazygames.com/games/1v1-lol/cover_16x9.png',
     url: 'https://1v1.lol',
+    embed: false,
     color: '#1a2a3a'
   },
   {
@@ -34,6 +38,7 @@ const GAMES = [
     category: 'shooting',
     img: 'https://images.crazygames.com/games/venge-io/cover_16x9.png',
     url: 'https://venge.io',
+    embed: false,
     color: '#2a1a3a'
   },
   {
@@ -41,7 +46,8 @@ const GAMES = [
     name: 'Rooftop Snipers',
     category: 'shooting',
     img: 'https://images.crazygames.com/games/rooftop-snipers/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/rooftop-snipers',
+    url: 'https://rooftop-snipers.com',
+    embed: true,
     color: '#3a1a1a'
   },
   {
@@ -50,6 +56,7 @@ const GAMES = [
     category: 'shooting',
     img: 'https://images.crazygames.com/games/getaway-shootout/cover_16x9.png',
     url: 'https://getawayshootout.com',
+    embed: true,
     color: '#1a3a1a'
   },
 

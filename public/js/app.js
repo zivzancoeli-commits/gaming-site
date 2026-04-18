@@ -134,7 +134,8 @@ let currentProxyUrl = '';
 
 function openGame(game) {
   currentGameUrl = game.url;
-  currentProxyUrl = encodeProxyUrl(game.url);
+  // embed:true loads directly, embed:false goes through UV proxy
+  currentProxyUrl = game.embed === true ? game.url : encodeProxyUrl(game.url);
 
   // Reset to overlay state
   gameFrame.src = '';
@@ -157,6 +158,8 @@ function startGame() {
   gameFrame.classList.add('active');
   gameOverlay.classList.add('hidden');
   zoomBtn.classList.add('visible');
+  // Focus iframe so pointer-lock and keyboard events work immediately
+  setTimeout(() => gameFrame.focus(), 300);
 }
 
 function closeGame() {
