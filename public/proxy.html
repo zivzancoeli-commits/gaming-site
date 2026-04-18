@@ -200,7 +200,7 @@
         const conn = new BareMux.BareMuxConnection('/baremux/worker.js');
         const current = await conn.getTransport().catch(() => null);
         if (current !== '/epoxy/index.mjs') {
-          await conn.setTransport('/epoxy/index.mjs', [`wss://${location.host}/wisp/`]);
+          await conn.setTransport('/epoxy/index.mjs', [{ wisp: `wss://${location.host}/wisp/` }]);
           console.log('Transport ready');
         }
       } catch(e) { console.warn('Transport init:', e); }
