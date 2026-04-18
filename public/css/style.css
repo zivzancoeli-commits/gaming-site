@@ -274,7 +274,7 @@ input, select { color: inherit; font: inherit; }
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.85);
   z-index: 900;
 }
 .modal-backdrop.open { display: block; }
@@ -285,7 +285,7 @@ input, select { color: inherit; font: inherit; }
   inset: 0;
   z-index: 1000;
   flex-direction: column;
-  background: var(--modal-bg);
+  background: #0a0a14;
 }
 .game-modal.open { display: flex; }
 
@@ -293,17 +293,15 @@ input, select { color: inherit; font: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 8px 14px;
   background: var(--sidebar-bg);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  height: 46px;
 }
-.modal-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-}
-.modal-actions { display: flex; gap: 8px; align-items: center; }
+.modal-header-left { display: flex; align-items: center; gap: 10px; }
+.modal-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.modal-actions { display: flex; gap: 6px; align-items: center; }
 .modal-btn {
   width: 32px; height: 32px;
   border-radius: 8px;
@@ -315,22 +313,104 @@ input, select { color: inherit; font: inherit; }
 .modal-btn svg { width: 16px; height: 16px; }
 .close-btn:hover { background: #4c0519; color: #fb7185; }
 
-.modal-ad {
-  background: var(--topbar-bg);
-  border-bottom: 1px solid var(--border);
+/* ── Game player layout ─────────────────────────────────────── */
+.game-player-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background: #0a0a14;
+}
+
+.game-side-ad {
+  width: 170px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
-  min-height: 50px;
-  flex-shrink: 0;
+  background: #0d0f20;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.game-center {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #000;
 }
 
 #game-frame {
-  flex: 1;
-  border: none;
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
+  border: none;
   background: #000;
+  display: none;
+}
+#game-frame.active { display: block; }
+
+/* ── Click-to-play overlay ──────────────────────────────────── */
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  background: #000;
+}
+.game-overlay.hidden { display: none; }
+
+.game-overlay-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  filter: blur(2px) scale(1.05);
+}
+
+.game-overlay-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  padding: 20px;
+}
+
+.game-overlay-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  letter-spacing: 0.5px;
+}
+
+.play-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 18px 52px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 32px rgba(124,58,237,0.5);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  letter-spacing: 0.5px;
+}
+.play-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 40px rgba(124,58,237,0.7);
+  background: #6d28d9;
 }
 
 /* ── Settings Modal ─────────────────────────────────────────── */

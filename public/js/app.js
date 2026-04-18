@@ -65,6 +65,10 @@ const modalTitle     = document.getElementById('modal-game-title');
 const closeModalBtn  = document.getElementById('close-modal-btn');
 const fullscreenBtn  = document.getElementById('fullscreen-btn');
 const newTabBtn      = document.getElementById('new-tab-btn');
+const gameOverlay    = document.getElementById('game-overlay');
+const overlayThumb   = document.getElementById('overlay-thumb');
+const overlayTitle   = document.getElementById('overlay-title');
+const playBtn        = document.getElementById('play-btn');
 const settingsBtn    = document.getElementById('settings-btn');
 const settingsModal  = document.getElementById('settings-modal');
 const closeSettings  = document.getElementById('close-settings');
@@ -129,25 +133,44 @@ function buildCard(game) {
 
 /* ── Open game ──────────────────────────────────────────────── */
 let currentGameUrl = '';
+let currentProxyUrl = '';
+
 function openGame(game) {
   currentGameUrl = game.url;
-  modalTitle.textContent = game.name;
+  currentProxyUrl = encodeProxyUrl(game.url);
 
-  const proxyUrl = encodeProxyUrl(game.url);
-  gameFrame.src = proxyUrl;
+  // Reset to overlay state
+  gameFrame.src = '';
+  gameFrame.classList.remove('active');
+  gameOverlay.classList.remove('hidden');
+
+  // Set overlay content
+  modalTitle.textContent = game.name;
+  overlayTitle.textContent = game.name;
+  overlayThumb.src = game.img || '';
+  overlayThumb.onerror = () => { overlayThumb.style.display = 'none'; };
 
   gameModal.classList.add('open');
   modalBackdrop.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
+function startGame() {
+  gameFrame.src = currentProxyUrl;
+  gameFrame.classList.add('active');
+  gameOverlay.classList.add('hidden');
+}
+
 function closeGame() {
   gameFrame.src = '';
+  gameFrame.classList.remove('active');
+  gameOverlay.classList.remove('hidden');
   gameModal.classList.remove('open');
   modalBackdrop.classList.remove('open');
   document.body.style.overflow = '';
 }
 
+playBtn.addEventListener('click', startGame);
 closeModalBtn.addEventListener('click', closeGame);
 modalBackdrop.addEventListener('click', closeGame);
 

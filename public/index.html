@@ -138,7 +138,12 @@
   <!-- Game player modal -->
   <div class="game-modal" id="game-modal">
     <div class="modal-header">
-      <span class="modal-title" id="modal-game-title">Game</span>
+      <div class="modal-header-left">
+        <button class="modal-btn close-btn" id="close-modal-btn" title="Close">
+          <svg viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <span class="modal-title" id="modal-game-title">Game</span>
+      </div>
       <div class="modal-actions">
         <button class="modal-btn" id="fullscreen-btn" title="Fullscreen">
           <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
@@ -146,20 +151,44 @@
         <button class="modal-btn" id="new-tab-btn" title="Open in new tab">
           <svg viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </button>
-        <button class="modal-btn close-btn" id="close-modal-btn" title="Close">
-          <svg viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
       </div>
     </div>
-    <!-- Small banner ad inside modal -->
-    <div class="modal-ad">
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:728px;height:90px"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-           data-ad-slot="XXXXXXXXXX"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+    <div class="game-player-layout">
+      <!-- Left ad -->
+      <div class="game-side-ad">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Game area -->
+      <div class="game-center">
+        <!-- Click-to-play overlay -->
+        <div class="game-overlay" id="game-overlay">
+          <img class="game-overlay-thumb" id="overlay-thumb" src="" alt="" />
+          <div class="game-overlay-content">
+            <div class="game-overlay-title" id="overlay-title"></div>
+            <button class="play-btn" id="play-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" width="28" height="28"><path d="M8 5v14l11-7z"/></svg>
+              Play Now
+            </button>
+          </div>
+        </div>
+        <iframe id="game-frame" src="" allowfullscreen allow="fullscreen *; autoplay *; clipboard-read *; clipboard-write *"></iframe>
+      </div>
+
+      <!-- Right ad -->
+      <div class="game-side-ad">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
     </div>
-    <iframe id="game-frame" src="" allowfullscreen allow="fullscreen *; autoplay *"></iframe>
   </div>
   <div class="modal-backdrop" id="modal-backdrop"></div>
 
