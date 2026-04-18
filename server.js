@@ -22,27 +22,26 @@ try {
 // Try to load Wisp server (required by epoxy transport)
 let wispRouteRequest = null;
 try {
-  const wispMod = await import('@mercuryworkshop/wisp-js/wisp-server.js');
-  const WispServer = wispMod.WispServer || wispMod.default?.WispServer || wispMod.default;
+  const wispMod = await import('wisp-server-node');
+  // ESM import of CJS: named exports OR default.WispServer
+  const WispServer =
+    wispMod.WispServer ??
+    wispMod.default?.WispServer ??
+    (typeof wispMod.default === 'function' ? wispMod.default : null);
   if (typeof WispServer === 'function') {
     const ws = new WispServer();
-    wispRouteRequest = (req, socket, head) =>
-      (ws.routeRequest || ws.handleUpgrade || ws.handle).call(ws, req, socket, head);
-    console.log('Wisp server loaded');
+    const method = ws.routeRequest?.bind(ws) || ws.handleUpgrade?.bind(ws);
+    if (method) {
+      wispRouteRequest = method;
+      console.log('Wisp server loaded');
+    } else {
+      console.log('Wisp: no route method found, keys:', Object.keys(ws));
+    }
+  } else {
+    console.log('Wisp: WispServer not a function, keys:', Object.keys(wispMod));
   }
 } catch (e) {
-  try {
-    const wispMod2 = await import('wisp-server-node');
-    const WispServer = wispMod2.WispServer || wispMod2.default;
-    if (typeof WispServer === 'function') {
-      const ws = new WispServer();
-      wispRouteRequest = (req, socket, head) =>
-        (ws.routeRequest || ws.handleUpgrade).call(ws, req, socket, head);
-      console.log('Wisp server loaded (legacy)');
-    }
-  } catch {
-    console.log('Wisp server not available:', e.message);
-  }
+  console.log('Wisp server not available:', e.message);
 }
 
 // Find UV static files location
