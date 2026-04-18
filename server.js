@@ -12,7 +12,7 @@ const app = express();
 const bareServer = createBareServer('/bare/');
 
 // Serve Ultraviolet static files
-const uvPath = join(__dirname, 'node_modules', '@titaniumnetwork-dev', 'ultraviolet-static', 'dist');
+const uvPath = join(__dirname, 'node_modules', '@titaniumnetwork-dev', 'ultraviolet', 'dist');
 if (existsSync(uvPath)) {
   app.use('/uv/', express.static(uvPath));
 }
