@@ -10,7 +10,7 @@ const GAMES = [
     featured: true,
     img: 'https://images.crazygames.com/games/shell-shockers/cover_16x9.png',
     url: 'https://shellshock.io',
-    embed: false,
+    embed: true,   // direct load - proxy breaks WebRTC
     color: '#1e3a5f'
   },
   {
@@ -20,7 +20,7 @@ const GAMES = [
     featured: true,
     img: 'https://images.crazygames.com/games/venge-io/cover_16x9.png',
     url: 'https://venge.io',
-    embed: false,
+    embed: true,
     color: '#2a1a3a'
   },
   {
@@ -42,23 +42,23 @@ const GAMES = [
     color: '#1a3a1a'
   },
   {
-    id: 'bullet-force',
-    name: 'Bullet Force',
-    category: 'shooting',
-    img: 'https://images.crazygames.com/games/bullet-force-multiplayer/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/bullet-force-multiplayer',
-    embed: false,
-    color: '#2a2a1a'
-  },
-  {
     id: 'smash-karts',
     name: 'Smash Karts',
     category: 'shooting',
     featured: true,
     img: 'https://images.crazygames.com/games/smash-karts/cover_16x9.png',
     url: 'https://smashkarts.io',
-    embed: false,
+    embed: true,
     color: '#1a2a1a'
+  },
+  {
+    id: 'bullet-force',
+    name: 'Bullet Force',
+    category: 'shooting',
+    img: 'https://images.crazygames.com/games/bullet-force-multiplayer/cover_16x9.png',
+    url: 'https://www.crazygames.com/embed/bullet-force-multiplayer',
+    embed: true,
+    color: '#2a2a1a'
   },
 
   // ── IO Games ────────────────────────────────────────────────
@@ -69,7 +69,7 @@ const GAMES = [
     featured: true,
     img: 'https://images.crazygames.com/games/slither-io/cover_16x9.png',
     url: 'https://slither.io',
-    embed: false,
+    embed: true,   // direct load - proxy breaks pointer-lock & WebSocket
     color: '#0f2a0f'
   },
   {
@@ -78,7 +78,7 @@ const GAMES = [
     category: 'io',
     img: 'https://images.crazygames.com/games/agar-io/cover_16x9.png',
     url: 'https://agar.io',
-    embed: false,
+    embed: true,
     color: '#1a1a3a'
   },
   {
@@ -87,7 +87,7 @@ const GAMES = [
     category: 'io',
     img: 'https://images.crazygames.com/games/paper-io-2/cover_16x9.png',
     url: 'https://paper-io.com',
-    embed: false,
+    embed: true,
     color: '#2a1a2a'
   },
   {
@@ -96,7 +96,7 @@ const GAMES = [
     category: 'io',
     img: 'https://images.crazygames.com/games/diep-io/cover_16x9.png',
     url: 'https://diep.io',
-    embed: false,
+    embed: true,
     color: '#1a2a1a'
   },
   {
@@ -105,7 +105,7 @@ const GAMES = [
     category: 'io',
     img: 'https://images.crazygames.com/games/bonk-io/cover_16x9.png',
     url: 'https://bonk.io',
-    embed: false,
+    embed: true,
     color: '#2a2a1a'
   },
   {
@@ -114,7 +114,7 @@ const GAMES = [
     category: 'io',
     img: 'https://images.crazygames.com/games/skribbl-io/cover_16x9.png',
     url: 'https://skribbl.io',
-    embed: false,
+    embed: true,   // direct load - Socket.IO disconnects through proxy
     color: '#1a1a2a'
   },
   {
@@ -123,7 +123,7 @@ const GAMES = [
     category: 'io',
     img: 'https://images.crazygames.com/games/wormate-io/cover_16x9.png',
     url: 'https://wormate.io',
-    embed: false,
+    embed: true,
     color: '#2a1a1a'
   },
   {
@@ -132,7 +132,7 @@ const GAMES = [
     category: 'io',
     img: 'https://images.crazygames.com/games/deeeep-io/cover_16x9.png',
     url: 'https://deeeep.io',
-    embed: false,
+    embed: true,
     color: '#0f1a2a'
   },
 
@@ -143,7 +143,7 @@ const GAMES = [
     category: 'platformer',
     featured: true,
     img: 'https://images.crazygames.com/games/slope/cover_16x9.png',
-    url: 'https://slope.game',
+    url: 'https://slopegame.io',   // slope.game domain is dead
     embed: true,
     color: '#1a0f2a'
   },
@@ -175,12 +175,12 @@ const GAMES = [
     color: '#2a1a0f'
   },
   {
-    id: 'stickman-hook',
-    name: 'Stickman Hook',
+    id: 'short-life',
+    name: 'Short Life',       // stickman-hook.com is parked on GoDaddy → replaced
     category: 'platformer',
     featured: true,
-    img: 'https://images.crazygames.com/games/stickman-hook/cover_16x9.png',
-    url: 'https://stickman-hook.com',
+    img: 'https://images.crazygames.com/games/short-life/cover_16x9.png',
+    url: 'https://www.crazygames.com/embed/short-life',
     embed: true,
     color: '#1a2a1a'
   },
@@ -198,7 +198,7 @@ const GAMES = [
     name: 'Vex 5',
     category: 'platformer',
     img: 'https://images.crazygames.com/games/vex-5/cover_16x9.png',
-    url: 'https://vex5.io',
+    url: 'https://www.crazygames.com/embed/vex-5',
     embed: true,
     color: '#0f1a1a'
   },
@@ -207,7 +207,7 @@ const GAMES = [
     name: 'Cat Ninja',
     category: 'platformer',
     img: 'https://images.crazygames.com/games/cat-ninja/cover_16x9.png',
-    url: 'https://www.catninja.io',
+    url: 'https://www.crazygames.com/embed/cat-ninja',
     embed: true,
     color: '#2a1a2a'
   },
@@ -228,7 +228,7 @@ const GAMES = [
     category: 'sports',
     featured: true,
     img: 'https://images.crazygames.com/games/retro-bowl/cover_16x9.png',
-    url: 'https://retrobowl.me',
+    url: 'https://www.crazygames.com/embed/retro-bowl',   // /embed/ = just the game
     embed: true,
     color: '#1a1a0f'
   },
@@ -237,7 +237,7 @@ const GAMES = [
     name: 'Basketball Stars',
     category: 'sports',
     img: 'https://images.crazygames.com/games/basketball-stars/cover_16x9.png',
-    url: 'https://www.basketball-stars.io',
+    url: 'https://www.crazygames.com/embed/basketball-stars',
     embed: true,
     color: '#2a1a0f'
   },
@@ -246,7 +246,7 @@ const GAMES = [
     name: 'Soccer Random',
     category: 'sports',
     img: 'https://images.crazygames.com/games/soccer-random/cover_16x9.png',
-    url: 'https://www.soccer-random.com',
+    url: 'https://www.crazygames.com/embed/soccer-random',
     embed: true,
     color: '#0f2a0f'
   },
@@ -255,7 +255,7 @@ const GAMES = [
     name: 'Bowmasters',
     category: 'sports',
     img: 'https://images.crazygames.com/games/bowmasters/cover_16x9.png',
-    url: 'https://bowmasters.io',
+    url: 'https://www.crazygames.com/embed/bowmasters',
     embed: true,
     color: '#1a2a2a'
   },
@@ -264,8 +264,8 @@ const GAMES = [
     name: 'Gladihoppers',
     category: 'sports',
     img: 'https://images.crazygames.com/games/gladihoppers/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/gladihoppers',
-    embed: false,
+    url: 'https://www.crazygames.com/embed/gladihoppers',
+    embed: true,
     color: '#2a1a0a'
   },
 
@@ -276,7 +276,7 @@ const GAMES = [
     category: 'racing',
     featured: true,
     img: 'https://images.crazygames.com/games/drift-hunters/cover_16x9.png',
-    url: 'https://drifthunters.io',
+    url: 'https://www.crazygames.com/embed/drift-hunters',  // drifthunters.io was broken
     embed: true,
     color: '#1a0f0a'
   },
@@ -285,7 +285,7 @@ const GAMES = [
     name: 'Madalin Stunt Cars',
     category: 'racing',
     img: 'https://images.crazygames.com/games/madalin-stunt-cars-2/cover_16x9.png',
-    url: 'https://www.madalinstuntcars2.com',
+    url: 'https://www.crazygames.com/embed/madalin-stunt-cars-2',
     embed: true,
     color: '#0f1a1a'
   },
@@ -294,8 +294,8 @@ const GAMES = [
     name: 'Road Fury',
     category: 'racing',
     img: 'https://images.crazygames.com/games/road-fury/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/road-fury',
-    embed: false,
+    url: 'https://www.crazygames.com/embed/road-fury',
+    embed: true,
     color: '#2a0f0f'
   },
 
@@ -323,18 +323,9 @@ const GAMES = [
     name: 'Block Blast',
     category: 'puzzle',
     img: 'https://images.crazygames.com/games/block-blast/cover_16x9.png',
-    url: 'https://blockblast.io',
+    url: 'https://www.crazygames.com/embed/block-blast',
     embed: true,
     color: '#0f2a2a'
-  },
-  {
-    id: 'color-water-sort',
-    name: 'Color Water Sort',
-    category: 'puzzle',
-    img: 'https://images.crazygames.com/games/color-water-sort/cover_16x9.png',
-    url: 'https://watersortpuzzle.io',
-    embed: true,
-    color: '#1a0f2a'
   },
   {
     id: 'wordle',
@@ -350,8 +341,8 @@ const GAMES = [
     name: 'Cut the Rope',
     category: 'puzzle',
     img: 'https://images.crazygames.com/games/cut-the-rope/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/cut-the-rope',
-    embed: false,
+    url: 'https://www.crazygames.com/embed/cut-the-rope',
+    embed: true,
     color: '#1a2a0f'
   },
 
@@ -363,7 +354,7 @@ const GAMES = [
     featured: true,
     img: 'https://images.crazygames.com/games/cookie-clicker/cover_16x9.png',
     url: 'https://orteil.dashnet.org/cookieclicker/',
-    embed: true,
+    embed: false,   // proxy spoofs origin - direct embed shows "wrong address" error
     color: '#2a1a0a'
   },
   {
@@ -380,7 +371,7 @@ const GAMES = [
     name: 'Tetris',
     category: 'arcade',
     img: 'https://images.crazygames.com/games/tetris/cover_16x9.png',
-    url: 'https://www.jstris.jezevec10.com',
+    url: 'https://jstris.jezevec10.com',
     embed: true,
     color: '#0f0f2a'
   },
@@ -416,7 +407,7 @@ const GAMES = [
     name: 'Tunnel Rush',
     category: 'arcade',
     img: 'https://images.crazygames.com/games/tunnel-rush/cover_16x9.png',
-    url: 'https://tunnelrush.io',
+    url: 'https://www.crazygames.com/embed/tunnel-rush',
     embed: true,
     color: '#1a0a2a'
   },
@@ -427,7 +418,7 @@ const GAMES = [
     name: 'Bloons TD 5',
     category: 'strategy',
     img: 'https://images.crazygames.com/games/bloons-tower-defense-5/cover_16x9.png',
-    url: 'https://www.ninjakiwi.com/Games/Tower-Defence/Play/Bloons-Tower-Defense-5.html',
+    url: 'https://www.crazygames.com/embed/bloons-tower-defense-5',
     embed: true,
     color: '#0f1a2a'
   },
@@ -441,12 +432,12 @@ const GAMES = [
     color: '#1a1a1a'
   },
   {
-    id: 'clash-of-clans-web',
+    id: 'kingdom-rush',
     name: 'Kingdom Rush',
     category: 'strategy',
     img: 'https://images.crazygames.com/games/kingdom-rush/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/kingdom-rush',
-    embed: false,
+    url: 'https://www.crazygames.com/embed/kingdom-rush',
+    embed: true,
     color: '#1a0f0a'
   },
 
@@ -457,18 +448,9 @@ const GAMES = [
     category: 'runner',
     featured: true,
     img: 'https://images.crazygames.com/games/temple-run-2/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/temple-run-2',
-    embed: false,
+    url: 'https://www.crazygames.com/embed/temple-run-2',   // /embed/ = game only, no CG nav
+    embed: true,
     color: '#1a0f0a'
-  },
-  {
-    id: 'jetpack-joyride',
-    name: 'Jetpack Joyride',
-    category: 'runner',
-    img: 'https://images.crazygames.com/games/jetpack-joyride/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/jetpack-joyride',
-    embed: false,
-    color: '#0a1a2a'
   },
   {
     id: 'subway-surfers',
@@ -476,8 +458,8 @@ const GAMES = [
     category: 'runner',
     featured: true,
     img: 'https://images.crazygames.com/games/subway-surfers/cover_16x9.png',
-    url: 'https://poki.com/en/g/subway-surfers',
-    embed: false,
+    url: 'https://www.crazygames.com/embed/subway-surfers',
+    embed: true,
     color: '#1a0a2a'
   },
   {
@@ -485,9 +467,18 @@ const GAMES = [
     name: 'Endless Truck',
     category: 'runner',
     img: 'https://images.crazygames.com/games/endless-truck/cover_16x9.png',
-    url: 'https://www.crazygames.com/game/endless-truck',
-    embed: false,
+    url: 'https://www.crazygames.com/embed/endless-truck',
+    embed: true,
     color: '#2a1a0f'
+  },
+  {
+    id: 'jetpack-joyride',
+    name: 'Jetpack Joyride',
+    category: 'runner',
+    img: 'https://images.crazygames.com/games/jetpack-joyride/cover_16x9.png',
+    url: 'https://www.crazygames.com/embed/jetpack-joyride',
+    embed: true,
+    color: '#0a1a2a'
   },
 
   // ── Rhythm / Music ──────────────────────────────────────────
@@ -497,7 +488,7 @@ const GAMES = [
     category: 'rhythm',
     featured: true,
     img: 'https://images.crazygames.com/games/friday-night-funkin/cover_16x9.png',
-    url: 'https://fnf.lol',
+    url: 'https://funkin.me',   // official FNF web port - fnf.lol was broken
     embed: true,
     color: '#2a0f2a'
   },
@@ -506,7 +497,7 @@ const GAMES = [
     name: 'Sprunki',
     category: 'rhythm',
     img: 'https://images.crazygames.com/games/sprunki/cover_16x9.png',
-    url: 'https://sprunki.org',
+    url: 'https://sprunki.io',
     embed: true,
     color: '#1a1a2a'
   },
@@ -528,7 +519,7 @@ const GAMES = [
     category: 'multiplayer',
     img: 'https://images.crazygames.com/games/gartic-phone/cover_16x9.png',
     url: 'https://garticphone.com',
-    embed: false,
+    embed: true,
     color: '#0f1a2a'
   },
   {
@@ -537,7 +528,7 @@ const GAMES = [
     category: 'multiplayer',
     img: 'https://images.crazygames.com/games/skribbl-io/cover_16x9.png',
     url: 'https://skribbl.io',
-    embed: false,
+    embed: true,   // direct - Socket.IO needs direct WebSocket, not proxied
     color: '#1a0a2a'
   },
 ];
