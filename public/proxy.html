@@ -186,9 +186,9 @@
   <iframe id="proxy-frame" src="" allowfullscreen allow="fullscreen *; autoplay *; clipboard-read *; clipboard-write *"></iframe>
 
   <script>
-    // Register UV service worker
+    // Register UV service worker — sw.js is the entry point that loads the bundle first
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/uv/uv.sw.js', { scope: '/service/' })
+      navigator.serviceWorker.register('/uv/sw.js', { scope: '/service/' })
         .catch(err => console.warn('SW registration failed:', err));
     }
 

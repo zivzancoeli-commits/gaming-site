@@ -42,7 +42,11 @@ self.__uv$config = {
 };`;
 
 if (foundUvPath) {
-  // uv.sw.js needs Service-Worker-Allowed + must come before static middleware
+  // Both SW entry points need Service-Worker-Allowed header
+  app.get('/uv/sw.js', (req, res) => {
+    res.setHeader('Service-Worker-Allowed', '/');
+    res.sendFile(join(foundUvPath, 'sw.js'));
+  });
   app.get('/uv/uv.sw.js', (req, res) => {
     res.setHeader('Service-Worker-Allowed', '/');
     res.sendFile(join(foundUvPath, 'uv.sw.js'));
