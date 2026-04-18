@@ -514,11 +514,11 @@ const GAMES = [
   // ── Multiplayer ─────────────────────────────────────────────
   {
     id: 'minecraft',
-    name: 'Minecraft (Custom)',
+    name: '1.12.2 Eaglercraft',
     category: 'multiplayer',
     featured: true,
     img: 'https://images.crazygames.com/games/minecraft-classic/cover_16x9.png',
-    url: 'https://classic.minecraft.net',  // ← replace with your Minecraft client URL
+    url: '/minecraft.html',
     embed: true,
     color: '#1a2a0f'
   },
