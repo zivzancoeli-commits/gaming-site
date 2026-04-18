@@ -14,6 +14,8 @@
   },
   "optionalDependencies": {
     "@nebula-services/bare-server-node": "^2.0.2",
-    "@titaniumnetwork-dev/ultraviolet": "^3.2.2"
+    "@titaniumnetwork-dev/ultraviolet": "^3.2.2",
+    "@mercuryworkshop/bare-mux": "^2.0.0",
+    "@mercuryworkshop/epoxy-transport": "^2.0.0"
   }
 }

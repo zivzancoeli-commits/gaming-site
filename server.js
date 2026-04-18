@@ -77,6 +77,12 @@ if (foundUvPath) {
   app.use('/uv/', express.static(foundUvPath));
 }
 
+// Serve bare-mux and epoxy transport (required by UV v3)
+const baremuxPath = join(__dirname, 'node_modules/@mercuryworkshop/bare-mux/dist');
+const epoxyPath   = join(__dirname, 'node_modules/@mercuryworkshop/epoxy-transport/dist');
+if (existsSync(baremuxPath)) { app.use('/baremux/', express.static(baremuxPath)); console.log('bare-mux served'); }
+if (existsSync(epoxyPath))   { app.use('/epoxy/',   express.static(epoxyPath));   console.log('epoxy served'); }
+
 // Serve public files
 app.use(express.static(join(__dirname, 'public')));
 
