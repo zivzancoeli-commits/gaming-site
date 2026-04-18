@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Hub – More Links</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0b0c1a; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; min-height: 100vh; }
+    header { background: #10122a; border-bottom: 1px solid #1e2244; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+    header a { color: #7c3aed; font-weight: 600; text-decoration: none; font-size: 14px; }
+    header h1 { font-size: 16px; }
+    .banner-ad { background: #10122a; border-bottom: 1px solid #1e2244; padding: 4px 20px; min-height: 50px; display: flex; align-items: center; justify-content: center; }
+    main { padding: 24px 20px; max-width: 900px; margin: 0 auto; }
+    h2 { font-size: 15px; font-weight: 600; margin-bottom: 14px; margin-top: 24px; }
+    h2:first-child { margin-top: 0; }
+    .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .link-card { background: #181a32; border: 1px solid #1e2244; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.18s, transform 0.18s; text-decoration: none; color: #e2e8f0; }
+    .link-card:hover { border-color: #7c3aed; transform: translateY(-2px); }
+    .link-icon { font-size: 24px; flex-shrink: 0; }
+    .link-info .name { font-size: 13px; font-weight: 500; }
+    .link-info .sub { font-size: 11.5px; color: #94a3b8; margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">← Back</a>
+    <h1>More Links</h1>
+  </header>
+  <div class="banner-ad">
+    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px;max-width:100%" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <main>
+    <h2>Game Sites</h2>
+    <div class="links-grid" id="game-links"></div>
+    <h2>Social & Entertainment</h2>
+    <div class="links-grid" id="social-links"></div>
+    <h2>Useful Tools</h2>
+    <div class="links-grid" id="tool-links"></div>
+  </main>
+  <script>
+    const GAME_LINKS = [
+      { icon: '🎮', name: 'CrazyGames', sub: '2000+ free games', url: 'https://www.crazygames.com' },
+      { icon: '🕹️', name: 'Poki', sub: 'Free online games', url: 'https://poki.com' },
+      { icon: '⚔️', name: 'Armor Games', sub: 'Classic browser games', url: 'https://armorgames.com' },
+      { icon: '🧩', name: 'Coolmath Games', sub: 'Puzzle & logic games', url: 'https://www.coolmathgames.com' },
+      { icon: '🌍', name: 'itch.io', sub: 'Indie games', url: 'https://itch.io' },
+      { icon: '🐢', name: 'Nitrome', sub: 'Pixel games', url: 'https://www.nitrome.com' },
+    ];
+    const SOCIAL_LINKS = [
+      { icon: '🔴', name: 'YouTube', sub: 'Watch videos', url: 'https://youtube.com' },
+      { icon: '📰', name: 'Reddit', sub: 'Communities', url: 'https://reddit.com' },
+      { icon: '🎵', name: 'Spotify', sub: 'Music streaming', url: 'https://open.spotify.com' },
+      { icon: '📸', name: 'Instagram', sub: 'Photos & reels', url: 'https://instagram.com' },
+    ];
+    const TOOL_LINKS = [
+      { icon: '🔍', name: 'Google', sub: 'Search engine', url: 'https://google.com' },
+      { icon: '📖', name: 'Wikipedia', sub: 'Free encyclopedia', url: 'https://wikipedia.org' },
+      { icon: '🧮', name: 'Desmos', sub: 'Graphing calculator', url: 'https://desmos.com' },
+      { icon: '✏️', name: 'Google Docs', sub: 'Write & edit', url: 'https://docs.google.com' },
+      { icon: '☁️', name: 'Google Drive', sub: 'Cloud storage', url: 'https://drive.google.com' },
+    ];
+    function renderLinks(containerId, links) {
+      const el = document.getElementById(containerId);
+      links.forEach(l => {
+        const a = document.createElement('a');
+        a.className = 'link-card';
+        a.href = '/proxy?url=' + encodeURIComponent(l.url);
+        a.innerHTML = `<div class="link-icon">${l.icon}</div><div class="link-info"><div class="name">${l.name}</div><div class="sub">${l.sub}</div></div>`;
+        el.appendChild(a);
+      });
+    }
+    renderLinks('game-links', GAME_LINKS);
+    renderLinks('social-links', SOCIAL_LINKS);
+    renderLinks('tool-links', TOOL_LINKS);
+  </script>
+</body>
+</html>

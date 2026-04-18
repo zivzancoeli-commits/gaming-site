@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Hub – Browse</title>
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <!-- UV Config -->
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; background: #0b0c1a; }
+    body { display: flex; flex-direction: column; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+
+    /* ── Fixed banner ad – always on top ── */
+    #proxy-ad-banner {
+      width: 100%;
+      background: #10122a;
+      border-bottom: 1px solid #1e2244;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 12px;
+      flex-shrink: 0;
+      min-height: 60px;
+      gap: 10px;
+      z-index: 9999;
+    }
+    #proxy-ad-banner .ad-slot {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #back-home {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    #back-home:hover { opacity: 0.9; }
+
+    /* ── URL bar ── */
+    #proxy-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #10122a;
+      border-bottom: 1px solid #1e2244;
+      flex-shrink: 0;
+    }
+    #proxy-toolbar button {
+      width: 30px; height: 30px;
+      border-radius: 6px;
+      border: none;
+      background: #181a32;
+      color: #94a3b8;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    #proxy-toolbar button:hover { background: #1f2240; color: #e2e8f0; }
+    #proxy-toolbar svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    #url-input {
+      flex: 1;
+      background: #181a32;
+      border: 1px solid #1e2244;
+      border-radius: 20px;
+      padding: 7px 14px;
+      color: #e2e8f0;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.18s;
+    }
+    #url-input:focus { border-color: #7c3aed; }
+
+    #go-btn {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    #go-btn:hover { opacity: 0.9; }
+
+    /* ── The proxy iframe ── */
+    #proxy-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      background: #fff;
+    }
+
+    /* ── Quick links ── */
+    #quick-links {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+      background: #0b0c1a;
+      flex: 1;
+    }
+    #quick-links.visible { display: flex; }
+    #quick-links h2 { color: #e2e8f0; font-size: 20px; font-weight: 600; }
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+      width: 100%;
+      max-width: 700px;
+    }
+    .quick-item {
+      background: #181a32;
+      border: 1px solid #1e2244;
+      border-radius: 12px;
+      padding: 16px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.18s, transform 0.18s;
+      color: #e2e8f0;
+      font-size: 13px;
+    }
+    .quick-item:hover { border-color: #7c3aed; transform: translateY(-2px); }
+    .quick-item .quick-icon { font-size: 28px; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+
+  <!-- Always-on-top banner ad -->
+  <div id="proxy-ad-banner">
+    <a href="/" id="back-home">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Home
+    </a>
+    <div class="ad-slot">
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px;max-width:100%"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <!-- URL bar -->
+  <div id="proxy-toolbar">
+    <button id="back-btn" title="Back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </button>
+    <button id="forward-btn" title="Forward">
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <button id="reload-btn" title="Reload">
+      <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+    </button>
+    <input type="text" id="url-input" placeholder="Enter a URL or search..." autocomplete="off" spellcheck="false" />
+    <button id="go-btn">Go</button>
+  </div>
+
+  <!-- Quick links (shown when no URL is loaded) -->
+  <div id="quick-links" class="visible">
+    <h2>Browse the Web</h2>
+    <div class="quick-grid" id="quick-grid"></div>
+  </div>
+
+  <!-- Proxy iframe -->
+  <iframe id="proxy-frame" src="" allowfullscreen allow="fullscreen *; autoplay *; clipboard-read *; clipboard-write *"></iframe>
+
+  <script>
+    // Register UV service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/uv/uv.sw.js', { scope: '/service/' })
+        .catch(err => console.warn('SW registration failed:', err));
+    }
+
+    const urlInput    = document.getElementById('url-input');
+    const proxyFrame  = document.getElementById('proxy-frame');
+    const quickLinks  = document.getElementById('quick-links');
+    const backBtn     = document.getElementById('back-btn');
+    const forwardBtn  = document.getElementById('forward-btn');
+    const reloadBtn   = document.getElementById('reload-btn');
+    const goBtn       = document.getElementById('go-btn');
+
+    const QUICK_SITES = [
+      { icon: '🔴', name: 'YouTube',    url: 'https://youtube.com' },
+      { icon: '📰', name: 'Reddit',     url: 'https://reddit.com' },
+      { icon: '🐦', name: 'X (Twitter)',url: 'https://x.com' },
+      { icon: '📸', name: 'Instagram',  url: 'https://instagram.com' },
+      { icon: '🎮', name: 'Games Home', url: '/' },
+      { icon: '🔍', name: 'Google',     url: 'https://google.com' },
+      { icon: '📚', name: 'Wikipedia',  url: 'https://wikipedia.org' },
+      { icon: '🎵', name: 'Spotify',    url: 'https://open.spotify.com' },
+    ];
+
+    const quickGrid = document.getElementById('quick-grid');
+    QUICK_SITES.forEach(site => {
+      const div = document.createElement('div');
+      div.className = 'quick-item';
+      div.innerHTML = `<div class="quick-icon">${site.icon}</div><div>${site.name}</div>`;
+      div.addEventListener('click', () => navigate(site.url));
+      quickGrid.appendChild(div);
+    });
+
+    function encodeUrl(raw) {
+      let url = raw.trim();
+      if (!url) return null;
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        if (url.includes('.') && !url.includes(' ')) {
+          url = 'https://' + url;
+        } else {
+          url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+        }
+      }
+      try {
+        if (typeof __uv$config !== 'undefined' && __uv$config.encodeUrl) {
+          return '/service/' + __uv$config.encodeUrl(url);
+        }
+      } catch (e) {}
+      return '/proxy?url=' + encodeURIComponent(url);
+    }
+
+    function navigate(raw) {
+      const encoded = encodeUrl(raw);
+      if (!encoded) return;
+      urlInput.value = raw.startsWith('http') ? raw : raw;
+      proxyFrame.src = encoded;
+      quickLinks.classList.remove('visible');
+      proxyFrame.style.display = 'block';
+    }
+
+    goBtn.addEventListener('click', () => navigate(urlInput.value));
+    urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') navigate(urlInput.value); });
+
+    backBtn.addEventListener('click', () => {
+      try { proxyFrame.contentWindow.history.back(); } catch {}
+    });
+    forwardBtn.addEventListener('click', () => {
+      try { proxyFrame.contentWindow.history.forward(); } catch {}
+    });
+    reloadBtn.addEventListener('click', () => {
+      proxyFrame.src = proxyFrame.src;
+    });
+
+    // Check for ?url= param on load
+    const params = new URLSearchParams(location.search);
+    if (params.get('url')) navigate(params.get('url'));
+
+    // Panic key
+    const panicKey = (JSON.parse(localStorage.getItem('gs-settings') || '{}')).panicKey || 'Escape';
+    const panicUrl = (JSON.parse(localStorage.getItem('gs-settings') || '{}')).panicUrl || 'https://classroom.google.com';
+    document.addEventListener('keydown', e => { if (e.key === panicKey) window.location.replace(panicUrl); });
+  </script>
+</body>
+</html>
