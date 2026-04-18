@@ -19,25 +19,29 @@ try {
   console.log('Bare server not available — proxy disabled, site still works');
 }
 
-// Try to serve Ultraviolet static files — optional
+// Find UV static files location
 const uvPaths = [
   join(__dirname, 'node_modules', '@titaniumnetwork-dev', 'ultraviolet', 'dist'),
   join(__dirname, 'node_modules', '@titaniumnetwork-dev', 'ultraviolet-static', 'dist'),
   join(__dirname, 'public', 'uv'),
 ];
-for (const uvPath of uvPaths) {
-  if (existsSync(uvPath)) {
-    app.use('/uv/', express.static(uvPath));
-    console.log('UV static files served from:', uvPath);
-    break;
-  }
-}
+let foundUvPath = uvPaths.find(p => existsSync(p)) || null;
+if (foundUvPath) console.log('UV static files found at:', foundUvPath);
 
-// Service-Worker-Allowed header required for UV scope
+// Service-Worker-Allowed header MUST come before static middleware
 app.get('/uv/uv.sw.js', (req, res) => {
   res.setHeader('Service-Worker-Allowed', '/');
-  res.sendFile(join(__dirname, 'public', 'uv', 'uv.sw.js'));
+  if (foundUvPath) {
+    res.sendFile(join(foundUvPath, 'uv.sw.js'));
+  } else {
+    res.status(404).send('UV not installed');
+  }
 });
+
+// Serve remaining UV static files
+if (foundUvPath) {
+  app.use('/uv/', express.static(foundUvPath));
+}
 
 // Serve public files
 app.use(express.static(join(__dirname, 'public')));
