@@ -33,6 +33,12 @@ for (const uvPath of uvPaths) {
   }
 }
 
+// Service-Worker-Allowed header required for UV scope
+app.get('/uv/uv.sw.js', (req, res) => {
+  res.setHeader('Service-Worker-Allowed', '/');
+  res.sendFile(join(__dirname, 'public', 'uv', 'uv.sw.js'));
+});
+
 // Serve public files
 app.use(express.static(join(__dirname, 'public')));
 
