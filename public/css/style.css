@@ -319,24 +319,34 @@ input, select { color: inherit; font: inherit; }
   flex: 1;
   overflow: hidden;
   background: #0a0a14;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 16px 0;
 }
 
 .game-side-ad {
-  width: 170px;
+  width: 160px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0d0f20;
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
+  background: transparent;
+  padding: 0 8px;
+  self-align: center;
 }
 
 .game-center {
+  /* 16:9 box that fills available height */
   flex: 1;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
   position: relative;
+  border-radius: 12px;
   overflow: hidden;
   background: #000;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  align-self: center;
 }
 
 #game-frame {
@@ -347,8 +357,32 @@ input, select { color: inherit; font: inherit; }
   border: none;
   background: #000;
   display: none;
+  border-radius: 12px;
 }
 #game-frame.active { display: block; }
+
+/* ── Zoom button ────────────────────────────────────────────── */
+.game-zoom-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 20;
+  width: 36px;
+  height: 36px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.15s;
+  backdrop-filter: blur(4px);
+}
+.game-zoom-btn:hover { background: var(--accent); border-color: var(--accent); }
+.game-zoom-btn svg { width: 16px; height: 16px; }
+.game-zoom-btn.visible { display: flex; }
 
 /* ── Click-to-play overlay ──────────────────────────────────── */
 .game-overlay {
@@ -359,6 +393,7 @@ input, select { color: inherit; font: inherit; }
   justify-content: center;
   z-index: 5;
   background: #000;
+  border-radius: 12px;
 }
 .game-overlay.hidden { display: none; }
 
@@ -368,8 +403,8 @@ input, select { color: inherit; font: inherit; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.35;
-  filter: blur(2px) scale(1.05);
+  opacity: 0.4;
+  border-radius: 12px;
 }
 
 .game-overlay-content {
@@ -378,38 +413,38 @@ input, select { color: inherit; font: inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   text-align: center;
   padding: 20px;
 }
 
 .game-overlay-title {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
   color: #fff;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
-  letter-spacing: 0.5px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+  letter-spacing: 0.3px;
 }
 
 .play-btn {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background: var(--accent);
   color: #fff;
   border: none;
-  border-radius: 50px;
-  padding: 18px 52px;
-  font-size: 20px;
-  font-weight: 700;
+  border-radius: 60px;
+  padding: 20px 60px;
+  font-size: 22px;
+  font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 4px 32px rgba(124,58,237,0.5);
+  box-shadow: 0 0 0 6px rgba(124,58,237,0.25), 0 8px 40px rgba(124,58,237,0.6);
   transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
   letter-spacing: 0.5px;
 }
 .play-btn:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 40px rgba(124,58,237,0.7);
+  transform: scale(1.07);
+  box-shadow: 0 0 0 8px rgba(124,58,237,0.3), 0 12px 48px rgba(124,58,237,0.8);
   background: #6d28d9;
 }
 

@@ -69,6 +69,7 @@ const gameOverlay    = document.getElementById('game-overlay');
 const overlayThumb   = document.getElementById('overlay-thumb');
 const overlayTitle   = document.getElementById('overlay-title');
 const playBtn        = document.getElementById('play-btn');
+const zoomBtn        = document.getElementById('zoom-btn');
 const settingsBtn    = document.getElementById('settings-btn');
 const settingsModal  = document.getElementById('settings-modal');
 const closeSettings  = document.getElementById('close-settings');
@@ -159,25 +160,30 @@ function startGame() {
   gameFrame.src = currentProxyUrl;
   gameFrame.classList.add('active');
   gameOverlay.classList.add('hidden');
+  zoomBtn.classList.add('visible');
 }
 
 function closeGame() {
   gameFrame.src = '';
   gameFrame.classList.remove('active');
   gameOverlay.classList.remove('hidden');
+  zoomBtn.classList.remove('visible');
   gameModal.classList.remove('open');
   modalBackdrop.classList.remove('open');
   document.body.style.overflow = '';
 }
 
+function goFullscreen() {
+  const el = gameFrame;
+  if (el.requestFullscreen) el.requestFullscreen();
+  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+}
+
 playBtn.addEventListener('click', startGame);
 closeModalBtn.addEventListener('click', closeGame);
 modalBackdrop.addEventListener('click', closeGame);
-
-fullscreenBtn.addEventListener('click', () => {
-  if (gameFrame.requestFullscreen) gameFrame.requestFullscreen();
-  else if (gameFrame.webkitRequestFullscreen) gameFrame.webkitRequestFullscreen();
-});
+zoomBtn.addEventListener('click', goFullscreen);
+fullscreenBtn.addEventListener('click', goFullscreen);
 
 newTabBtn.addEventListener('click', () => {
   window.open(currentGameUrl, '_blank', 'noopener,noreferrer');
