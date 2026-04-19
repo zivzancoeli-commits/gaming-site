@@ -134,8 +134,10 @@ let currentProxyUrl = '';
 
 function openGame(game) {
   currentGameUrl = game.url;
-  // embed:true loads directly, embed:false goes through UV proxy
-  currentProxyUrl = game.embed === true ? game.url : encodeProxyUrl(game.url);
+  // CrazyGames blocks cross-origin iframes (X-Frame-Options), always proxy those
+  // All other embed:true games load directly
+  const mustProxy = game.embed !== true || game.url.includes('crazygames.com');
+  currentProxyUrl = mustProxy ? encodeProxyUrl(game.url) : game.url;
 
   // Reset to overlay state
   gameFrame.src = '';
