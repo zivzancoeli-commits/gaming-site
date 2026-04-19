@@ -7,10 +7,23 @@ const DEFAULT_SETTINGS = {
 };
 
 const FAVICON_MAP = {
-  docs: 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico',
-  classroom: 'https://ssl.gstatic.com/classroom/favicon.png',
-  drive: 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png',
-  khan: 'https://cdn.kastatic.org/images/favicon.ico',
+  docs:        'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico',
+  classroom:   'https://ssl.gstatic.com/classroom/favicon.png',
+  drive:       'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png',
+  slides:      'https://ssl.gstatic.com/docs/presentations/images/favicon5.ico',
+  sheets:      'https://ssl.gstatic.com/docs/spreadsheets/favicon3.ico',
+  forms:       'https://ssl.gstatic.com/docs/forms/device_home/android_192.png',
+  meet:        'https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-32dp/logo_meet_2020q4_color_2x_web_32dp.png',
+  khan:        'https://cdn.kastatic.org/images/favicon.ico',
+  studentvue:  'https://www.studentvue.com/favicon.ico',
+  bigideas:    'https://www.bigideasmath.com/favicon.ico',
+  ixl:         'https://www.ixl.com/favicon.ico',
+  desmos:      'https://www.desmos.com/favicon.ico',
+  quizlet:     'https://quizlet.com/favicon.ico',
+  canvas:      'https://du11hjcvx0ubn.cloudfront.net/dist/images/favicon-e10d657a73.ico',
+  schoology:   'https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico',
+  duolingo:    'https://www.duolingo.com/favicon.ico',
+  wikipedia:   'https://www.wikipedia.org/static/favicon/wikipedia.ico',
 };
 
 function loadSettings() {

@@ -221,15 +221,34 @@
         </div>
         <div class="setting-row">
           <label>Tab title (cloaking)</label>
-          <input type="text" id="tab-title" value="Study Hub" placeholder="Tab name" />
+          <input type="text" id="tab-title" placeholder="e.g. Google Classroom" />
         </div>
         <div class="setting-row">
-          <label>Tab favicon (cloaking)</label>
+          <label>Tab icon (cloaking)</label>
           <select id="tab-favicon">
-            <option value="docs">Google Docs</option>
-            <option value="classroom">Google Classroom</option>
-            <option value="drive">Google Drive</option>
-            <option value="khan">Khan Academy</option>
+            <optgroup label="── Google ──">
+              <option value="docs">Google Docs</option>
+              <option value="classroom">Google Classroom</option>
+              <option value="drive">Google Drive</option>
+              <option value="slides">Google Slides</option>
+              <option value="sheets">Google Sheets</option>
+              <option value="forms">Google Forms</option>
+              <option value="meet">Google Meet</option>
+            </optgroup>
+            <optgroup label="── School Apps ──">
+              <option value="studentvue">StudentVue</option>
+              <option value="canvas">Canvas LMS</option>
+              <option value="schoology">Schoology</option>
+              <option value="khan">Khan Academy</option>
+              <option value="bigideas">Big Ideas Math</option>
+              <option value="ixl">IXL</option>
+              <option value="desmos">Desmos</option>
+            </optgroup>
+            <optgroup label="── Other ──">
+              <option value="quizlet">Quizlet</option>
+              <option value="duolingo">Duolingo</option>
+              <option value="wikipedia">Wikipedia</option>
+            </optgroup>
           </select>
         </div>
         <button class="save-settings-btn" id="save-settings">Save Settings</button>
