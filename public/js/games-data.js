@@ -7,17 +7,23 @@ const CGI = (slug) => `https://images.crazygames.com/games/${slug}/cover_16x9.pn
 
 const GAMES = [
 
-  // ── Action / Shooting ──────────────────────────────────────────────
-  { id:'shell-shockers',   name:'Shell Shockers',           category:'action',     featured:true,  img:CGI('shell-shockers'),                           url:'https://shellshock.io',                                           embed:true },
-  { id:'venge',            name:'Venge.io',                  category:'action',     featured:true,  img:CGI('venge-io'),                                 url:'https://venge.io',                                                embed:true },
-  { id:'1v1lol',           name:'1v1.LoL',                   category:'action',     featured:true,  img:CGI('1v1lol'),                                   url:IFR+'1v1-lol-main',                                                embed:true },
-  { id:'smash-karts',      name:'Smash Karts',               category:'action',     featured:true,  img:CGI('smash-karts'),                              url:'https://smashkarts.io',                                           embed:true },
-  { id:'getaway-shootout', name:'Getaway Shootout',          category:'action',                    img:CGI('getaway-shootout'),                         url:'https://getawayshootout.com',                                     embed:true },
-  { id:'rooftop-snipers',  name:'Rooftop Snipers',           category:'action',                    img:CGI('rooftop-snipers'),                          url:'https://rooftop-snipers.com',                                     embed:true },
-  { id:'rooftop-2',        name:'Rooftop Snipers 2',         category:'action',                    img:CGI('rooftop-snipers-2'),                        url:'https://ubg77.github.io/game/rooftop-snipers-2/',                 embed:true },
-  { id:'gun-mayhem',       name:'Gun Mayhem 2',              category:'action',                    img:CGI('gun-mayhem-2'),                             url:'https://gunmayhemunblocked.github.io/2/',                         embed:true },
-  { id:'time-shooter',     name:'Time Shooter 3',            category:'action',                    img:CGI('time-shooter-3'),                           url:'https://mathgames66.github.io/games/html5/timeshooter3swat/',     embed:true },
-  { id:'temple-of-boom',   name:'Temple of Boom',            category:'action',                    img:CGI('temple-of-boom'),                           url:'https://ubg77.github.io/fix/temple-of-boom/',                    embed:true },
+  // ── Shooter ────────────────────────────────────────────────────────
+  { id:'shell-shockers',   name:'Shell Shockers',           category:'shooter',    featured:true,  img:CGI('shell-shockers'),                           url:'https://shellshock.io',                                           embed:true },
+  { id:'krunker',          name:'Krunker.io',               category:'shooter',    featured:true,  img:CGI('krunker-io'),                               url:'https://krunker.io',                                              embed:true },
+  { id:'deadshot',         name:'DEADSHOT.io',              category:'shooter',    featured:true,  img:CGI('deadshot-io'),                              url:'https://deadshot.io',                                             embed:true },
+  { id:'voxiom',           name:'Voxiom.io',                category:'shooter',    featured:true,  img:CGI('voxiom-io'),                                url:'https://voxiom.io',                                               embed:false },
+  { id:'repuls',           name:'Repuls.io',                category:'shooter',                   img:CGI('repuls-io'),                                url:'https://repuls.io',                                               embed:true },
+  { id:'war-brokers',      name:'War Brokers',              category:'shooter',                   img:CGI('war-brokers'),                              url:'https://warbrokers.io',                                           embed:true },
+  { id:'rush-team',        name:'Rush Team',                category:'shooter',                   img:CGI('rush-team'),                                url:'https://rushteam.io',                                             embed:true },
+  { id:'venge',            name:'Venge.io',                  category:'shooter',    featured:true,  img:CGI('venge-io'),                                 url:'https://venge.io',                                                embed:true },
+  { id:'1v1lol',           name:'1v1.LoL',                   category:'shooter',    featured:true,  img:CGI('1v1lol'),                                   url:IFR+'1v1-lol-main',                                                embed:true },
+  { id:'smash-karts',      name:'Smash Karts',               category:'shooter',    featured:true,  img:CGI('smash-karts'),                              url:'https://smashkarts.io',                                           embed:true },
+  { id:'getaway-shootout', name:'Getaway Shootout',          category:'shooter',                   img:CGI('getaway-shootout'),                         url:'https://getawayshootout.com',                                     embed:true },
+  { id:'rooftop-snipers',  name:'Rooftop Snipers',           category:'shooter',                   img:CGI('rooftop-snipers'),                          url:'https://rooftop-snipers.com',                                     embed:true },
+  { id:'rooftop-2',        name:'Rooftop Snipers 2',         category:'shooter',                   img:CGI('rooftop-snipers-2'),                        url:'https://ubg77.github.io/game/rooftop-snipers-2/',                 embed:true },
+  { id:'gun-mayhem',       name:'Gun Mayhem 2',              category:'shooter',                   img:CGI('gun-mayhem-2'),                             url:'https://gunmayhemunblocked.github.io/2/',                         embed:true },
+  { id:'time-shooter',     name:'Time Shooter 3',            category:'shooter',                   img:CGI('time-shooter-3'),                           url:'https://mathgames66.github.io/games/html5/timeshooter3swat/',     embed:true },
+  { id:'temple-of-boom',   name:'Temple of Boom',            category:'shooter',                   img:CGI('temple-of-boom'),                           url:'https://ubg77.github.io/fix/temple-of-boom/',                    embed:true },
 
   // ── IO Games ───────────────────────────────────────────────────────
   { id:'slither',          name:'Slither.io',                category:'io',         featured:true,  img:CGI('slither-io'),                               url:'https://slither.io',                                              embed:true },
@@ -26,7 +32,6 @@ const GAMES = [
   { id:'diep',             name:'Diep.io',                   category:'io',                        img:CGI('diep-io'),                                  url:'https://diep.io',                                                 embed:true },
   { id:'bonk',             name:'Bonk.io',                   category:'io',                        img:CGI('bonk-io'),                                  url:'https://bonk.io',                                                 embed:true },
   { id:'skribbl',          name:'Skribbl.io',                category:'io',                        img:CGI('skribbl-io'),                               url:'https://skribbl.io',                                              embed:true },
-  { id:'krunker',          name:'Krunker.io',                category:'io',                        img:CGI('krunker-io'),                               url:'https://krunker.io',                                              embed:true },
   { id:'state-io',         name:'State.io',                  category:'io',                        img:CGI('state-io'),                                 url:'https://state.io',                                                embed:true },
 
   // ── Platformer ─────────────────────────────────────────────────────
