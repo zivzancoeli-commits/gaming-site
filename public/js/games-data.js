@@ -141,5 +141,5 @@ const GAMES = [
   { id:'skribbl',          name:'Skribbl.io',                category:'multiplayer',               img:'https://skribbl.io/img/thumbnail.png',                                      url:'https://skribbl.io',                                              embed:true },
 
   // ── Special ────────────────────────────────────────────────────────
-  { id:'happy-birthday-leo', name:'Happy Birthday Leo 🎂',  category:'arcade',     featured:true,  img:'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f382.png',  url:'http://8.229.190.198/vnc.html?autoconnect=true&resize=scale&quality=3&compression=2', embed:true, color:'#e91e8c' },
+  { id:'happy-birthday-leo', name:'Happy Birthday Leo 🎂',  category:'arcade',     featured:true,  img:'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f382.png',  url:'http://34.145.127.85/vnc.html?autoconnect=true&resize=scale&quality=3&compression=2&pointer_lock=1', embed:true, color:'#e91e8c' },
 ];
