@@ -103,14 +103,6 @@
             <canvas id="hero-canvas"></canvas>
             <div class="hero-content">
               <h1 class="hero-title" id="hero-title">Welcome To Study Hub</h1>
-              <p class="hero-subtitle">Your ultimate unblocked gaming &amp; browsing destination</p>
-              <div class="hero-stats">
-                <div class="hero-stat"><span id="hero-game-count">0</span><label>Games</label></div>
-                <div class="hero-stat-divider"></div>
-                <div class="hero-stat"><span>Free</span><label>Always</label></div>
-                <div class="hero-stat-divider"></div>
-                <div class="hero-stat"><span>Fast</span><label>No Lag</label></div>
-              </div>
             </div>
           </div>
         </section>
@@ -292,87 +284,69 @@
   <script src="/js/app.js"></script>
   <script>
   (function () {
-    /* ── Interactive particle background ── */
     const canvas = document.getElementById('hero-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    let W, H, mouse = { x: -9999, y: -9999 };
-    const PARTICLE_COUNT = 120;
-    const CONNECT_DIST   = 130;
-    const MOUSE_REPEL    = 110;
-    let particles = [];
+    let W, H;
+    const STAR_COUNT  = 180;
+    const PULL_RADIUS = 160;
+    const PULL_FORCE  = 0.06;
+    const RETURN_EASE = 0.04;
+    let mouse = { x: -9999, y: -9999 };
+    let stars = [];
 
     function resize() {
       W = canvas.width  = canvas.offsetWidth;
       H = canvas.height = canvas.offsetHeight;
-    }
-
-    function mkParticle() {
-      return {
-        x:  Math.random() * W,
-        y:  Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r:  Math.random() * 1.8 + 0.6,
-        hue: Math.random() * 60 + 240,  // blue-purple range
-      };
+      // Re-home every star to a new fixed origin when resized
+      stars.forEach(s => {
+        s.ox = Math.random() * W;
+        s.oy = Math.random() * H;
+        s.x  = s.ox;
+        s.y  = s.oy;
+      });
     }
 
     function init() {
-      resize();
-      particles = Array.from({ length: PARTICLE_COUNT }, mkParticle);
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      stars = Array.from({ length: STAR_COUNT }, () => {
+        const ox = Math.random() * W;
+        const oy = Math.random() * H;
+        return {
+          ox, oy,          // fixed home position
+          x: ox, y: oy,   // current draw position
+          r: Math.random() * 1.6 + 0.4,
+          brightness: Math.random() * 0.5 + 0.5,
+        };
+      });
     }
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
 
-      // Update + draw particles
-      particles.forEach(p => {
-        // Mouse repel
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
+      stars.forEach(s => {
+        const dx = mouse.x - s.x;
+        const dy = mouse.y - s.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_REPEL && dist > 0) {
-          const force = (MOUSE_REPEL - dist) / MOUSE_REPEL * 0.6;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
+
+        if (dist < PULL_RADIUS && dist > 0) {
+          // Pull toward cursor
+          const strength = (1 - dist / PULL_RADIUS) * PULL_FORCE;
+          s.x += dx * strength * 2.5;
+          s.y += dy * strength * 2.5;
+        } else {
+          // Ease back to home
+          s.x += (s.ox - s.x) * RETURN_EASE;
+          s.y += (s.oy - s.y) * RETURN_EASE;
         }
 
-        // Dampen & move
-        p.vx *= 0.97;
-        p.vy *= 0.97;
-        p.x  += p.vx;
-        p.y  += p.vy;
-
-        // Wrap edges
-        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-
-        // Draw dot
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue},80%,75%,0.85)`;
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${s.brightness})`;
         ctx.fill();
       });
-
-      // Draw connecting lines
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i], b = particles[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < CONNECT_DIST * CONNECT_DIST) {
-            const alpha = 1 - Math.sqrt(d2) / CONNECT_DIST;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(160,130,255,${alpha * 0.35})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-      }
 
       requestAnimationFrame(draw);
     }
@@ -380,38 +354,28 @@
     init();
     draw();
 
-    // Mouse tracking (relative to canvas)
     document.addEventListener('mousemove', e => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
     });
     document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-    window.addEventListener('resize', init);
+    window.addEventListener('resize', resize);
 
     /* ── Colour-cycling title ── */
     const title = document.getElementById('hero-title');
     let hue = 0;
-    function cycleTitle() {
+    (function cycleTitle() {
       if (title) {
-        hue = (hue + 0.6) % 360;
+        hue = (hue + 0.5) % 360;
         title.style.backgroundImage =
           `linear-gradient(135deg,
-             hsl(${hue},90%,70%) 0%,
-             hsl(${(hue+60)%360},85%,65%) 40%,
-             hsl(${(hue+120)%360},90%,70%) 100%)`;
+             hsl(${hue},100%,72%) 0%,
+             hsl(${(hue + 80) % 360},100%,68%) 50%,
+             hsl(${(hue + 160) % 360},100%,72%) 100%)`;
       }
       requestAnimationFrame(cycleTitle);
-    }
-    cycleTitle();
-
-    /* ── Game count ── */
-    function setHeroCount() {
-      const el = document.getElementById('hero-game-count');
-      if (el && typeof GAMES !== 'undefined') el.textContent = GAMES.length + '+';
-    }
-    if (typeof GAMES !== 'undefined') setHeroCount();
-    else window.addEventListener('load', setHeroCount);
+    })();
   })();
   </script>
 </body>
