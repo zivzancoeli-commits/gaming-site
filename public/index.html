@@ -284,11 +284,7 @@
       let hue = 0;
       (function cycle() {
         hue = (hue + 0.4) % 360;
-        title.style.backgroundImage =
-          `linear-gradient(135deg,
-             hsl(${hue},100%,72%) 0%,
-             hsl(${(hue+80)%360},100%,68%) 50%,
-             hsl(${(hue+160)%360},100%,72%) 100%)`;
+        title.style.color = `hsl(${hue}, 100%, 70%)`;
         requestAnimationFrame(cycle);
       })();
 

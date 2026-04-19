@@ -548,10 +548,7 @@ body:has(#page-home:not(.hidden-splash)) .banner-ad {
   font-weight: 900;
   letter-spacing: -2px;
   line-height: 1;
-  background-image: linear-gradient(135deg, #a78bfa, #7c3aed, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #fff;
 }
 .splash-hint {
   font-size: 15px;
