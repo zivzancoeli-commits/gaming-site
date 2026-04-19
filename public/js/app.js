@@ -63,8 +63,6 @@ function encodeProxyUrl(url) {
 const navItems       = document.querySelectorAll('.nav-item[data-page]');
 const searchInput    = document.getElementById('search-input');
 const gameCountEl    = document.getElementById('game-count');
-const featuredGrid   = document.getElementById('featured-grid');
-const recentGrid     = document.getElementById('recent-grid');
 const allGamesGrid   = document.getElementById('all-games-grid');
 const catBtns        = document.querySelectorAll('.cat-btn');
 const gameModal      = document.getElementById('game-modal');
@@ -256,13 +254,6 @@ function renderGrid(container, games) {
   games.forEach(g => container.appendChild(buildCard(g)));
 }
 
-function renderHome(query = '') {
-  const q = query.toLowerCase();
-  const filtered = q ? GAMES.filter(g => g.name.toLowerCase().includes(q)) : GAMES;
-  renderGrid(featuredGrid, filtered.filter(g => g.featured).slice(0, 12));
-  renderGrid(recentGrid, [...filtered].reverse().slice(0, 12));
-}
-
 function renderAllGames(cat = 'all', query = '') {
   const q = query.toLowerCase();
   let list = GAMES;
@@ -274,12 +265,7 @@ function renderAllGames(cat = 'all', query = '') {
 /* ── Init ───────────────────────────────────────────────────── */
 function init() {
   gameCountEl.textContent = GAMES.length + ' games';
-  renderHome();
   renderAllGames();
-  // Ensure Games nav item is highlighted on load
-  navItems.forEach(n => n.classList.remove('active'));
-  const gamesNav = document.querySelector('.nav-item[data-page="games"]');
-  if (gamesNav) gamesNav.classList.add('active');
 }
 init();
 
