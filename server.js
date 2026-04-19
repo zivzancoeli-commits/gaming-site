@@ -111,6 +111,63 @@ app.get('/links', (req, res) =>
   res.sendFile(join(__dirname, 'public', 'links.html'))
 );
 
+// ── Download proxy ─────────────────────────────────────────────────
+// Fetches any URL server-side and streams it back as a file download,
+// bypassing browser restrictions that block iframe-triggered saves.
+app.get('/api/download', async (req, res) => {
+  const target = req.query.url;
+  if (!target) return res.status(400).send('Missing ?url=');
+
+  let targetUrl;
+  try {
+    targetUrl = new URL(target);
+  } catch {
+    return res.status(400).send('Invalid URL');
+  }
+
+  // Only allow http/https
+  if (!['http:', 'https:'].includes(targetUrl.protocol)) {
+    return res.status(400).send('Only http/https URLs are supported');
+  }
+
+  try {
+    const upstream = await fetch(targetUrl.toString(), {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': '*/*',
+      },
+      redirect: 'follow',
+    });
+
+    if (!upstream.ok) {
+      return res.status(upstream.status).send(`Upstream returned ${upstream.status}`);
+    }
+
+    // Forward useful headers
+    const contentType = upstream.headers.get('content-type') || 'application/octet-stream';
+    const contentLength = upstream.headers.get('content-length');
+    const disposition = upstream.headers.get('content-disposition');
+
+    res.setHeader('Content-Type', contentType);
+    if (contentLength) res.setHeader('Content-Length', contentLength);
+
+    // Force download — use upstream filename if provided, otherwise derive from URL
+    if (disposition && disposition.includes('filename')) {
+      res.setHeader('Content-Disposition', disposition.replace('inline', 'attachment'));
+    } else {
+      const filename = targetUrl.pathname.split('/').filter(Boolean).pop() || 'download';
+      res.setHeader('Content-Disposition', `attachment; filename="${decodeURIComponent(filename)}"`);
+    }
+
+    // Stream body to client
+    const { Readable } = await import('stream');
+    Readable.fromWeb(upstream.body).pipe(res);
+  } catch (err) {
+    console.error('Download proxy error:', err);
+    if (!res.headersSent) res.status(500).send('Download failed: ' + err.message);
+  }
+});
+
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok', proxy: !!bareServer }));
 

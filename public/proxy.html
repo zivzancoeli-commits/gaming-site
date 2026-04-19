@@ -102,6 +102,57 @@
     }
     #go-btn:hover { opacity: 0.9; }
 
+    /* Download panel */
+    #dl-panel {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      background: #0d0f22;
+      border-bottom: 1px solid #1e2244;
+      flex-shrink: 0;
+    }
+    #dl-panel.visible { display: flex; }
+    #dl-url {
+      flex: 1;
+      background: #181a32;
+      border: 1px solid #1e2244;
+      border-radius: 20px;
+      padding: 6px 14px;
+      color: #e2e8f0;
+      font-size: 13px;
+      outline: none;
+    }
+    #dl-url:focus { border-color: #7c3aed; }
+    #dl-url::placeholder { color: #475569; }
+    #dl-go-btn {
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    #dl-go-btn:hover { opacity: 0.9; }
+    #dl-close {
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    #dl-close:hover { color: #e2e8f0; }
+    #dl-status {
+      font-size: 12px;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+
     /* ── The proxy iframe ── */
     #proxy-frame {
       flex: 1;
@@ -176,6 +227,18 @@
     </button>
     <input type="text" id="url-input" placeholder="Enter a URL or search..." autocomplete="off" spellcheck="false" />
     <button id="go-btn">Go</button>
+    <button id="dl-toggle-btn" title="Download a file" style="width:30px;height:30px;border-radius:6px;border:none;background:#181a32;color:#94a3b8;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    </button>
+  </div>
+
+  <!-- Download panel (hidden by default) -->
+  <div id="dl-panel">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <input type="text" id="dl-url" placeholder="Paste a direct file URL to download…" spellcheck="false" autocomplete="off" />
+    <span id="dl-status"></span>
+    <button id="dl-go-btn">Download</button>
+    <button id="dl-close" title="Close">×</button>
   </div>
 
   <!-- Quick links (shown when no URL is loaded) -->
@@ -279,6 +342,48 @@
     // Check for ?url= param on load
     const params = new URLSearchParams(location.search);
     if (params.get('url')) navigate(params.get('url'));
+
+    // ── Download panel ─────────────────────────────────────────────
+    const dlPanel     = document.getElementById('dl-panel');
+    const dlUrlInput  = document.getElementById('dl-url');
+    const dlGoBtn     = document.getElementById('dl-go-btn');
+    const dlClose     = document.getElementById('dl-close');
+    const dlStatus    = document.getElementById('dl-status');
+    const dlToggleBtn = document.getElementById('dl-toggle-btn');
+
+    dlToggleBtn.addEventListener('click', () => {
+      const open = dlPanel.classList.toggle('visible');
+      // Pre-fill with current iframe URL if we have one
+      if (open && proxyFrame.style.display === 'block') {
+        dlUrlInput.value = urlInput.value || '';
+      }
+      if (open) dlUrlInput.focus();
+    });
+    dlClose.addEventListener('click', () => dlPanel.classList.remove('visible'));
+
+    async function doDownload() {
+      let raw = dlUrlInput.value.trim();
+      if (!raw) return;
+      if (!raw.startsWith('http://') && !raw.startsWith('https://')) raw = 'https://' + raw;
+      dlStatus.textContent = 'Fetching…';
+      dlGoBtn.disabled = true;
+      try {
+        const a = document.createElement('a');
+        a.href = '/api/download?url=' + encodeURIComponent(raw);
+        a.download = '';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        dlStatus.textContent = '✓ Download started';
+        setTimeout(() => { dlStatus.textContent = ''; }, 3000);
+      } catch(e) {
+        dlStatus.textContent = '✗ Failed';
+      }
+      dlGoBtn.disabled = false;
+    }
+
+    dlGoBtn.addEventListener('click', doDownload);
+    dlUrlInput.addEventListener('keydown', e => { if (e.key === 'Enter') doDownload(); });
 
     // Panic key
     const panicKey = (JSON.parse(localStorage.getItem('gs-settings') || '{}')).panicKey || 'Escape';
