@@ -128,7 +128,6 @@ const GAMES = [
   { id:'subway-surfers',   name:'Subway Surfers',            category:'runner',     featured:true,  img:UB76+'2025/02/subway-surfers.png',                                            url:IFR+'subway-surfers-main',                                         embed:true },
 
   // ── Rhythm ─────────────────────────────────────────────────────────
-  { id:'friday-night-funkin',name:'Friday Night Funkin',    category:'rhythm',     featured:true,  img:'https://user-images.githubusercontent.com/22229331/213636577-8983e46c-fbf0-43e3-86e6-4797ae3ef59e.gif', url:'https://funkin.me', embed:true },
   { id:'sprunki',          name:'Sprunki',                   category:'rhythm',     featured:true,  img:'https://cdn.sprunki.com/static/mb9/images/sprunki.jpeg',                                 url:'https://sprunki.io',                                              embed:true },
 
   // ── Horror ─────────────────────────────────────────────────────────
