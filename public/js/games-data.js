@@ -156,7 +156,7 @@ const GAMES = [
   { id:'fnaf-3',           name:"Five Nights at Freddy's 3", category:'horror',                    img:UB76+'2025/01/five-nights-at-freddys-3.png',                                  url:IFR+'five-nights-at-freddys-3-main',                               embed:true },
 
   // ── Multiplayer ────────────────────────────────────────────────────
-  { id:'minecraft',        name:'1.12.2 Eaglercraft',        category:'multiplayer',featured:true,  img:'https://www.minecraft.net/content/dam/minecraftnet/franchise/logos/minecraft-creeper-face.jpg', url:'/minecraft.html',  embed:true },
+  { id:'minecraft',        name:'1.12.2 Eaglercraft',        category:'multiplayer',featured:true,  img:UBP+'images/minecraftclassic.webp',                                            url:'/minecraft.html',  embed:true },
   { id:'gartic-phone',     name:'Gartic Phone',              category:'multiplayer',               img:'/img/games/gartic-phone.png',                                                url:'https://garticphone.com', embed:true },
 
   // ── Special ────────────────────────────────────────────────────────
