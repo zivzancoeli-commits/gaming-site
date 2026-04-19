@@ -520,10 +520,13 @@ input, select { color: inherit; font: inherit; }
   position: fixed;
   inset: 0;
   left: var(--sidebar-w);
-  display: flex !important;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 10;
+}
+#page-home.active {
+  display: flex;
 }
 /* Hide search bar & banner ad on home page */
 body:has(#page-home.active) .topbar,
