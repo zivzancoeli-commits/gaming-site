@@ -18,8 +18,8 @@ const GAMES = [
   { id:'venge',            name:'Venge.io',                  category:'shooter',    featured:true,  img:CGI('venge-io'),                                 url:'https://venge.io',                                                embed:true },
   { id:'1v1lol',           name:'1v1.LoL',                   category:'shooter',    featured:true,  img:CGI('1v1lol'),                                   url:IFR+'1v1-lol-main',                                                embed:true },
   { id:'smash-karts',      name:'Smash Karts',               category:'shooter',    featured:true,  img:CGI('smash-karts'),                              url:'https://smashkarts.io',                                           embed:true },
-  { id:'getaway-shootout', name:'Getaway Shootout',          category:'shooter',                   img:CGI('getaway-shootout'),                         url:'https://getawayshootout.com',                                     embed:true },
-  { id:'rooftop-snipers',  name:'Rooftop Snipers',           category:'shooter',                   img:CGI('rooftop-snipers'),                          url:'https://rooftop-snipers.com',                                     embed:true },
+  { id:'getaway-shootout', name:'Getaway Shootout',          category:'shooter',                   img:CGI('getaway-shootout'),                         url:IFR+'getaway-shootout-main',                                       embed:true },
+  { id:'rooftop-snipers',  name:'Rooftop Snipers',           category:'shooter',                   img:CGI('rooftop-snipers'),                          url:IFR+'rooftop-snipers-main',                                        embed:true },
   { id:'rooftop-2',        name:'Rooftop Snipers 2',         category:'shooter',                   img:CGI('rooftop-snipers-2'),                        url:IFR+'rooftop-snipers-2-main',                                      embed:true },
   { id:'gun-mayhem',       name:'Gun Mayhem 2',              category:'shooter',                   img:CGI('gun-mayhem-2'),                             url:'https://gunmayhemunblocked.github.io/2/',                         embed:true },
   { id:'funny-shooter-2',  name:'Funny Shooter 2',           category:'shooter',                   img:CGI('funny-shooter-2'),                          url:IFR+'funny-shooter-2-main',                                        embed:true },
@@ -103,7 +103,7 @@ const GAMES = [
   { id:'tetris',           name:'Tetris',                    category:'arcade',                    img:CGI('tetris'),                                   url:'https://jstris.jezevec10.com',                                    embed:true },
   { id:'snake',            name:'Snake',                     category:'arcade',                    img:CGI('snake'),                                    url:'https://playsnake.org',                                           embed:true },
   { id:'flappy-bird',      name:'Flappy Bird',               category:'arcade',                    img:CGI('flappy-bird'),                              url:IFR+'flappy-bird-main',                                            embed:true },
-  { id:'dino-game',        name:'Dino Game',                 category:'arcade',                    img:CGI('chrome-dinosaur'),                          url:'https://chromedino.com',                                          embed:true },
+  { id:'dino-game',        name:'Dino Game',                 category:'arcade',                    img:CGI('chrome-dinosaur'),                          url:IFR+'chrome-dino-main',                                            embed:true },
   { id:'tunnel-rush',      name:'Tunnel Rush',               category:'arcade',                    img:CGI('tunnel-rush'),                              url:IFR+'tunnel-rush-main',                                            embed:true },
   { id:'8-ball-pool',      name:'8 Ball Pool',               category:'arcade',                    img:CGI('8-ball-pool'),                              url:IFR+'8-ball-pool-main',                                            embed:true },
   { id:'solar-smash',      name:'Solar Smash',               category:'arcade',     featured:true,  img:CGI('solar-smash'),                              url:'https://solar-smash.com',                                         embed:true },
@@ -131,7 +131,7 @@ const GAMES = [
   // ── Horror ─────────────────────────────────────────────────────────
   { id:'fnaf-1',           name:"Five Nights at Freddy's",  category:'horror',     featured:true,  img:CGI('five-nights-at-freddys'),                   url:IFR+'five-nights-at-freddys-main',                                 embed:true },
   { id:'fnaf-2',           name:"Five Nights at Freddy's 2",category:'horror',                    img:CGI('five-nights-at-freddys-2'),                 url:'https://www.fnaf2unblocked.com/',                                 embed:true },
-  { id:'fnaf-3',           name:"Five Nights at Freddy's 3", category:'horror',                    img:CGI('five-nights-at-freddys-3'),                 url:'https://www.fnaf3unblocked.com/',                                 embed:true },
+  { id:'fnaf-3',           name:"Five Nights at Freddy's 3", category:'horror',                    img:CGI('five-nights-at-freddys-3'),                 url:IFR+'five-nights-at-freddys-3-main',                               embed:true },
 
   // ── Multiplayer ────────────────────────────────────────────────────
   { id:'minecraft',        name:'1.12.2 Eaglercraft',        category:'multiplayer',featured:true, img:CGI('minecraft-classic'),                        url:'/minecraft.html',                                                 embed:true },
