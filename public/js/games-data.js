@@ -14,16 +14,16 @@ const GAMES = [
   { id:'voxiom',           name:'Voxiom.io',                category:'shooter',    featured:true,  img:CGI('voxiom-io'),                                url:'https://voxiom.io',                                               embed:false },
   { id:'repuls',           name:'Repuls.io',                category:'shooter',                   img:CGI('repuls-io'),                                url:'https://repuls.io',                                               embed:true },
   { id:'war-brokers',      name:'War Brokers',              category:'shooter',                   img:CGI('war-brokers'),                              url:'https://warbrokers.io',                                           embed:true },
-  { id:'rush-team',        name:'Rush Team',                category:'shooter',                   img:CGI('rush-team'),                                url:'https://rushteam.io',                                             embed:true },
+  { id:'combat-online',    name:'Combat Online',            category:'shooter',                   img:CGI('combat-online'),                            url:'https://combaton.io',                                             embed:true },
   { id:'venge',            name:'Venge.io',                  category:'shooter',    featured:true,  img:CGI('venge-io'),                                 url:'https://venge.io',                                                embed:true },
   { id:'1v1lol',           name:'1v1.LoL',                   category:'shooter',    featured:true,  img:CGI('1v1lol'),                                   url:IFR+'1v1-lol-main',                                                embed:true },
   { id:'smash-karts',      name:'Smash Karts',               category:'shooter',    featured:true,  img:CGI('smash-karts'),                              url:'https://smashkarts.io',                                           embed:true },
   { id:'getaway-shootout', name:'Getaway Shootout',          category:'shooter',                   img:CGI('getaway-shootout'),                         url:'https://getawayshootout.com',                                     embed:true },
   { id:'rooftop-snipers',  name:'Rooftop Snipers',           category:'shooter',                   img:CGI('rooftop-snipers'),                          url:'https://rooftop-snipers.com',                                     embed:true },
-  { id:'rooftop-2',        name:'Rooftop Snipers 2',         category:'shooter',                   img:CGI('rooftop-snipers-2'),                        url:'https://ubg77.github.io/game/rooftop-snipers-2/',                 embed:true },
+  { id:'rooftop-2',        name:'Rooftop Snipers 2',         category:'shooter',                   img:CGI('rooftop-snipers-2'),                        url:IFR+'rooftop-snipers-2-main',                                      embed:true },
   { id:'gun-mayhem',       name:'Gun Mayhem 2',              category:'shooter',                   img:CGI('gun-mayhem-2'),                             url:'https://gunmayhemunblocked.github.io/2/',                         embed:true },
-  { id:'time-shooter',     name:'Time Shooter 3',            category:'shooter',                   img:CGI('time-shooter-3'),                           url:'https://mathgames66.github.io/games/html5/timeshooter3swat/',     embed:true },
-  { id:'temple-of-boom',   name:'Temple of Boom',            category:'shooter',                   img:CGI('temple-of-boom'),                           url:'https://ubg77.github.io/fix/temple-of-boom/',                    embed:true },
+  { id:'funny-shooter-2',  name:'Funny Shooter 2',           category:'shooter',                   img:CGI('funny-shooter-2'),                          url:IFR+'funny-shooter-2-main',                                        embed:true },
+  { id:'temple-of-boom',   name:'Temple of Boom',            category:'shooter',                   img:CGI('temple-of-boom'),                           url:IFR+'temple-of-boom-main',                                         embed:true },
 
   // ── IO Games ───────────────────────────────────────────────────────
   { id:'slither',          name:'Slither.io',                category:'io',         featured:true,  img:CGI('slither-io'),                               url:'https://slither.io',                                              embed:true },
@@ -45,14 +45,14 @@ const GAMES = [
   { id:'red-ball-4',       name:'Red Ball 4',                category:'platformer',                img:CGI('red-ball-4'),                               url:IFR+'red-ball-4-main',                                             embed:true },
   { id:'moto-x3m',         name:'Moto X3M',                  category:'platformer',                img:CGI('moto-x3m'),                                 url:IFR+'moto-x3m-main',                                               embed:true },
   { id:'moto-x3m-2',       name:'Moto X3M 2',               category:'platformer',                img:CGI('moto-x3m-2'),                               url:'https://motox3munblocked.github.io/2/',                           embed:true },
-  { id:'moto-x3m-3',       name:'Moto X3M 3',               category:'platformer',                img:CGI('moto-x3m-3'),                               url:'https://slope-game.github.io/newgame/motox3m-3/',                 embed:true },
-  { id:'moto-x3m-winter',  name:'Moto X3M Winter',          category:'platformer',                img:CGI('moto-x3m-winter'),                          url:'https://tbg95.github.io/moto-x3m-4-winter/',                     embed:true },
+  { id:'moto-x3m-pool',    name:'Moto X3M Pool Party',      category:'platformer',                img:CGI('moto-x3m-5-pool-party'),                    url:IFR+'moto-x3m-pool-party-main',                                    embed:true },
+  { id:'moto-x3m-winter',  name:'Moto X3M Winter',          category:'platformer',                img:CGI('moto-x3m-winter'),                          url:IFR+'moto-x3m-winter-main',                                        embed:true },
   { id:'vex-5',            name:'Vex 5',                     category:'platformer',                img:CGI('vex-5'),                                    url:'https://vex5.io',                                                 embed:true },
   { id:'vex-6',            name:'Vex 6',                     category:'platformer',                img:CGI('vex-6'),                                    url:'https://vexunblocked.github.io/6/',                               embed:true },
-  { id:'vex-8',            name:'Vex 8',                     category:'platformer',                img:CGI('vex-8'),                                    url:'https://vexunblocked.github.io/8/',                               embed:true },
+  { id:'vex-8',            name:'Vex 8',                     category:'platformer',                img:CGI('vex-8'),                                    url:IFR+'vex-8-main',                                                  embed:true },
   { id:'fireboy-wg1',      name:'Fireboy & Watergirl',       category:'platformer',                img:CGI('fireboy-and-watergirl-in-the-forest-temple'),url:'https://www.fireboy-watergirl.com',                             embed:true },
   { id:'fireboy-wg6',      name:'Fireboy & Watergirl 6',     category:'platformer',                img:CGI('fireboy-and-watergirl-6-fairy-forest'),     url:'https://fireboyandwatergirlunblocked.github.io/6/',               embed:true },
-  { id:'bob-robber-4',     name:'Bob the Robber 4',          category:'platformer',                img:CGI('bob-the-robber-4'),                         url:'https://webglmath.github.io/bob-the-robber-4/',                   embed:true },
+  { id:'bob-robber-4',     name:'Bob the Robber 4',          category:'platformer',                img:CGI('bob-the-robber-4'),                         url:IFR+'bob-the-robber-4-main',                                       embed:true },
   { id:'fleeing-complex',  name:'Fleeing the Complex',       category:'platformer',                img:CGI('fleeing-the-complex'),                      url:'https://henrystickmanunblocked.github.io/fleeing-the-complex/',   embed:true },
   { id:'escaping-prison',  name:'Escaping the Prison',       category:'platformer',                img:CGI('escaping-the-prison'),                      url:'https://henrystickmanunblocked.github.io/escaping-the-prison/',   embed:true },
   { id:'getting-over-it',  name:'Getting Over It',           category:'platformer',                img:CGI('getting-over-it'),                          url:'https://ubg98.github.io/GettingOverIt/',                          embed:true },
@@ -80,7 +80,7 @@ const GAMES = [
   { id:'slope-tunnel',     name:'Slope Tunnel',              category:'racing',                    img:CGI('slope-tunnel'),                             url:IFR+'slope-tunnel-main',                                           embed:true },
   { id:'traffic-rider',    name:'Traffic Rider',             category:'racing',                    img:CGI('traffic-rider'),                            url:IFR+'traffic-rider-main',                                          embed:true },
   { id:'moto-road',        name:'Moto Road Rash 3D',         category:'racing',                    img:CGI('moto-road-rash-3d'),                        url:'https://ubg77.github.io/edit/motoroadrash3d/',                    embed:true },
-  { id:'slope-racing',     name:'Slope Racing 3D',           category:'racing',                    img:CGI('slope-racing-3d'),                          url:'https://slope-game.github.io/rungame/slope-racing-3d/',           embed:true },
+  { id:'drive-mad',        name:'Drive Mad',                 category:'racing',                    img:CGI('drive-mad'),                                url:IFR+'drive-mad-main',                                              embed:true },
   { id:'highway-racer',    name:'Highway Racer 3D',          category:'racing',                    img:CGI('highway-racer-3d'),                         url:'https://ubg77.github.io/edit/highway-racer-3d/',                  embed:true },
   { id:'scrap-metal',      name:'Scrap Metal 3',             category:'racing',                    img:CGI('scrap-metal-3'),                            url:'https://unblockedgames66.gitlab.io/scrap-metal-3-infernal-trap/', embed:true },
 
@@ -88,12 +88,12 @@ const GAMES = [
   { id:'2048',             name:'2048',                      category:'puzzle',                    img:CGI('2048'),                                     url:'https://play2048.co',                                             embed:true },
   { id:'minesweeper',      name:'Minesweeper',               category:'puzzle',                    img:CGI('minesweeper'),                              url:'https://minesweeper.online',                                      embed:true },
   { id:'wordle',           name:'Wordle Unlimited',          category:'puzzle',                    img:CGI('wordle-unlimited'),                         url:'https://wordleunlimited.org',                                     embed:true },
-  { id:'cut-the-rope',     name:'Cut the Rope',              category:'puzzle',                    img:CGI('cut-the-rope'),                             url:'https://adfree3kh0.github.io/projects/ctr-holiday/index.html',   embed:true },
+  { id:'level-devil',      name:'Level Devil',               category:'puzzle',                    img:CGI('level-devil'),                              url:IFR+'level-devil-main',                                            embed:true },
   { id:'dance-fire-ice',   name:'A Dance of Fire & Ice',     category:'puzzle',     featured:true,  img:CGI('a-dance-of-fire-and-ice'),                  url:'https://unblockedgames66.gitlab.io/a-dance-of-fire-and-ice/',    embed:true },
-  { id:'the-final-earth',  name:'The Final Earth 2',         category:'puzzle',                    img:CGI('the-final-earth-2'),                        url:'https://coolubg.github.io/coolubg-list/the-final-earth-2/',      embed:true },
+  { id:'short-life',       name:'Short Life',                category:'puzzle',                    img:CGI('short-life'),                               url:IFR+'short-life-main',                                             embed:true },
   { id:'tank-trouble',     name:'Tank Trouble 2',            category:'puzzle',                    img:CGI('tank-trouble-2'),                           url:'https://unblockedgames66.gitlab.io/tank-trouble-2/',             embed:true },
   { id:'there-is-no-game', name:'There Is No Game',          category:'puzzle',                    img:CGI('there-is-no-game'),                         url:'https://23azostore.github.io/s/there-is-no-game/',               embed:true },
-  { id:'blumgi-slime',     name:'Blumgi Slime',              category:'puzzle',                    img:CGI('blumgi-slime'),                             url:'https://classroom6x.gitlab.io/blumgi-slime/',                    embed:true },
+  { id:'blumgi-slime',     name:'Blumgi Slime',              category:'puzzle',                    img:CGI('blumgi-slime'),                             url:IFR+'blumgi-slime-main',                                           embed:true },
 
   // ── Arcade ─────────────────────────────────────────────────────────
   { id:'cookie-clicker',   name:'Cookie Clicker',            category:'arcade',     featured:true,  img:CGI('cookie-clicker'),                           url:IFR+'cookie-clicker-main',                                         embed:true },
@@ -119,7 +119,6 @@ const GAMES = [
   { id:'chess',            name:'Chess',                     category:'strategy',                  img:CGI('chess'),                                    url:'https://lichess.org',                                             embed:true },
   { id:'slime-rush-td',    name:'Slime Rush TD',             category:'strategy',                  img:CGI('slime-rush-td'),                            url:'https://66games.minecraftapk.com/slime-rush-td/',                 embed:true },
   { id:'riddle-school',    name:'Riddle School 5',           category:'strategy',                  img:CGI('riddle-school-5'),                          url:'https://66games.minecraftapk.com/riddle-school-5/',               embed:true },
-  { id:'final-earth-2',    name:'The Final Earth 2',         category:'strategy',                  img:CGI('the-final-earth-2'),                        url:'https://coolubg.github.io/coolubg-list/the-final-earth-2/',      embed:true },
 
   // ── Runner ─────────────────────────────────────────────────────────
   { id:'temple-run-2',     name:'Temple Run 2',              category:'runner',     featured:true,  img:CGI('temple-run-2'),                             url:'https://rebemanae.github.io/temple-run-2-jungle-fall/',           embed:true },
@@ -132,8 +131,7 @@ const GAMES = [
   // ── Horror ─────────────────────────────────────────────────────────
   { id:'fnaf-1',           name:"Five Nights at Freddy's",  category:'horror',     featured:true,  img:CGI('five-nights-at-freddys'),                   url:IFR+'five-nights-at-freddys-main',                                 embed:true },
   { id:'fnaf-2',           name:"Five Nights at Freddy's 2",category:'horror',                    img:CGI('five-nights-at-freddys-2'),                 url:'https://www.fnaf2unblocked.com/',                                 embed:true },
-  { id:'granny',           name:'Granny',                    category:'horror',                    img:CGI('granny'),                                   url:'https://grannygame.io',                                           embed:true },
-  { id:'baldis-basics',    name:"Baldi's Basics",            category:'horror',                    img:CGI('baldis-basics-online'),                     url:'https://ubg98.github.io/BaldisBasics/',                           embed:true },
+  { id:'fnaf-3',           name:"Five Nights at Freddy's 3", category:'horror',                    img:CGI('five-nights-at-freddys-3'),                 url:'https://www.fnaf3unblocked.com/',                                 embed:true },
 
   // ── Multiplayer ────────────────────────────────────────────────────
   { id:'minecraft',        name:'1.12.2 Eaglercraft',        category:'multiplayer',featured:true, img:CGI('minecraft-classic'),                        url:'/minecraft.html',                                                 embed:true },
