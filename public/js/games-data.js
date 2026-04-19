@@ -27,6 +27,9 @@ const GAMES = [
   { id:'gun-mayhem',       name:'Gun Mayhem 2',              category:'shooter',                   img:UB76+'2025/01/gun-mayhem-2.png',                                              url:'https://gunmayhemunblocked.github.io/2/',                         embed:true },
   { id:'funny-shooter-2',  name:'Funny Shooter 2',           category:'shooter',                   img:UB76+'2025/01/funny-shooter-2.png',                                           url:IFR+'funny-shooter-2-main',                                        embed:true },
   { id:'temple-of-boom',   name:'Temple of Boom',            category:'shooter',                   img:UB76+'2025/02/temple-of-boom.png',                                            url:IFR+'temple-of-boom-main',                                         embed:true },
+  { id:'gunblood',         name:'Gunblood',                  category:'shooter',                   img:'https://image.thum.io/get/width/640/crop/360/https://www.gunblood.com',      url:IFR+'gunblood-main',                                               embed:true },
+  { id:'mr-bullet',        name:'Mr. Bullet Online',         category:'shooter',                   img:'https://image.thum.io/get/width/640/crop/360/https://www.mr-bullet.com',     url:IFR+'mr-bullet-main',                                              embed:true },
+  { id:'alien-hominid',    name:'Alien Hominid',             category:'shooter',                   img:'https://image.thum.io/get/width/640/crop/360/https://www.newgrounds.com/portal/view/59593', url:IFR+'alien-hominid-main', embed:true },
 
   // ── IO Games ───────────────────────────────────────────────────────
   { id:'slither',          name:'Slither.io',                category:'io',         featured:true,  img:'https://slither.io/s/fbthumb5.jpg',                                         url:'https://slither.io',                                              embed:true },
@@ -34,7 +37,7 @@ const GAMES = [
   { id:'paper-io',         name:'Paper.io 2',                category:'io',                        img:UB76+'2025/01/paper-io-2.png',                               url:'https://paper-io.com',                                            embed:true },
   { id:'diep',             name:'Diep.io',                   category:'io',                        img:'https://image.thum.io/get/width/640/crop/360/https://diep.io',                                                   url:'https://diep.io',                                                 embed:true },
   { id:'bonk',             name:'Bonk.io',                   category:'io',                        img:'https://image.thum.io/get/width/640/crop/360/https://bonk.io',                                                   url:'https://bonk.io',                                                 embed:true },
-  { id:'skribbl',          name:'Skribbl.io',                category:'io',                        img:'https://skribbl.io/img/thumbnail.png',                                      url:'https://skribbl.io',                                              embed:true },
+  { id:'yohoho',            name:'YoHoHo.io',                 category:'io',                        img:UBP+'images/yohohoio.webp',                                                  url:'https://yohoho.io',                                               embed:true },
   { id:'state-io',         name:'State.io',                  category:'io',                        img:'https://image.thum.io/get/width/640/crop/360/https://state.io',                                                  url:'https://state.io',                                                embed:true },
 
   // ── Platformer ─────────────────────────────────────────────────────
@@ -61,6 +64,11 @@ const GAMES = [
   { id:'getting-over-it',  name:'Getting Over It',           category:'platformer',                img:'https://cdn.cloudflare.steamstatic.com/steam/apps/240720/header.jpg',                                           url:'https://ubg98.github.io/GettingOverIt/',                          embed:true },
   { id:'big-tower',        name:'Big Tower Tiny Square',     category:'platformer',                img:UBP+'img/bigtowertinysquere/big-tower-tiny-square.png',                       url:'https://bigtowertinysquare.github.io/',                           embed:true },
   { id:'burrito-bison',    name:'Burrito Bison',             category:'platformer',                img:UB76+'2024/12/burrito-bison.png',                                             url:'https://burritobison.github.io/',                                 embed:true },
+  { id:'vex-3',            name:'Vex 3',                     category:'platformer',                img:UBP+'images/vex3.webp',                                                       url:IFR+'vex-3-main',                                                  embed:true },
+  { id:'vex-4',            name:'Vex 4',                     category:'platformer',                img:UBP+'images/vex4.webp',                                                       url:IFR+'vex-4-main',                                                  embed:true },
+  { id:'vex-7',            name:'Vex 7',                     category:'platformer',                img:'https://image.thum.io/get/width/640/crop/360/https://vex7.io',               url:IFR+'vex-7-main',                                                  embed:true },
+  { id:'moto-x3m-spooky',  name:'Moto X3M Spooky Land',     category:'platformer',                img:UB76+'2025/01/moto-x3m-spooky-land.png',                                      url:IFR+'moto-x3m-spooky-land-main',                                   embed:true },
+  { id:'unfair-mario',     name:'Unfair Mario',              category:'platformer',                img:'https://image.thum.io/get/width/640/crop/360/https://unfairmario.com',       url:IFR+'unfair-mario-main',                                           embed:true },
 
   // ── Sports ─────────────────────────────────────────────────────────
   { id:'retro-bowl',       name:'Retro Bowl',                category:'sports',     featured:true,  img:UB76+'2025/01/retro-bowl.png',                                                url:IFR+'retro-bowl-main',                                             embed:true },
@@ -73,6 +81,8 @@ const GAMES = [
   { id:'head-soccer',      name:'Head Soccer',               category:'sports',                    img:'/img/games/head-soccer.png',                                               url:'https://ubg98.github.io/HeadSoccer2023/',                         embed:true },
   { id:'unicycle-hero',    name:'Unicycle Hero',             category:'sports',                    img:UB76+'2025/02/unicycle-hero.png',                                             url:IFR+'unicycle-hero-main',                                          embed:true },
   { id:'tag',              name:'Tag: Playground',           category:'sports',                    img:UB76+'2025/02/tag.png',                                                       url:IFR+'tag-main',                                                    embed:true },
+  { id:'archery-world',    name:'Archery World Tour',        category:'sports',                    img:UB76+'2024/12/archery-world-tour.png',                                        url:IFR+'archery-world-tour-main',                                     embed:true },
+  { id:'doodle-baseball',  name:'Doodle Baseball',           category:'sports',                    img:'https://image.thum.io/get/width/640/crop/360/https://www.doodlebaseball.com', url:IFR+'doodle-baseball-main',                                       embed:true },
 
   // ── Racing ─────────────────────────────────────────────────────────
   { id:'drift-hunters',    name:'Drift Hunters',             category:'racing',     featured:true,  img:UB76+'2025/03/drift-hunters.png',                                             url:IFR+'drift-hunters-main',                                          embed:true },
@@ -86,6 +96,7 @@ const GAMES = [
   { id:'drive-mad',        name:'Drive Mad',                 category:'racing',                    img:'https://unblockedgamespremium.github.io/images/drivemad.webp',                                                 url:IFR+'drive-mad-main',                                              embed:true },
   { id:'highway-racer',    name:'Highway Racer 3D',          category:'racing',                    img:UB76+'2025/01/highway-racer-3d.png',                                          url:'https://ubg77.github.io/edit/highway-racer-3d/',                  embed:true },
   { id:'scrap-metal',      name:'Scrap Metal 3',             category:'racing',                    img:'https://unblockedgamespremium.github.io/images/scrapmetal3.webp',                                             url:'https://unblockedgames66.gitlab.io/scrap-metal-3-infernal-trap/', embed:true },
+  { id:'grand-prix-hero',  name:'Grand Prix Hero',           category:'racing',                    img:UB76+'2025/01/grand-prix-hero.png',                                           url:IFR+'grand-prix-hero-main',                                        embed:true },
 
   // ── Puzzle ─────────────────────────────────────────────────────────
   { id:'2048',             name:'2048',                      category:'puzzle',                    img:'/img/games/2048.png',                                                        url:'https://play2048.co', embed:true },
@@ -117,6 +128,14 @@ const GAMES = [
   { id:'bubble-shooter',   name:'Bubble Shooter',            category:'arcade',                    img:UB76+'2024/12/bubble-shooter.png',                                            url:IFR+'bubble-shooter-main',                                         embed:true },
   { id:'happy-wheels',     name:'Happy Wheels',              category:'arcade',                    img:'https://unblockedgamespremium.github.io/images/happywheels.webp',                                              url:'https://happywheels.ubg235.com/',                                 embed:true },
   { id:'rise-neon',        name:'Rise of Neon Square',       category:'arcade',                    img:'https://unblockedgamespremium.github.io/images/riseofneonsquare.webp',                                       url:'https://unblockedgames66.gitlab.io/rise-of-neon-square/',        embed:true },
+  { id:'bad-ice-cream',    name:'Bad Ice Cream',             category:'arcade',                    img:'https://image.thum.io/get/width/640/crop/360/https://www.coolmathgames.com/0-bad-ice-cream', url:IFR+'bad-ice-cream-main', embed:true },
+  { id:'bad-ice-cream-2',  name:'Bad Ice Cream 2',           category:'arcade',                    img:UBP+'images/badicecream2.webp',                                               url:IFR+'bad-ice-cream-2-main',                                        embed:true },
+  { id:'bad-ice-cream-3',  name:'Bad Ice Cream 3',           category:'arcade',                    img:UB76+'2024/12/bad-ice-cream-3.png',                                           url:IFR+'bad-ice-cream-3-main',                                        embed:true },
+  { id:'tunnel-rush-2',    name:'Tunnel Rush 2',             category:'arcade',                    img:UBP+'images/tunnelrush2.webp',                                                url:IFR+'tunnel-rush-2-main',                                          embed:true },
+  { id:'whack-computer',   name:'Whack Your Computer',       category:'arcade',                    img:'https://image.thum.io/get/width/640/crop/360/https://www.whackyourcomputer.net', url:IFR+'whack-your-computer-main',                                 embed:true },
+  { id:'hobo-7',           name:'Hobo 7: Heaven',            category:'arcade',                    img:'https://image.thum.io/get/width/640/crop/360/https://hobo7.com',             url:IFR+'hobo-7-main',                                                 embed:true },
+  { id:'papa-burgeria',    name:"Papa's Burgeria To Go",     category:'arcade',                    img:'https://image.thum.io/get/width/640/crop/360/https://www.flipline.com/games/burgeria-to-go/', url:IFR+'papas-burgeria-to-go-main', embed:true },
+  { id:'adv-capitalist',   name:'Adventure Capitalist',      category:'arcade',                    img:'https://image.thum.io/get/width/640/crop/360/https://www.kongregate.com/games/hyper_hippo/adventure-capitalist', url:IFR+'adventure-capitalist-main', embed:true },
 
   // ── Strategy ───────────────────────────────────────────────────────
   { id:'chess',            name:'Chess',                     category:'strategy',                  img:'/img/games/chess.png',                                                       url:'https://lichess.org', embed:true },
@@ -124,6 +143,7 @@ const GAMES = [
   { id:'riddle-school',    name:'Riddle School 5',           category:'strategy',                  img:'https://unblockedgamespremium.github.io/images/riddleschool5.webp',                                           url:'https://66games.minecraftapk.com/riddle-school-5/',               embed:true },
 
   // ── Runner ─────────────────────────────────────────────────────────
+  { id:'run-3',            name:'Run 3',                     category:'runner',     featured:true,  img:UBP+'img/run3/run-3.png',                                                     url:IFR+'run-3-main',                                                  embed:true },
   { id:'temple-run-2',     name:'Temple Run 2',              category:'runner',     featured:true,  img:UBP+'images/templerun2.webp',                                                 url:'https://rebemanae.github.io/temple-run-2-jungle-fall/',           embed:true },
   { id:'subway-surfers',   name:'Subway Surfers',            category:'runner',     featured:true,  img:UB76+'2025/02/subway-surfers.png',                                            url:IFR+'subway-surfers-main',                                         embed:true },
 
@@ -138,7 +158,6 @@ const GAMES = [
   // ── Multiplayer ────────────────────────────────────────────────────
   { id:'minecraft',        name:'1.12.2 Eaglercraft',        category:'multiplayer',featured:true,  img:'https://www.minecraft.net/content/dam/minecraftnet/franchise/logos/minecraft-creeper-face.jpg', url:'/minecraft.html',  embed:true },
   { id:'gartic-phone',     name:'Gartic Phone',              category:'multiplayer',               img:'/img/games/gartic-phone.png',                                                url:'https://garticphone.com', embed:true },
-  { id:'skribbl',          name:'Skribbl.io',                category:'multiplayer',               img:'https://skribbl.io/img/thumbnail.png',                                      url:'https://skribbl.io',                                              embed:true },
 
   // ── Special ────────────────────────────────────────────────────────
   { id:'real-minecraft',     name:'Real Minecraft',           category:'multiplayer',featured:true,  img:'https://www.minecraft.net/content/dam/minecraftnet/franchise/logos/Minecraft_The-Game_1028x1028.jpg', url:'http://34.145.127.85/', embed:true },
