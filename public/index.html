@@ -26,7 +26,13 @@
       </div>
 
       <ul class="nav-list">
-        <li class="nav-item active" data-page="games">
+        <li class="nav-item active" data-page="home">
+          <a href="#" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="nav-item" data-page="games">
           <a href="#" class="nav-link">
             <svg class="nav-icon" viewBox="0 0 24 24"><path d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
             <span>Games</span>
@@ -36,12 +42,6 @@
           <a href="/proxy" class="nav-link">
             <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
             <span>Browse</span>
-          </a>
-        </li>
-        <li class="nav-item" data-page="music">
-          <a href="/music" class="nav-link">
-            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
-            <span>Music</span>
           </a>
         </li>
         <li class="nav-item" data-page="settings">
@@ -91,8 +91,16 @@
 
       <main class="content" id="main-content">
 
+        <!-- Home page -->
+        <section class="page active" id="page-home">
+          <div class="splash">
+            <h1 class="splash-title" id="splash-title">Study Hub</h1>
+            <p class="splash-hint">Click anywhere to explore games</p>
+          </div>
+        </section>
+
         <!-- Games page -->
-        <section class="page active" id="page-games">
+        <section class="page" id="page-games">
           <div class="category-tabs" id="category-tabs">
             <button class="cat-btn active" data-cat="all">All</button>
             <button class="cat-btn" data-cat="shooter">Shooter</button>
@@ -266,5 +274,32 @@
 
   <script src="/js/games-data.js"></script>
   <script src="/js/app.js"></script>
+  <script>
+    // Colour-cycling splash title
+    (function () {
+      const title = document.getElementById('splash-title');
+      const home  = document.getElementById('page-home');
+      if (!title || !home) return;
+
+      let hue = 0;
+      (function cycle() {
+        hue = (hue + 0.4) % 360;
+        title.style.backgroundImage =
+          `linear-gradient(135deg,
+             hsl(${hue},100%,72%) 0%,
+             hsl(${(hue+80)%360},100%,68%) 50%,
+             hsl(${(hue+160)%360},100%,72%) 100%)`;
+        requestAnimationFrame(cycle);
+      })();
+
+      // Click anywhere on splash → go to Games
+      home.addEventListener('click', function () {
+        home.classList.add('hidden-splash');
+        // Trigger the Games nav item
+        const gamesNav = document.querySelector('.nav-item[data-page="games"]');
+        if (gamesNav) gamesNav.click();
+      });
+    })();
+  </script>
 </body>
 </html>
