@@ -222,7 +222,7 @@
       { icon: '🐦', name: 'X (Twitter)',url: 'https://x.com' },
       { icon: '📸', name: 'Instagram',  url: 'https://instagram.com' },
       { icon: '🎮', name: 'Games Home', url: '/' },
-      { icon: '🔍', name: 'Google',     url: 'https://google.com' },
+      { icon: '🦆', name: 'DuckDuckGo', url: 'https://duckduckgo.com' },
       { icon: '📚', name: 'Wikipedia',  url: 'https://wikipedia.org' },
       { icon: '🎵', name: 'Spotify',    url: 'https://open.spotify.com' },
     ];
@@ -243,7 +243,7 @@
         if (url.includes('.') && !url.includes(' ')) {
           url = 'https://' + url;
         } else {
-          url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+          url = 'https://duckduckgo.com/?q=' + encodeURIComponent(url);
         }
       }
       try {
