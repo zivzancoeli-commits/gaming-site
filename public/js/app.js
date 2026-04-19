@@ -102,6 +102,11 @@ function showPage(page) {
     target.classList.add('active');
     target.style.display = page === 'home' ? 'flex' : 'block';
   }
+
+  // Always re-render the games grid when navigating to games
+  if (page === 'games' && typeof renderAllGames === 'function') {
+    renderAllGames(activeCategory || 'all', searchInput ? searchInput.value : '');
+  }
 }
 
 navItems.forEach(item => {
@@ -115,8 +120,7 @@ navItems.forEach(item => {
   });
 });
 
-// Apply correct initial state on load (home is default)
-showPage('home');
+// showPage is called AFTER init() below so the grid renders before pages are hidden
 
 /* ── Build a game card element ──────────────────────────────── */
 function buildCard(game) {
@@ -265,9 +269,12 @@ function renderAllGames(cat = 'all', query = '') {
 /* ── Init ───────────────────────────────────────────────────── */
 function init() {
   gameCountEl.textContent = GAMES.length + ' games';
-  renderAllGames();
+  renderAllGames(); // fill grid before any page is hidden
 }
 init();
+
+// Show home splash as landing page (after grid is already rendered)
+showPage('home');
 
 /* ── Settings ───────────────────────────────────────────────── */
 function openSettings() {
