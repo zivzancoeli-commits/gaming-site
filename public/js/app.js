@@ -159,10 +159,6 @@ function startGame() {
   gameFrame.classList.add('active');
   gameOverlay.classList.add('hidden');
   zoomBtn.classList.add('visible');
-  // Auto-fullscreen so the game looks standalone (must be called during user gesture)
-  const el = gameFrame;
-  if (el.requestFullscreen) el.requestFullscreen();
-  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
   // Focus iframe so pointer-lock and keyboard events work immediately
   setTimeout(() => gameFrame.focus(), 300);
 }
