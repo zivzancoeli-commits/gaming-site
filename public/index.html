@@ -26,12 +26,6 @@
       </div>
 
       <ul class="nav-list">
-        <li class="nav-item" data-page="home">
-          <a href="#" class="nav-link">
-            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-            <span>Home</span>
-          </a>
-        </li>
         <li class="nav-item active" data-page="games">
           <a href="#" class="nav-link">
             <svg class="nav-icon" viewBox="0 0 24 24"><path d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
@@ -96,16 +90,6 @@
       </div>
 
       <main class="content" id="main-content">
-
-        <!-- Home page -->
-        <section class="page" id="page-home">
-          <div class="hero">
-            <canvas id="hero-canvas"></canvas>
-            <div class="hero-content">
-              <h1 class="hero-title" id="hero-title">Welcome To Study Hub</h1>
-            </div>
-          </div>
-        </section>
 
         <!-- Games page -->
         <section class="page active" id="page-games">
@@ -282,101 +266,5 @@
 
   <script src="/js/games-data.js"></script>
   <script src="/js/app.js"></script>
-  <script>
-  (function () {
-    const canvas = document.getElementById('hero-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    let W, H;
-    const STAR_COUNT  = 180;
-    const PULL_RADIUS = 160;
-    const PULL_FORCE  = 0.06;
-    const RETURN_EASE = 0.04;
-    let mouse = { x: -9999, y: -9999 };
-    let stars = [];
-
-    function resize() {
-      W = canvas.width  = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-      // Re-home every star to a new fixed origin when resized
-      stars.forEach(s => {
-        s.ox = Math.random() * W;
-        s.oy = Math.random() * H;
-        s.x  = s.ox;
-        s.y  = s.oy;
-      });
-    }
-
-    function init() {
-      W = canvas.width  = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-      stars = Array.from({ length: STAR_COUNT }, () => {
-        const ox = Math.random() * W;
-        const oy = Math.random() * H;
-        return {
-          ox, oy,          // fixed home position
-          x: ox, y: oy,   // current draw position
-          r: Math.random() * 1.6 + 0.4,
-          brightness: Math.random() * 0.5 + 0.5,
-        };
-      });
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-
-      stars.forEach(s => {
-        const dx = mouse.x - s.x;
-        const dy = mouse.y - s.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < PULL_RADIUS && dist > 0) {
-          // Pull toward cursor
-          const strength = (1 - dist / PULL_RADIUS) * PULL_FORCE;
-          s.x += dx * strength * 2.5;
-          s.y += dy * strength * 2.5;
-        } else {
-          // Ease back to home
-          s.x += (s.ox - s.x) * RETURN_EASE;
-          s.y += (s.oy - s.y) * RETURN_EASE;
-        }
-
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${s.brightness})`;
-        ctx.fill();
-      });
-
-      requestAnimationFrame(draw);
-    }
-
-    init();
-    draw();
-
-    document.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
-    document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-    window.addEventListener('resize', resize);
-
-    /* ── Colour-cycling title ── */
-    const title = document.getElementById('hero-title');
-    let hue = 0;
-    (function cycleTitle() {
-      if (title) {
-        hue = (hue + 0.5) % 360;
-        title.style.backgroundImage =
-          `linear-gradient(135deg,
-             hsl(${hue},100%,72%) 0%,
-             hsl(${(hue + 80) % 360},100%,68%) 50%,
-             hsl(${(hue + 160) % 360},100%,72%) 100%)`;
-      }
-      requestAnimationFrame(cycleTitle);
-    })();
-  })();
-  </script>
 </body>
 </html>
