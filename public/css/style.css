@@ -523,17 +523,12 @@ input, select { color: inherit; font: inherit; }
   display: flex !important;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   z-index: 10;
 }
-/* Hide search bar & banner ad while splash is showing */
-#page-home:not(.hidden-splash) ~ * .topbar,
-body:has(#page-home:not(.hidden-splash)) .topbar,
-body:has(#page-home:not(.hidden-splash)) .banner-ad {
+/* Hide search bar & banner ad on home page */
+body:has(#page-home.active) .topbar,
+body:has(#page-home.active) .banner-ad {
   display: none;
-}
-#page-home.hidden-splash {
-  display: none !important;
 }
 .splash {
   display: flex;
@@ -549,16 +544,6 @@ body:has(#page-home:not(.hidden-splash)) .banner-ad {
   letter-spacing: -2px;
   line-height: 1;
   color: #fff;
-}
-.splash-hint {
-  font-size: 15px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 1px;
-  animation: splash-pulse 2.5s ease-in-out infinite;
-}
-@keyframes splash-pulse {
-  0%, 100% { opacity: 0.35; }
-  50%       { opacity: 0.7; }
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────── */

@@ -95,7 +95,6 @@
         <section class="page active" id="page-home">
           <div class="splash">
             <h1 class="splash-title" id="splash-title">Study Hub</h1>
-            <p class="splash-hint">Click anywhere to explore games</p>
           </div>
         </section>
 
@@ -288,13 +287,6 @@
         requestAnimationFrame(cycle);
       })();
 
-      // Click anywhere on splash → go to Games
-      home.addEventListener('click', function () {
-        home.classList.add('hidden-splash');
-        // Trigger the Games nav item
-        const gamesNav = document.querySelector('.nav-item[data-page="games"]');
-        if (gamesNav) gamesNav.click();
-      });
     })();
   </script>
 </body>
