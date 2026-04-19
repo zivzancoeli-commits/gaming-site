@@ -50,12 +50,6 @@
             <span>Music</span>
           </a>
         </li>
-        <li class="nav-item" data-page="links">
-          <a href="/links" class="nav-link">
-            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-            <span>More Links</span>
-          </a>
-        </li>
         <li class="nav-item" data-page="settings">
           <a href="#" class="nav-link" id="settings-btn">
             <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -105,11 +99,26 @@
 
         <!-- Home page -->
         <section class="page" id="page-home">
-          <h2 class="section-title">Featured Games</h2>
-          <div class="game-grid" id="featured-grid"></div>
-
-          <h2 class="section-title" style="margin-top:2rem;">Recently Added</h2>
-          <div class="game-grid" id="recent-grid"></div>
+          <div class="hero">
+            <canvas class="hero-stars-canvas" id="hero-canvas"></canvas>
+            <div class="hero-content">
+              <div class="hero-icon">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                  <rect width="72" height="72" rx="20" fill="#7c3aed"/>
+                  <path d="M18 36h9m9-9v18m9-13.5h4.5a4.5 4.5 0 010 9H45" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h1 class="hero-title">Welcome to <span>StudyHub</span></h1>
+              <p class="hero-subtitle">Your ultimate unblocked gaming &amp; browsing destination</p>
+              <div class="hero-stats" id="hero-stats">
+                <div class="hero-stat"><span id="hero-game-count">0</span><label>Games</label></div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat"><span>Free</span><label>Always</label></div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat"><span>Fast</span><label>No Lag</label></div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- Games page -->
@@ -287,5 +296,59 @@
 
   <script src="/js/games-data.js"></script>
   <script src="/js/app.js"></script>
+  <script>
+    // Animated starfield for home hero
+    (function() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H, stars = [];
+      const N = 200;
+
+      function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+      }
+
+      function init() {
+        resize();
+        stars = Array.from({ length: N }, () => ({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 1.4 + 0.3,
+          speed: Math.random() * 0.25 + 0.05,
+          opacity: Math.random() * 0.7 + 0.2,
+          twinkle: Math.random() * Math.PI * 2,
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        stars.forEach(s => {
+          s.twinkle += 0.015;
+          s.y -= s.speed;
+          if (s.y < -2) { s.y = H + 2; s.x = Math.random() * W; }
+          const alpha = s.opacity * (0.6 + 0.4 * Math.sin(s.twinkle));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200,190,255,${alpha})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      init();
+      draw();
+      window.addEventListener('resize', () => { resize(); });
+
+      // Populate hero game count once GAMES is ready
+      function setHeroCount() {
+        const el = document.getElementById('hero-game-count');
+        if (el && typeof GAMES !== 'undefined') el.textContent = GAMES.length + '+';
+      }
+      if (typeof GAMES !== 'undefined') setHeroCount();
+      else window.addEventListener('load', setHeroCount);
+    })();
+  </script>
 </body>
 </html>
