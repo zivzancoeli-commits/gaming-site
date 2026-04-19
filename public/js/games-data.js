@@ -33,7 +33,7 @@ const GAMES = [
 
   // ── IO Games ───────────────────────────────────────────────────────
   { id:'slither',          name:'Slither.io',                category:'io',         featured:true,  img:'https://slither.io/s/fbthumb5.jpg',                                         url:'https://slither.io',                                              embed:true },
-  { id:'agar',             name:'Agar.io',                   category:'io',                        img:'/img/games/agar-io.png',                                                     url:'https://agar.io',                embed:true },
+  { id:'agar',             name:'Agar.io',                   category:'io',                        img:'/img/games/agar-io.png',                                                     url:'https://agar.io',                                                 embed:false },
   { id:'paper-io',         name:'Paper.io 2',                category:'io',                        img:UB76+'2025/01/paper-io-2.png',                               url:'https://paper-io.com',                                            embed:true },
   { id:'diep',             name:'Diep.io',                   category:'io',                        img:'https://image.thum.io/get/width/640/crop/360/https://diep.io',                                                   url:'https://diep.io',                                                 embed:true },
   { id:'bonk',             name:'Bonk.io',                   category:'io',                        img:'https://image.thum.io/get/width/640/crop/360/https://bonk.io',                                                   url:'https://bonk.io',                                                 embed:true },
@@ -152,8 +152,8 @@ const GAMES = [
 
   // ── Multiplayer ────────────────────────────────────────────────────
   { id:'minecraft',        name:'1.12.2 Eaglercraft',        category:'multiplayer',featured:true,  img:UBP+'images/minecraftclassic.webp',                                            url:'/minecraft.html',  embed:true },
-  { id:'gartic-phone',     name:'Gartic Phone',              category:'multiplayer',               img:'/img/games/gartic-phone.png',                                                url:'https://garticphone.com', embed:true },
+  { id:'gartic-phone',     name:'Gartic Phone',              category:'multiplayer',               img:'/img/games/gartic-phone.png',                                                url:'https://garticphone.com',                                          embed:false },
 
   // ── Special ────────────────────────────────────────────────────────
-  { id:'real-minecraft',     name:'Real Minecraft',           category:'multiplayer',featured:true,  img:'https://www.minecraft.net/content/dam/minecraftnet/franchise/logos/Minecraft_The-Game_1028x1028.jpg', url:'http://34.145.127.85/', embed:true },
+  { id:'real-minecraft',     name:'Real Minecraft',           category:'multiplayer',featured:true,  img:UBP+'images/minecraftclassic.webp',                                            url:'http://34.145.127.85/',                                            embed:true },
 ];
