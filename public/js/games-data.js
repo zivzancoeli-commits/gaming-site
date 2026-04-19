@@ -1,534 +1,216 @@
-// embed: true  → loads directly in iframe (no proxy needed)
+// embed: true  → loads directly in iframe (no proxy)
 // embed: false → routes through UV proxy
+// Thumbnails: CrazyGames CDN pattern used throughout
+const CG = 'https://www.crazygames.com/embed/';
+const CGI = (slug) => `https://images.crazygames.com/games/${slug}/cover_16x9.png`;
+
 const GAMES = [
 
-  // ── Shooting / Action ─────────────────────────────────────
-  {
-    id: 'shell-shockers',
-    name: 'Shell Shockers',
-    category: 'shooting',
-    featured: true,
-    img: 'https://images.crazygames.com/games/shell-shockers/cover_16x9.png',
-    url: 'https://shellshock.io',
-    embed: true,   // direct load - proxy breaks WebRTC
-    color: '#1e3a5f'
-  },
-  {
-    id: 'venge',
-    name: 'Venge.io',
-    category: 'shooting',
-    featured: true,
-    img: 'https://images.crazygames.com/games/venge-io/cover_16x9.png',
-    url: 'https://venge.io',
-    embed: true,
-    color: '#2a1a3a'
-  },
-  {
-    id: 'rooftop-snipers',
-    name: 'Rooftop Snipers',
-    category: 'shooting',
-    img: 'https://images.crazygames.com/games/rooftop-snipers/cover_16x9.png',
-    url: 'https://rooftop-snipers.com',
-    embed: true,
-    color: '#3a1a1a'
-  },
-  {
-    id: 'getaway-shootout',
-    name: 'Getaway Shootout',
-    category: 'shooting',
-    img: 'https://images.crazygames.com/games/getaway-shootout/cover_16x9.png',
-    url: 'https://getawayshootout.com',
-    embed: true,
-    color: '#1a3a1a'
-  },
-  {
-    id: 'smash-karts',
-    name: 'Smash Karts',
-    category: 'shooting',
-    featured: true,
-    img: 'https://images.crazygames.com/games/smash-karts/cover_16x9.png',
-    url: 'https://smashkarts.io',
-    embed: true,
-    color: '#1a2a1a'
-  },
-  {
-    id: 'bullet-force',
-    name: 'Bullet Force',
-    category: 'shooting',
-    img: 'https://images.crazygames.com/games/bullet-force-multiplayer/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/bullet-force-multiplayer',
-    embed: true,
-    color: '#2a2a1a'
-  },
+  // ── Action / Shooting ──────────────────────────────────────
+  { id:'shell-shockers',   name:'Shell Shockers',     category:'action',    featured:true,  img:CGI('shell-shockers'),                  url:'https://shellshock.io',              embed:true  },
+  { id:'venge',            name:'Venge.io',            category:'action',    featured:true,  img:CGI('venge-io'),                        url:'https://venge.io',                   embed:true  },
+  { id:'rooftop-snipers',  name:'Rooftop Snipers',     category:'action',                   img:CGI('rooftop-snipers'),                 url:'https://rooftop-snipers.com',        embed:true  },
+  { id:'getaway-shootout', name:'Getaway Shootout',    category:'action',                   img:CGI('getaway-shootout'),                url:'https://getawayshootout.com',        embed:true  },
+  { id:'smash-karts',      name:'Smash Karts',         category:'action',    featured:true,  img:CGI('smash-karts'),                     url:'https://smashkarts.io',              embed:true  },
+  { id:'bullet-force',     name:'Bullet Force',        category:'action',                   img:CGI('bullet-force-multiplayer'),        url:CG+'bullet-force-multiplayer',        embed:true  },
+  { id:'gunspin',          name:'Gunspin',             category:'action',                   img:CGI('gunspin'),                         url:CG+'gunspin',                         embed:true  },
+  { id:'johnny-trigger',   name:'Johnny Trigger',      category:'action',                   img:CGI('johnny-trigger'),                  url:CG+'johnny-trigger',                  embed:true  },
+  { id:'1v1lol',           name:'1v1.LoL',             category:'action',    featured:true,  img:CGI('1v1lol'),                          url:CG+'1v1lol',                          embed:true  },
 
-  // ── IO Games ────────────────────────────────────────────────
-  {
-    id: 'slither',
-    name: 'Slither.io',
-    category: 'io',
-    featured: true,
-    img: 'https://images.crazygames.com/games/slither-io/cover_16x9.png',
-    url: 'https://slither.io',
-    embed: true,   // direct load - proxy breaks pointer-lock & WebSocket
-    color: '#0f2a0f'
-  },
-  {
-    id: 'agar',
-    name: 'Agar.io',
-    category: 'io',
-    img: 'https://images.crazygames.com/games/agar-io/cover_16x9.png',
-    url: 'https://agar.io',
-    embed: true,
-    color: '#1a1a3a'
-  },
-  {
-    id: 'paper-io',
-    name: 'Paper.io 2',
-    category: 'io',
-    img: 'https://images.crazygames.com/games/paper-io-2/cover_16x9.png',
-    url: 'https://paper-io.com',
-    embed: true,
-    color: '#2a1a2a'
-  },
-  {
-    id: 'diep',
-    name: 'Diep.io',
-    category: 'io',
-    img: 'https://images.crazygames.com/games/diep-io/cover_16x9.png',
-    url: 'https://diep.io',
-    embed: true,
-    color: '#1a2a1a'
-  },
-  {
-    id: 'bonk',
-    name: 'Bonk.io',
-    category: 'io',
-    img: 'https://images.crazygames.com/games/bonk-io/cover_16x9.png',
-    url: 'https://bonk.io',
-    embed: true,
-    color: '#2a2a1a'
-  },
-  {
-    id: 'skribbl',
-    name: 'Skribbl.io',
-    category: 'io',
-    img: 'https://images.crazygames.com/games/skribbl-io/cover_16x9.png',
-    url: 'https://skribbl.io',
-    embed: true,   // direct load - Socket.IO disconnects through proxy
-    color: '#1a1a2a'
-  },
-  {
-    id: 'wormate',
-    name: 'Wormate.io',
-    category: 'io',
-    img: 'https://images.crazygames.com/games/wormate-io/cover_16x9.png',
-    url: 'https://wormate.io',
-    embed: true,
-    color: '#2a1a1a'
-  },
-  {
-    id: 'deeeep',
-    name: 'Deeeep.io',
-    category: 'io',
-    img: 'https://images.crazygames.com/games/deeeep-io/cover_16x9.png',
-    url: 'https://deeeep.io',
-    embed: true,
-    color: '#0f1a2a'
-  },
+  // ── IO Games ───────────────────────────────────────────────
+  { id:'slither',          name:'Slither.io',          category:'io',        featured:true,  img:CGI('slither-io'),                      url:'https://slither.io',                 embed:true  },
+  { id:'agar',             name:'Agar.io',             category:'io',                       img:CGI('agar-io'),                         url:'https://agar.io',                    embed:true  },
+  { id:'paper-io',         name:'Paper.io 2',          category:'io',                       img:CGI('paper-io-2'),                      url:'https://paper-io.com',               embed:true  },
+  { id:'diep',             name:'Diep.io',             category:'io',                       img:CGI('diep-io'),                         url:'https://diep.io',                    embed:true  },
+  { id:'bonk',             name:'Bonk.io',             category:'io',                       img:CGI('bonk-io'),                         url:'https://bonk.io',                    embed:true  },
+  { id:'skribbl',          name:'Skribbl.io',          category:'io',                       img:CGI('skribbl-io'),                      url:'https://skribbl.io',                 embed:true  },
+  { id:'wormate',          name:'Wormate.io',          category:'io',                       img:CGI('wormate-io'),                      url:'https://wormate.io',                 embed:true  },
+  { id:'deeeep',           name:'Deeeep.io',           category:'io',                       img:CGI('deeeep-io'),                       url:'https://deeeep.io',                  embed:true  },
+  { id:'state-io',         name:'State.io',            category:'io',                       img:CGI('stateio'),                         url:CG+'stateio',                         embed:true  },
+  { id:'harvest-io',       name:'Harvest.io',          category:'io',                       img:CGI('harvest-io'),                      url:CG+'harvest-io',                      embed:true  },
 
-  // ── Platformer ──────────────────────────────────────────────
-  {
-    id: 'slope',
-    name: 'Slope',
-    category: 'platformer',
-    featured: true,
-    img: 'https://images.crazygames.com/games/slope/cover_16x9.png',
-    url: 'https://slopegame.io',   // slope.game domain is dead
-    embed: true,
-    color: '#1a0f2a'
-  },
-  {
-    id: 'ovo',
-    name: 'OvO',
-    category: 'platformer',
-    img: 'https://images.crazygames.com/games/ovo/cover_16x9.png',
-    url: 'https://ovo.sbga.org',
-    embed: true,
-    color: '#1e1e1e'
-  },
-  {
-    id: 'ovo-2',
-    name: 'OvO 2',
-    category: 'platformer',
-    img: 'https://images.crazygames.com/games/ovo-2/cover_16x9.png',
-    url: 'https://ovo2.sbga.org',
-    embed: true,
-    color: '#222222'
-  },
-  {
-    id: 'moto-x3m',
-    name: 'Moto X3M',
-    category: 'platformer',
-    img: 'https://images.crazygames.com/games/moto-x3m/cover_16x9.png',
-    url: 'https://www.motox3m.com',
-    embed: true,
-    color: '#2a1a0f'
-  },
-  {
-    id: 'short-life',
-    name: 'Short Life',       // stickman-hook.com is parked on GoDaddy → replaced
-    category: 'platformer',
-    featured: true,
-    img: 'https://images.crazygames.com/games/short-life/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/short-life',
-    embed: true,
-    color: '#1a2a1a'
-  },
-  {
-    id: 'fireboy-watergirl',
-    name: 'Fireboy & Watergirl',
-    category: 'platformer',
-    img: 'https://images.crazygames.com/games/fireboy-and-watergirl-in-the-forest-temple/cover_16x9.png',
-    url: 'https://www.fireboy-watergirl.com',
-    embed: true,
-    color: '#1a0f0f'
-  },
-  {
-    id: 'vex-5',
-    name: 'Vex 5',
-    category: 'platformer',
-    img: 'https://images.crazygames.com/games/vex-5/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/vex-5',
-    embed: true,
-    color: '#0f1a1a'
-  },
-  {
-    id: 'cat-ninja',
-    name: 'Cat Ninja',
-    category: 'platformer',
-    img: 'https://images.crazygames.com/games/cat-ninja/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/cat-ninja',
-    embed: true,
-    color: '#2a1a2a'
-  },
-  {
-    id: 'happy-wheels',
-    name: 'Happy Wheels',
-    category: 'platformer',
-    img: 'https://images.crazygames.com/games/happy-wheels/cover_16x9.png',
-    url: 'https://www.totaljerkface.com/happy_wheels.tjf',
-    embed: true,
-    color: '#2a2a0f'
-  },
+  // ── Platformer ─────────────────────────────────────────────
+  { id:'slope',            name:'Slope',               category:'platformer',featured:true,  img:CGI('slope'),                           url:'https://slopegame.io',               embed:true  },
+  { id:'ovo',              name:'OvO',                 category:'platformer',               img:CGI('ovo'),                             url:'https://ovo.sbga.org',               embed:true  },
+  { id:'ovo-2',            name:'OvO 2',               category:'platformer',               img:CGI('ovo-2'),                           url:'https://ovo2.sbga.org',              embed:true  },
+  { id:'ovo-3d',           name:'OvO 3 Dimensions',    category:'platformer',               img:CGI('ovo-3-dimensions'),                url:CG+'ovo-3-dimensions',                embed:true  },
+  { id:'moto-x3m',         name:'Moto X3M',            category:'platformer',               img:CGI('moto-x3m'),                        url:'https://www.motox3m.com',            embed:true  },
+  { id:'moto-x3m-2',       name:'Moto X3M 2',          category:'platformer',               img:CGI('moto-x3m-2'),                      url:CG+'moto-x3m-2',                      embed:true  },
+  { id:'moto-x3m-3',       name:'Moto X3M 3',          category:'platformer',               img:CGI('moto-x3m-3'),                      url:CG+'moto-x3m-3',                      embed:true  },
+  { id:'moto-x3m-spooky',  name:'Moto X3M Spooky',     category:'platformer',               img:CGI('moto-x3m-spooky-land'),            url:CG+'moto-x3m-spooky-land',            embed:true  },
+  { id:'moto-x3m-winter',  name:'Moto X3M Winter',     category:'platformer',               img:CGI('moto-x3m-winter'),                 url:CG+'moto-x3m-winter',                 embed:true  },
+  { id:'moto-x3m-pool',    name:'Moto X3M Pool Party', category:'platformer',               img:CGI('moto-x3m-pool-party'),             url:CG+'moto-x3m-pool-party',             embed:true  },
+  { id:'fireboy-wg1',      name:'Fireboy & Watergirl', category:'platformer',               img:CGI('fireboy-and-watergirl-in-the-forest-temple'), url:'https://www.fireboy-watergirl.com', embed:true },
+  { id:'fireboy-wg2',      name:'Fireboy & Watergirl 2',category:'platformer',              img:CGI('fireboy-and-watergirl-2-light-temple'), url:CG+'fireboy-and-watergirl-2-light-temple', embed:true },
+  { id:'fireboy-wg3',      name:'Fireboy & Watergirl 3',category:'platformer',              img:CGI('fireboy-and-watergirl-3-ice-temple'), url:CG+'fireboy-and-watergirl-3-ice-temple', embed:true },
+  { id:'vex-1',            name:'Vex 1',               category:'platformer',               img:CGI('vex'),                             url:CG+'vex',                             embed:true  },
+  { id:'vex-2',            name:'Vex 2',               category:'platformer',               img:CGI('vex-2'),                           url:CG+'vex-2',                           embed:true  },
+  { id:'vex-3',            name:'Vex 3',               category:'platformer',               img:CGI('vex-3'),                           url:CG+'vex-3',                           embed:true  },
+  { id:'vex-4',            name:'Vex 4',               category:'platformer',               img:CGI('vex-4'),                           url:CG+'vex-4',                           embed:true  },
+  { id:'vex-5',            name:'Vex 5',               category:'platformer',               img:CGI('vex-5'),                           url:CG+'vex-5',                           embed:true  },
+  { id:'vex-6',            name:'Vex 6',               category:'platformer',               img:CGI('vex-6'),                           url:CG+'vex-6',                           embed:true  },
+  { id:'vex-7',            name:'Vex 7',               category:'platformer',               img:CGI('vex-7'),                           url:CG+'vex-7',                           embed:true  },
+  { id:'vex-8',            name:'Vex 8',               category:'platformer',               img:CGI('vex-8'),                           url:CG+'vex-8',                           embed:true  },
+  { id:'vex-challenges',   name:'Vex Challenges',      category:'platformer',               img:CGI('vex-challenges'),                  url:CG+'vex-challenges',                  embed:true  },
+  { id:'cat-ninja',        name:'Cat Ninja',           category:'platformer',               img:CGI('cat-ninja'),                       url:CG+'cat-ninja',                       embed:true  },
+  { id:'short-life',       name:'Short Life',          category:'platformer',featured:true,  img:CGI('short-life'),                      url:CG+'short-life',                      embed:true  },
+  { id:'stickman-hook',    name:'Stickman Hook',       category:'platformer',               img:CGI('stickman-hook'),                   url:CG+'stickman-hook',                   embed:true  },
+  { id:'bob-robber-2',     name:'Bob The Robber 2',    category:'platformer',               img:CGI('bob-the-robber-2'),                url:CG+'bob-the-robber-2',                embed:true  },
+  { id:'ninja-evil',       name:'Ninja vs EvilCorp',   category:'platformer',               img:CGI('ninja-vs-evilcorp'),               url:CG+'ninja-vs-evilcorp',               embed:true  },
+  { id:'journey-downhill', name:'Journey Downhill',    category:'platformer',               img:CGI('journey-downhill'),                url:CG+'journey-downhill',                embed:true  },
+  { id:'bloxorz',          name:'Bloxorz',             category:'platformer',               img:CGI('bloxorz'),                         url:CG+'bloxorz',                         embed:true  },
+  { id:'level-devil',      name:'Level Devil',         category:'platformer',featured:true,  img:CGI('level-devil'),                     url:CG+'level-devil',                     embed:true  },
+  { id:'happy-wheels',     name:'Happy Wheels',        category:'platformer',               img:CGI('happy-wheels'),                    url:'https://www.totaljerkface.com/happy_wheels.tjf', embed:true },
+  { id:'draw-climber',     name:'Draw Climber',        category:'platformer',               img:CGI('draw-climber'),                    url:CG+'draw-climber',                    embed:true  },
 
-  // ── Sports ──────────────────────────────────────────────────
-  {
-    id: 'retro-bowl',
-    name: 'Retro Bowl',
-    category: 'sports',
-    featured: true,
-    img: 'https://images.crazygames.com/games/retro-bowl/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/retro-bowl',   // /embed/ = just the game
-    embed: true,
-    color: '#1a1a0f'
-  },
-  {
-    id: 'basketball-stars',
-    name: 'Basketball Stars',
-    category: 'sports',
-    img: 'https://images.crazygames.com/games/basketball-stars/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/basketball-stars',
-    embed: true,
-    color: '#2a1a0f'
-  },
-  {
-    id: 'soccer-random',
-    name: 'Soccer Random',
-    category: 'sports',
-    img: 'https://images.crazygames.com/games/soccer-random/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/soccer-random',
-    embed: true,
-    color: '#0f2a0f'
-  },
-  {
-    id: 'bowmasters',
-    name: 'Bowmasters',
-    category: 'sports',
-    img: 'https://images.crazygames.com/games/bowmasters/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/bowmasters',
-    embed: true,
-    color: '#1a2a2a'
-  },
-  {
-    id: 'gladihoppers',
-    name: 'Gladihoppers',
-    category: 'sports',
-    img: 'https://images.crazygames.com/games/gladihoppers/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/gladihoppers',
-    embed: true,
-    color: '#2a1a0a'
-  },
+  // ── Sports ─────────────────────────────────────────────────
+  { id:'retro-bowl',       name:'Retro Bowl',          category:'sports',    featured:true,  img:CGI('retro-bowl'),                      url:CG+'retro-bowl',                      embed:true  },
+  { id:'retro-bowl-col',   name:'Retro Bowl College',  category:'sports',                   img:CGI('retro-bowl-college'),              url:CG+'retro-bowl-college',              embed:true  },
+  { id:'basketball-stars', name:'Basketball Stars',    category:'sports',                   img:CGI('basketball-stars'),                url:CG+'basketball-stars',                embed:true  },
+  { id:'soccer-random',    name:'Soccer Random',       category:'sports',                   img:CGI('soccer-random'),                   url:CG+'soccer-random',                   embed:true  },
+  { id:'bowmasters',       name:'Bowmasters',          category:'sports',                   img:CGI('bowmasters'),                      url:CG+'bowmasters',                      embed:true  },
+  { id:'gladihoppers',     name:'Gladihoppers',        category:'sports',                   img:CGI('gladihoppers'),                    url:CG+'gladihoppers',                    embed:true  },
+  { id:'boxing-random',    name:'Boxing Random',       category:'sports',                   img:CGI('boxing-random'),                   url:CG+'boxing-random',                   embed:true  },
+  { id:'basket-random',    name:'Basket Random',       category:'sports',                   img:CGI('basket-random'),                   url:CG+'basket-random',                   embed:true  },
+  { id:'basketball-frvr',  name:'Basketball Frvr',     category:'sports',                   img:CGI('basketball-frvr'),                 url:CG+'basketball-frvr',                 embed:true  },
+  { id:'basket-battle',    name:'Basket Battle',       category:'sports',                   img:CGI('basket-battle'),                   url:CG+'basket-battle',                   embed:true  },
+  { id:'archery-world',    name:'Archery World Tour',  category:'sports',                   img:CGI('archery-world-tour'),              url:CG+'archery-world-tour',              embed:true  },
+  { id:'line-rider',       name:'Line Rider',          category:'sports',                   img:CGI('line-rider'),                      url:CG+'line-rider',                      embed:true  },
 
-  // ── Racing ──────────────────────────────────────────────────
-  {
-    id: 'drift-hunters',
-    name: 'Drift Hunters',
-    category: 'racing',
-    featured: true,
-    img: 'https://images.crazygames.com/games/drift-hunters/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/drift-hunters',  // drifthunters.io was broken
-    embed: true,
-    color: '#1a0f0a'
-  },
-  {
-    id: 'madalin-cars',
-    name: 'Madalin Stunt Cars',
-    category: 'racing',
-    img: 'https://images.crazygames.com/games/madalin-stunt-cars-2/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/madalin-stunt-cars-2',
-    embed: true,
-    color: '#0f1a1a'
-  },
-  {
-    id: 'road-fury',
-    name: 'Road Fury',
-    category: 'racing',
-    img: 'https://images.crazygames.com/games/road-fury/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/road-fury',
-    embed: true,
-    color: '#2a0f0f'
-  },
+  // ── Racing ─────────────────────────────────────────────────
+  { id:'drift-hunters',    name:'Drift Hunters',       category:'racing',    featured:true,  img:CGI('drift-hunters'),                   url:CG+'drift-hunters',                   embed:true  },
+  { id:'madalin-cars',     name:'Madalin Stunt Cars',  category:'racing',                   img:CGI('madalin-stunt-cars-2'),            url:CG+'madalin-stunt-cars-2',            embed:true  },
+  { id:'cluster-rush',     name:'Cluster Rush',        category:'racing',    featured:true,  img:CGI('cluster-rush'),                    url:CG+'cluster-rush',                    embed:true  },
+  { id:'drive-mad',        name:'Drive Mad',           category:'racing',                   img:CGI('drive-mad'),                       url:CG+'drive-mad',                       embed:true  },
+  { id:'hill-climb-lite',  name:'Hill Climb Racing',   category:'racing',                   img:CGI('hill-climb-racing-lite'),          url:CG+'hill-climb-racing-lite',          embed:true  },
+  { id:'highway-racer-2',  name:'Highway Racer 2',     category:'racing',                   img:CGI('highway-racer-2'),                 url:CG+'highway-racer-2',                 embed:true  },
+  { id:'race-master-3d',   name:'Race Master 3D',      category:'racing',                   img:CGI('race-master-3d'),                  url:CG+'race-master-3d',                  embed:true  },
+  { id:'monster-tracks',   name:'Monster Tracks',      category:'racing',                   img:CGI('monster-tracks'),                  url:CG+'monster-tracks',                  embed:true  },
+  { id:'driven-wild',      name:'Driven Wild',         category:'racing',                   img:CGI('driven-wild'),                     url:CG+'driven-wild',                     embed:true  },
+  { id:'survival-race',    name:'Survival Race',       category:'racing',                   img:CGI('survival-race'),                   url:CG+'survival-race',                   embed:true  },
+  { id:'crazy-cars',       name:'Crazy Cars',          category:'racing',                   img:CGI('crazy-cars'),                      url:CG+'crazy-cars',                      embed:true  },
+  { id:'poly-track',       name:'Poly Track',          category:'racing',    featured:true,  img:CGI('polytrack'),                       url:'https://polytrack.kubz.dev',         embed:true  },
+  { id:'offroad-bike',     name:'Offroad Mountain Bike',category:'racing',                  img:CGI('offroad-mountain-bike'),           url:CG+'offroad-mountain-bike',           embed:true  },
+  { id:'snow-rider',       name:'Snow Rider 3D',       category:'racing',                   img:CGI('snow-rider-3d'),                   url:CG+'snow-rider-3d',                   embed:true  },
+  { id:'road-fury',        name:'Road Fury',           category:'racing',                   img:CGI('road-fury'),                       url:CG+'road-fury',                       embed:true  },
+  { id:'stunt-bike',       name:'Stunt Bike Extreme',  category:'racing',                   img:CGI('stunt-bike-extreme'),              url:CG+'stunt-bike-extreme',              embed:true  },
+  { id:'escape-road',      name:'Escape Road',         category:'racing',    featured:true,  img:CGI('escape-road'),                     url:CG+'escape-road',                     embed:true  },
+  { id:'parking-rush',     name:'Parking Rush',        category:'racing',                   img:CGI('parking-rush'),                    url:CG+'parking-rush',                    embed:true  },
 
-  // ── Puzzle ──────────────────────────────────────────────────
-  {
-    id: '2048',
-    name: '2048',
-    category: 'puzzle',
-    img: 'https://images.crazygames.com/games/2048/cover_16x9.png',
-    url: 'https://play2048.co',
-    embed: true,
-    color: '#2a1a0f'
-  },
-  {
-    id: 'minesweeper',
-    name: 'Minesweeper',
-    category: 'puzzle',
-    img: 'https://images.crazygames.com/games/minesweeper/cover_16x9.png',
-    url: 'https://minesweeper.online',
-    embed: true,
-    color: '#0f1a2a'
-  },
-  {
-    id: 'block-blast',
-    name: 'Block Blast',
-    category: 'puzzle',
-    img: 'https://images.crazygames.com/games/block-blast/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/block-blast',
-    embed: true,
-    color: '#0f2a2a'
-  },
-  {
-    id: 'wordle',
-    name: 'Wordle Unlimited',
-    category: 'puzzle',
-    img: 'https://images.crazygames.com/games/wordle-unlimited/cover_16x9.png',
-    url: 'https://wordleunlimited.org',
-    embed: true,
-    color: '#1a1a0f'
-  },
-  {
-    id: 'cut-the-rope',
-    name: 'Cut the Rope',
-    category: 'puzzle',
-    img: 'https://images.crazygames.com/games/cut-the-rope/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/cut-the-rope',
-    embed: true,
-    color: '#1a2a0f'
-  },
+  // ── Puzzle ─────────────────────────────────────────────────
+  { id:'2048',             name:'2048',                category:'puzzle',                   img:CGI('2048'),                            url:'https://play2048.co',                embed:true  },
+  { id:'minesweeper',      name:'Minesweeper',         category:'puzzle',                   img:CGI('minesweeper'),                     url:'https://minesweeper.online',         embed:true  },
+  { id:'block-blast',      name:'Block Blast',         category:'puzzle',                   img:CGI('block-blast'),                     url:CG+'block-blast',                     embed:true  },
+  { id:'wordle',           name:'Wordle Unlimited',    category:'puzzle',                   img:CGI('wordle-unlimited'),                url:'https://wordleunlimited.org',        embed:true  },
+  { id:'cut-the-rope',     name:'Cut the Rope',        category:'puzzle',                   img:CGI('cut-the-rope'),                    url:CG+'cut-the-rope',                    embed:true  },
+  { id:'coreball',         name:'Coreball',            category:'puzzle',                   img:CGI('coreball'),                        url:CG+'coreball',                        embed:true  },
+  { id:'amaze',            name:'Amaze',               category:'puzzle',                   img:CGI('amaze'),                           url:CG+'amaze',                           embed:true  },
+  { id:'color-water-3d',   name:'Color Water Sort 3D', category:'puzzle',                   img:CGI('color-water-sort-3d'),             url:CG+'color-water-sort-3d',             embed:true  },
+  { id:'tube-jumpers',     name:'Tube Jumpers',        category:'puzzle',                   img:CGI('tube-jumpers'),                    url:CG+'tube-jumpers',                    embed:true  },
+  { id:'dance-fire-ice',   name:'A Dance of Fire & Ice',category:'puzzle',                  img:CGI('a-dance-of-fire-and-ice'),         url:CG+'a-dance-of-fire-and-ice',         embed:true  },
+  { id:'draw-line',        name:'Draw the Line',       category:'puzzle',                   img:CGI('draw-the-line'),                   url:CG+'draw-the-line',                   embed:true  },
+  { id:'blumgi-slime',     name:'Blumgi Slime',        category:'puzzle',                   img:CGI('blumgi-slime'),                    url:CG+'blumgi-slime',                    embed:true  },
+  { id:'this-only-level',  name:'This Is The Only Level',category:'puzzle',                 img:CGI('this-is-the-only-level'),          url:CG+'this-is-the-only-level',          embed:true  },
+  { id:'this-only-level-2',name:'This Is The Only Level 2',category:'puzzle',               img:CGI('this-is-the-only-level-2'),        url:CG+'this-is-the-only-level-2',        embed:true  },
+  { id:'world-hardest-3',  name:"World's Hardest Game 3",category:'puzzle',                 img:CGI('the-worlds-hardest-game-3'),       url:CG+'the-worlds-hardest-game-3',       embed:true  },
+  { id:'world-hardest-4',  name:"World's Hardest Game 4",category:'puzzle',                 img:CGI('the-worlds-hardest-game-4'),       url:CG+'the-worlds-hardest-game-4',       embed:true  },
+  { id:'bazooka-boy',      name:'Bazooka Boy',         category:'puzzle',                   img:CGI('bazooka-boy'),                     url:CG+'bazooka-boy',                     embed:true  },
 
-  // ── Arcade ──────────────────────────────────────────────────
-  {
-    id: 'cookie-clicker',
-    name: 'Cookie Clicker',
-    category: 'arcade',
-    featured: true,
-    img: 'https://images.crazygames.com/games/cookie-clicker/cover_16x9.png',
-    url: 'https://orteil.dashnet.org/cookieclicker/',
-    embed: false,   // proxy spoofs origin - direct embed shows "wrong address" error
-    color: '#2a1a0a'
-  },
-  {
-    id: 'pac-man',
-    name: 'Pac-Man',
-    category: 'arcade',
-    img: 'https://images.crazygames.com/games/pacman/cover_16x9.png',
-    url: 'https://www.google.com/logos/2010/pacman10-i.html',
-    embed: true,
-    color: '#2a1a0f'
-  },
-  {
-    id: 'tetris',
-    name: 'Tetris',
-    category: 'arcade',
-    img: 'https://images.crazygames.com/games/tetris/cover_16x9.png',
-    url: 'https://jstris.jezevec10.com',
-    embed: true,
-    color: '#0f0f2a'
-  },
-  {
-    id: 'snake',
-    name: 'Snake',
-    category: 'arcade',
-    img: 'https://images.crazygames.com/games/snake/cover_16x9.png',
-    url: 'https://playsnake.org',
-    embed: true,
-    color: '#0f2a0f'
-  },
-  {
-    id: 'flappy-bird',
-    name: 'Flappy Bird',
-    category: 'arcade',
-    img: 'https://images.crazygames.com/games/flappy-bird/cover_16x9.png',
-    url: 'https://flappybird.io',
-    embed: true,
-    color: '#0f1a2a'
-  },
-  {
-    id: 'dino-game',
-    name: 'Dino Game',
-    category: 'arcade',
-    img: 'https://images.crazygames.com/games/chrome-dinosaur/cover_16x9.png',
-    url: 'https://chromedino.com',
-    embed: true,
-    color: '#2a2a2a'
-  },
-  {
-    id: 'tunnel-rush',
-    name: 'Tunnel Rush',
-    category: 'arcade',
-    img: 'https://images.crazygames.com/games/tunnel-rush/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/tunnel-rush',
-    embed: true,
-    color: '#1a0a2a'
-  },
+  // ── Arcade ─────────────────────────────────────────────────
+  { id:'cookie-clicker',   name:'Cookie Clicker',      category:'arcade',    featured:true,  img:CGI('cookie-clicker'),                  url:'https://orteil.dashnet.org/cookieclicker/', embed:false },
+  { id:'pac-man',          name:'Pac-Man',             category:'arcade',                   img:CGI('pacman'),                          url:'https://www.google.com/logos/2010/pacman10-i.html', embed:true },
+  { id:'tetris',           name:'Tetris',              category:'arcade',                   img:CGI('tetris'),                          url:'https://jstris.jezevec10.com',       embed:true  },
+  { id:'snake',            name:'Snake',               category:'arcade',                   img:CGI('snake'),                           url:'https://playsnake.org',              embed:true  },
+  { id:'flappy-bird',      name:'Flappy Bird',         category:'arcade',                   img:CGI('flappy-bird'),                     url:'https://flappybird.io',              embed:true  },
+  { id:'dino-game',        name:'Dino Game',           category:'arcade',                   img:CGI('chrome-dinosaur'),                 url:'https://chromedino.com',             embed:true  },
+  { id:'tunnel-rush',      name:'Tunnel Rush',         category:'arcade',                   img:CGI('tunnel-rush'),                     url:CG+'tunnel-rush',                     embed:true  },
+  { id:'tiny-fishing',     name:'Tiny Fishing',        category:'arcade',                   img:CGI('tiny-fishing'),                    url:CG+'tiny-fishing',                    embed:true  },
+  { id:'tomb-mask',        name:'Tomb of the Mask',    category:'arcade',                   img:CGI('tomb-of-the-mask'),                url:CG+'tomb-of-the-mask',                embed:true  },
+  { id:'toss-turtle',      name:'Toss The Turtle',     category:'arcade',                   img:CGI('toss-the-turtle'),                 url:CG+'toss-the-turtle',                 embed:true  },
+  { id:'ball-blast',       name:'Ball Blast',          category:'arcade',                   img:CGI('ball-blast'),                      url:CG+'ball-blast',                      embed:true  },
+  { id:'idle-ants',        name:'Idle Ants',           category:'arcade',                   img:CGI('idle-ants'),                       url:CG+'idle-ants',                       embed:true  },
+  { id:'ice-dodo',         name:'Ice Dodo',            category:'arcade',                   img:CGI('ice-dodo'),                        url:CG+'ice-dodo',                        embed:true  },
+  { id:'bottle-jump',      name:'Bottle Jump 3D',      category:'arcade',                   img:CGI('bottle-jump-3d'),                  url:CG+'bottle-jump-3d',                  embed:true  },
+  { id:'attack-hole',      name:'Attack Hole',         category:'arcade',                   img:CGI('attack-hole'),                     url:CG+'attack-hole',                     embed:true  },
+  { id:'stacky-dash',      name:'Stacky Dash',         category:'arcade',                   img:CGI('stacky-dash'),                     url:CG+'stacky-dash',                     embed:true  },
+  { id:'tall-man-run',     name:'Tall Man Run',        category:'arcade',                   img:CGI('tall-man-run'),                    url:CG+'tall-man-run',                    embed:true  },
+  { id:'turbo-stars',      name:'Turbo Stars',         category:'arcade',                   img:CGI('turbo-stars'),                     url:CG+'turbo-stars',                     embed:true  },
+  { id:'crossy-road',      name:'Crossy Road',         category:'arcade',                   img:CGI('crossy-road'),                     url:CG+'crossy-road',                     embed:true  },
+  { id:'fork-sausage',     name:'Fork N Sausage',      category:'arcade',                   img:CGI('fork-n-sausage'),                  url:CG+'fork-n-sausage',                  embed:true  },
+  { id:'flappy-dunk',      name:'Flappy Dunk',         category:'arcade',                   img:CGI('flappy-dunk'),                     url:CG+'flappy-dunk',                     embed:true  },
+  { id:'cannon-balls-3d',  name:'Cannon Balls 3D',     category:'arcade',                   img:CGI('cannon-balls-3d'),                 url:CG+'cannon-balls-3d',                 embed:true  },
+  { id:'gobble',           name:'Gobble',              category:'arcade',                   img:CGI('gobble'),                          url:CG+'gobble',                          embed:true  },
+  { id:'pou',              name:'Pou',                 category:'arcade',                   img:CGI('pou'),                             url:CG+'pou',                             embed:true  },
+  { id:'magic-tiles-3',    name:'Magic Tiles 3',       category:'arcade',                   img:CGI('magic-tiles-3'),                   url:CG+'magic-tiles-3',                   embed:true  },
+  { id:'burrito-bison',    name:'Burrito Bison',       category:'arcade',                   img:CGI('burrito-bison'),                   url:CG+'burrito-bison',                   embed:true  },
+  { id:'space-waves',      name:'Space Waves',         category:'arcade',                   img:CGI('space-waves'),                     url:CG+'space-waves',                     embed:true  },
+  { id:'solar-smash',      name:'Solar Smash',         category:'arcade',    featured:true,  img:CGI('solar-smash'),                     url:CG+'solar-smash',                     embed:true  },
+  { id:'slice-it-all',     name:'Slice it All',        category:'arcade',                   img:CGI('slice-it-all'),                    url:CG+'slice-it-all',                    embed:true  },
+  { id:'color-match',      name:'Color Match',         category:'arcade',                   img:CGI('color-match'),                     url:CG+'color-match',                     embed:true  },
+  { id:'dig-deep',         name:'Dig Deep',            category:'arcade',                   img:CGI('dig-deep'),                        url:CG+'dig-deep',                        embed:true  },
+  { id:'mob-control',      name:'Mob Control',         category:'arcade',                   img:CGI('mob-control'),                     url:CG+'mob-control',                     embed:true  },
+  { id:'hide-n-seek',      name:'Hide N Seek',         category:'arcade',                   img:CGI('hide-n-seek'),                     url:CG+'hide-n-seek',                     embed:true  },
+  { id:'bridge-race',      name:'Bridge Race',         category:'arcade',                   img:CGI('bridge-race'),                     url:CG+'bridge-race',                     embed:true  },
+  { id:'cannon-bball',     name:'Cannon Basketball',   category:'arcade',                   img:CGI('cannon-basketball'),               url:CG+'cannon-basketball',               embed:true  },
+  { id:'cannon-bball-2',   name:'Cannon Basketball 2', category:'arcade',                   img:CGI('cannon-basketball-2'),             url:CG+'cannon-basketball-2',             embed:true  },
+  { id:'ragdoll-hit',      name:'Ragdoll Hit',         category:'arcade',                   img:CGI('ragdoll-hit'),                     url:CG+'ragdoll-hit',                     embed:true  },
+  { id:'8-ball-pool',      name:'8 Ball Pool',         category:'arcade',                   img:CGI('8-ball-pool'),                     url:CG+'8-ball-pool',                     embed:true  },
+  { id:'8-ball-classic',   name:'8 Ball Classic',      category:'arcade',                   img:CGI('8-ball-billiards-classic'),        url:CG+'8-ball-billiards-classic',        embed:true  },
+  { id:'tower-crash-3d',   name:'Tower Crash 3D',      category:'arcade',                   img:CGI('tower-crash-3d'),                  url:CG+'tower-crash-3d',                  embed:true  },
+  { id:'guess-answer',     name:'Guess Their Answer',  category:'arcade',                   img:CGI('guess-their-answer'),              url:CG+'guess-their-answer',              embed:true  },
+  { id:'pac-man-super',    name:'Pac-Man Superfast',   category:'arcade',                   img:CGI('pac-man-superfast'),               url:CG+'pac-man-superfast',               embed:true  },
+  { id:'golf-orbit',       name:'Golf Orbit',          category:'arcade',                   img:CGI('golf-orbit'),                      url:CG+'golf-orbit',                      embed:true  },
+  { id:'bad-parenting',    name:'Bad Parenting',       category:'arcade',                   img:CGI('bad-parenting-1'),                 url:CG+'bad-parenting-1',                 embed:true  },
+  { id:'fashion-battle',   name:'Fashion Battle',      category:'arcade',                   img:CGI('fashion-battle'),                  url:CG+'fashion-battle',                  embed:true  },
+  { id:'sausage-flip',     name:'Sausage Flip',        category:'arcade',                   img:CGI('sausage-flip'),                    url:CG+'sausage-flip',                    embed:true  },
+  { id:'ragdoll-archers',  name:'Ragdoll Archers',     category:'arcade',                   img:CGI('ragdoll-archers'),                 url:CG+'ragdoll-archers',                 embed:true  },
+  { id:'sky-riders',       name:'Sky Riders',          category:'arcade',                   img:CGI('sky-riders'),                      url:CG+'sky-riders',                      embed:true  },
+  { id:'harvest-sim',      name:'Harvest Simulator',   category:'arcade',                   img:CGI('harvest-simulator'),               url:CG+'harvest-simulator',               embed:true  },
+  { id:'fortzone',         name:'Fortzone Battle Royale',category:'arcade',                 img:CGI('fortzone-battle-royale'),          url:CG+'fortzone-battle-royale',          embed:true  },
+  { id:'trivia-crack',     name:'Trivia Crack',        category:'arcade',                   img:CGI('trivia-crack'),                    url:CG+'trivia-crack',                    embed:true  },
+  { id:'supreme-duelist',  name:'Supreme Duelist',     category:'arcade',                   img:CGI('supreme-duelist-stickman'),        url:CG+'supreme-duelist-stickman',        embed:true  },
+  { id:'blade-ball',       name:'Blade Ball',          category:'arcade',                   img:CGI('blade-ball'),                      url:CG+'blade-ball',                      embed:true  },
+  { id:'blocky-snakes',    name:'Blocky Snakes',       category:'arcade',                   img:CGI('blocky-snakes'),                   url:CG+'blocky-snakes',                   embed:true  },
 
-  // ── Strategy ────────────────────────────────────────────────
-  {
-    id: 'bloons-td',
-    name: 'Bloons TD 5',
-    category: 'strategy',
-    img: 'https://images.crazygames.com/games/bloons-tower-defense-5/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/bloons-tower-defense-5',
-    embed: true,
-    color: '#0f1a2a'
-  },
-  {
-    id: 'chess',
-    name: 'Chess',
-    category: 'strategy',
-    img: 'https://images.crazygames.com/games/chess/cover_16x9.png',
-    url: 'https://lichess.org',
-    embed: true,
-    color: '#1a1a1a'
-  },
-  {
-    id: 'kingdom-rush',
-    name: 'Kingdom Rush',
-    category: 'strategy',
-    img: 'https://images.crazygames.com/games/kingdom-rush/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/kingdom-rush',
-    embed: true,
-    color: '#1a0f0a'
-  },
+  // ── Strategy ───────────────────────────────────────────────
+  { id:'chess',            name:'Chess',               category:'strategy',                 img:CGI('chess'),                           url:'https://lichess.org',                embed:true  },
+  { id:'kingdom-rush',     name:'Kingdom Rush',        category:'strategy',                 img:CGI('kingdom-rush'),                    url:CG+'kingdom-rush',                    embed:true  },
+  { id:'bloons-td-2',      name:'Bloons TD 2',         category:'strategy',                 img:CGI('bloons-tower-defense-2'),          url:CG+'bloons-tower-defense-2',          embed:true  },
+  { id:'bloons-td-4',      name:'Bloons TD 4',         category:'strategy',                 img:CGI('bloons-tower-defense-4'),          url:CG+'bloons-tower-defense-4',          embed:true  },
+  { id:'achiev-1',         name:'Achievement Unlocked',category:'strategy',                 img:CGI('achievement-unlocked'),            url:CG+'achievement-unlocked',            embed:true  },
+  { id:'achiev-2',         name:'Achievement Unlocked 2',category:'strategy',               img:CGI('achievement-unlocked-2'),          url:CG+'achievement-unlocked-2',          embed:true  },
+  { id:'achiev-3',         name:'Achievement Unlocked 3',category:'strategy',               img:CGI('achievement-unlocked-3'),          url:CG+'achievement-unlocked-3',          embed:true  },
+  { id:'big-tower-1',      name:'Big Tower Tiny Square',category:'strategy',                img:CGI('big-tower-tiny-square'),           url:CG+'big-tower-tiny-square',           embed:true  },
+  { id:'big-tower-2',      name:'Big Tower Tiny Square 2',category:'strategy',              img:CGI('big-tower-tiny-square-2'),         url:CG+'big-tower-tiny-square-2',         embed:true  },
+  { id:'big-neon-tower',   name:'Big NEON Tower',      category:'strategy',                 img:CGI('big-neon-tower-tiny-square'),      url:CG+'big-neon-tower-tiny-square',      embed:true  },
+  { id:'big-ice-tower',    name:'Big ICE Tower',       category:'strategy',                 img:CGI('big-ice-tower-tiny-square'),       url:CG+'big-ice-tower-tiny-square',       embed:true  },
 
-  // ── Runner ──────────────────────────────────────────────────
-  {
-    id: 'temple-run-2',
-    name: 'Temple Run 2',
-    category: 'runner',
-    featured: true,
-    img: 'https://images.crazygames.com/games/temple-run-2/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/temple-run-2',   // /embed/ = game only, no CG nav
-    embed: true,
-    color: '#1a0f0a'
-  },
-  {
-    id: 'subway-surfers',
-    name: 'Subway Surfers',
-    category: 'runner',
-    featured: true,
-    img: 'https://images.crazygames.com/games/subway-surfers/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/subway-surfers',
-    embed: true,
-    color: '#1a0a2a'
-  },
-  {
-    id: 'endless-truck',
-    name: 'Endless Truck',
-    category: 'runner',
-    img: 'https://images.crazygames.com/games/endless-truck/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/endless-truck',
-    embed: true,
-    color: '#2a1a0f'
-  },
-  {
-    id: 'jetpack-joyride',
-    name: 'Jetpack Joyride',
-    category: 'runner',
-    img: 'https://images.crazygames.com/games/jetpack-joyride/cover_16x9.png',
-    url: 'https://www.crazygames.com/embed/jetpack-joyride',
-    embed: true,
-    color: '#0a1a2a'
-  },
+  // ── Runner ─────────────────────────────────────────────────
+  { id:'temple-run-2',     name:'Temple Run 2',        category:'runner',    featured:true,  img:CGI('temple-run-2'),                    url:CG+'temple-run-2',                    embed:true  },
+  { id:'subway-surfers',   name:'Subway Surfers',      category:'runner',    featured:true,  img:CGI('subway-surfers'),                  url:CG+'subway-surfers',                  embed:true  },
+  { id:'endless-truck',    name:'Endless Truck',       category:'runner',                   img:CGI('endless-truck'),                   url:CG+'endless-truck',                   embed:true  },
+  { id:'jetpack-joyride',  name:'Jetpack Joyride',     category:'runner',                   img:CGI('jetpack-joyride'),                 url:CG+'jetpack-joyride',                 embed:true  },
 
-  // ── Rhythm / Music ──────────────────────────────────────────
-  {
-    id: 'friday-night-funkin',
-    name: 'Friday Night Funkin',
-    category: 'rhythm',
-    featured: true,
-    img: 'https://images.crazygames.com/games/friday-night-funkin/cover_16x9.png',
-    url: 'https://funkin.me',   // official FNF web port - fnf.lol was broken
-    embed: true,
-    color: '#2a0f2a'
-  },
-  {
-    id: 'sprunki',
-    name: 'Sprunki',
-    category: 'rhythm',
-    img: 'https://images.crazygames.com/games/sprunki/cover_16x9.png',
-    url: 'https://sprunki.io',
-    embed: true,
-    color: '#1a1a2a'
-  },
+  // ── Rhythm ─────────────────────────────────────────────────
+  { id:'friday-night-funkin',name:'Friday Night Funkin',category:'rhythm',  featured:true,  img:CGI('friday-night-funkin'),             url:'https://funkin.me',                  embed:true  },
+  { id:'sprunki',          name:'Sprunki',             category:'rhythm',    featured:true,  img:CGI('sprunki'),                         url:'https://sprunki.io',                 embed:true  },
+  { id:'geometry-dash',    name:'Geometry Dash Lite',  category:'rhythm',                   img:CGI('geometry-dash-lite'),              url:CG+'geometry-dash-lite',              embed:true  },
+  { id:'bitlife',          name:'BitLife',             category:'rhythm',                   img:CGI('bitlife'),                         url:CG+'bitlife',                         embed:true  },
 
-  // ── Multiplayer ─────────────────────────────────────────────
-  {
-    id: 'minecraft',
-    name: '1.12.2 Eaglercraft',
-    category: 'multiplayer',
-    featured: true,
-    img: 'https://images.crazygames.com/games/minecraft-classic/cover_16x9.png',
-    url: '/minecraft.html',
-    embed: true,
-    color: '#1a2a0f'
-  },
-  {
-    id: 'gartic-phone',
-    name: 'Gartic Phone',
-    category: 'multiplayer',
-    img: 'https://images.crazygames.com/games/gartic-phone/cover_16x9.png',
-    url: 'https://garticphone.com',
-    embed: true,
-    color: '#0f1a2a'
-  },
-  {
-    id: 'skribbl-multi',
-    name: 'Skribbl.io',
-    category: 'multiplayer',
-    img: 'https://images.crazygames.com/games/skribbl-io/cover_16x9.png',
-    url: 'https://skribbl.io',
-    embed: true,   // direct - Socket.IO needs direct WebSocket, not proxied
-    color: '#1a0a2a'
-  },
+  // ── Horror ─────────────────────────────────────────────────
+  { id:'fnaf-1',           name:"Five Nights at Freddy's",category:'horror', featured:true, img:CGI('five-nights-at-freddys'),          url:CG+'five-nights-at-freddys',          embed:true  },
+  { id:'fnaf-2',           name:"Five Nights at Freddy's 2",category:'horror',              img:CGI('five-nights-at-freddys-2'),        url:CG+'five-nights-at-freddys-2',        embed:true  },
+  { id:'fnaf-3',           name:"Five Nights at Freddy's 3",category:'horror',              img:CGI('five-nights-at-freddys-3'),        url:CG+'five-nights-at-freddys-3',        embed:true  },
+  { id:'fnaf-4',           name:"Five Nights at Freddy's 4",category:'horror',              img:CGI('five-nights-at-freddys-4'),        url:CG+'five-nights-at-freddys-4',        embed:true  },
+  { id:'granny-1',         name:'Granny',              category:'horror',                   img:CGI('granny'),                          url:CG+'granny',                          embed:true  },
+  { id:'granny-2',         name:'Granny 2',            category:'horror',                   img:CGI('granny-2'),                        url:CG+'granny-2',                        embed:true  },
+  { id:'granny-3',         name:'Granny 3',            category:'horror',                   img:CGI('granny-3'),                        url:CG+'granny-3',                        embed:true  },
+  { id:'backrooms',        name:'Backrooms',           category:'horror',                   img:CGI('backrooms'),                       url:CG+'backrooms',                       embed:true  },
+  { id:'baldis-basics',    name:"Baldi's Basics",      category:'horror',                   img:CGI('baldis-basics-online'),            url:CG+'baldis-basics-online',            embed:true  },
+
+  // ── Multiplayer ────────────────────────────────────────────
+  { id:'minecraft',        name:'1.12.2 Eaglercraft',  category:'multiplayer',featured:true, img:CGI('minecraft-classic'),              url:'/minecraft.html',                    embed:true  },
+  { id:'gartic-phone',     name:'Gartic Phone',        category:'multiplayer',              img:CGI('gartic-phone'),                    url:'https://garticphone.com',            embed:true  },
+  { id:'skribbl-multi',    name:'Skribbl.io',          category:'multiplayer',              img:CGI('skribbl-io'),                      url:'https://skribbl.io',                 embed:true  },
+  { id:'angry-birds',      name:'Angry Birds',         category:'multiplayer',              img:CGI('angry-birds-reloaded'),            url:CG+'angry-birds-reloaded',            embed:true  },
 ];

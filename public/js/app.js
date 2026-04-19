@@ -201,9 +201,14 @@ catBtns.forEach(btn => {
 
 /* ── Search ─────────────────────────────────────────────────── */
 searchInput.addEventListener('input', () => {
+  // Auto-switch to Games page so results are always visible
+  if (searchInput.value.trim()) {
+    navItems.forEach(n => n.classList.remove('active'));
+    document.querySelector('.nav-item[data-page="games"]').classList.add('active');
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-games').classList.add('active');
+  }
   renderAllGames(activeCategory, searchInput.value);
-  // Also filter home grids
-  renderHome(searchInput.value);
 });
 
 /* ── Render functions ───────────────────────────────────────── */
@@ -236,6 +241,10 @@ function init() {
   gameCountEl.textContent = GAMES.length + ' games';
   renderHome();
   renderAllGames();
+  // Ensure Games nav item is highlighted on load
+  navItems.forEach(n => n.classList.remove('active'));
+  const gamesNav = document.querySelector('.nav-item[data-page="games"]');
+  if (gamesNav) gamesNav.classList.add('active');
 }
 init();
 
