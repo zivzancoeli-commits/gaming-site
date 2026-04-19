@@ -85,6 +85,27 @@ const closeSettings  = document.getElementById('close-settings');
 const saveSettings   = document.getElementById('save-settings');
 
 /* ── Navigation ─────────────────────────────────────────────── */
+const homeSection = document.getElementById('page-home');
+
+function showPage(page) {
+  navItems.forEach(n => n.classList.remove('active'));
+  const navEl = document.querySelector(`.nav-item[data-page="${page}"]`);
+  if (navEl) navEl.classList.add('active');
+
+  // Hide every page section
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+
+  // Show the target page
+  const target = document.getElementById('page-' + page);
+  if (target) {
+    target.classList.add('active');
+    target.style.display = page === 'home' ? 'flex' : 'block';
+  }
+}
+
 navItems.forEach(item => {
   const page = item.dataset.page;
   if (page === 'browse' || page === 'music' || page === 'links') return;
@@ -92,13 +113,12 @@ navItems.forEach(item => {
   item.querySelector('.nav-link').addEventListener('click', (e) => {
     if (page === 'settings') { openSettings(); return; }
     e.preventDefault();
-    navItems.forEach(n => n.classList.remove('active'));
-    item.classList.add('active');
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + page);
-    if (target) target.classList.add('active');
+    showPage(page);
   });
 });
+
+// Apply correct initial state on load (home is default)
+showPage('home');
 
 /* ── Build a game card element ──────────────────────────────── */
 function buildCard(game) {
@@ -222,12 +242,7 @@ catBtns.forEach(btn => {
 /* ── Search ─────────────────────────────────────────────────── */
 searchInput.addEventListener('input', () => {
   // Auto-switch to Games page so results are always visible
-  if (searchInput.value.trim()) {
-    navItems.forEach(n => n.classList.remove('active'));
-    document.querySelector('.nav-item[data-page="games"]').classList.add('active');
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-games').classList.add('active');
-  }
+  if (searchInput.value.trim()) showPage('games');
   renderAllGames(activeCategory, searchInput.value);
 });
 

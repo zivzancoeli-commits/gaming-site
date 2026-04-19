@@ -517,12 +517,9 @@ input, select { color: inherit; font: inherit; }
 /* ── Splash / Home ──────────────────────────────────────────── */
 #page-home {
   background: #000;
-  height: calc(100vh - 60px); /* fill content area without fixed positioning */
+  height: calc(100vh - 60px);
   align-items: center;
   justify-content: center;
-}
-#page-home.active {
-  display: flex !important; /* override .page.active { display: block } */
 }
 /* Hide search bar & banner ad on home page */
 body:has(#page-home.active) .topbar,
