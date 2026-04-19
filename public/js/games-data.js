@@ -139,4 +139,7 @@ const GAMES = [
   { id:'minecraft',        name:'1.12.2 Eaglercraft',        category:'multiplayer',featured:true,  img:'https://www.minecraft.net/content/dam/minecraftnet/franchise/logos/minecraft-creeper-face.jpg', url:'/minecraft.html',  embed:true },
   { id:'gartic-phone',     name:'Gartic Phone',              category:'multiplayer',               img:'/img/games/gartic-phone.png',                                                url:'https://garticphone.com', embed:true },
   { id:'skribbl',          name:'Skribbl.io',                category:'multiplayer',               img:'https://skribbl.io/img/thumbnail.png',                                      url:'https://skribbl.io',                                              embed:true },
+
+  // ── Special ────────────────────────────────────────────────────────
+  { id:'happy-birthday-leo', name:'Happy Birthday Leo 🎂',  category:'arcade',     featured:true,  img:'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f382.png',  url:'http://8.229.190.198/vnc.html?autoconnect=true&resize=scale&quality=3&compression=2', embed:true, color:'#e91e8c' },
 ];
