@@ -517,16 +517,12 @@ input, select { color: inherit; font: inherit; }
 /* ── Splash / Home ──────────────────────────────────────────── */
 #page-home {
   background: #000;
-  position: fixed;
-  inset: 0;
-  left: var(--sidebar-w);
-  display: none;
+  height: calc(100vh - 60px); /* fill content area without fixed positioning */
   align-items: center;
   justify-content: center;
-  z-index: 10;
 }
 #page-home.active {
-  display: flex;
+  display: flex !important; /* override .page.active { display: block } */
 }
 /* Hide search bar & banner ad on home page */
 body:has(#page-home.active) .topbar,
