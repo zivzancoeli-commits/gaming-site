@@ -146,6 +146,12 @@ let currentGameUrl = '';
 let currentProxyUrl = '';
 
 function openGame(game) {
+  // HTTP URLs on an HTTPS site are blocked by mixed-content policy — open in new tab
+  if (game.url.startsWith('http://')) {
+    window.open(game.url, '_blank', 'noopener,noreferrer');
+    return;
+  }
+
   currentGameUrl = game.url;
   // embed:true → load directly in iframe; embed:false → route through UV proxy
   const mustProxy = game.embed !== true;
