@@ -10,6 +10,9 @@ const UBP  = 'https://unblockedgamespremium.github.io/';
 
 const GAMES = [
 
+  // ── Requests ───────────────────────────────────────────────────────
+  { id:'requests', name:'🎮 Request a Game', category:'all', featured:true, img:'https://ssl.gstatic.com/docs/forms/device_home/android_192.png', url:'https://docs.google.com/forms/d/e/1FAIpQLSeJ2rPzb6QtNdnFUm-xLdPSEOGNaPczmNz1UDW-e3rs0ROBLQ/viewform?usp=publish-editor', embed:false },
+
   // ── Shooter ────────────────────────────────────────────────────────
   { id:'shell-shockers',   name:'Shell Shockers',           category:'shooter',    featured:true,  img:'https://www.shellshock.io/img/previewImage_shellShockers.webp',              url:'https://shellshock.io',                                           embed:false },
   { id:'krunker',          name:'Krunker.io',               category:'shooter',    featured:true,  img:'https://assets.krunker.io/promo/og.png',                                    url:'https://krunker.io',                                              embed:false },
