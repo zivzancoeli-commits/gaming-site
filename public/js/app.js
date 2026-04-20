@@ -174,13 +174,15 @@ function openGame(game) {
     return;
   }
 
-  const proxyUrl = encodeProxyUrl(game.url);
+  // Build absolute proxy URL — relative paths don't resolve in about:blank context
+  const rawProxy = encodeProxyUrl(game.url);
+  const proxyUrl = rawProxy.startsWith('http') ? rawProxy : window.location.origin + rawProxy;
 
   // ── About:blank cloaking ──────────────────────────────────────────
   // Open an about:blank popup and write the game iframe into it.
   // GoGuardian only sees "about:blank" — no URL to block or flag.
   // The current tab then navigates to Google Classroom as a cover.
-  const popup = window.open('', '_blank');
+  const popup = window.open('about:blank', '_blank');
   if (popup) {
     popup.document.open();
     popup.document.write(`<!DOCTYPE html>
