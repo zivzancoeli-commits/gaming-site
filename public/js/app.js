@@ -172,18 +172,18 @@ let currentGameUrl = '';
 let currentProxyUrl = '';
 
 function openGame(game) {
-  // HTTP URLs on an HTTPS site can't be proxied — open in new tab
+  // HTTP URLs can't load on an HTTPS site — open in new tab
   if (game.url.startsWith('http://')) {
     window.open(game.url, '_blank', 'noopener,noreferrer');
     return;
   }
-  // External links (Requests form, etc.) — open directly in new tab
-  if (game.embed === false && game.url.startsWith('https://docs.google.com')) {
+  // External links (Google Forms, etc.) — open in new tab
+  if (game.url.startsWith('https://docs.google.com') || game.url.startsWith('https://forms.')) {
     window.open(game.url, '_blank', 'noopener,noreferrer');
     return;
   }
-  // Send all games through the proxy page so it looks like normal browsing
-  window.location.href = '/proxy.html?url=' + encodeURIComponent(game.url);
+  // Load game directly in fullscreen iframe — much faster than UV proxy
+  window.location.href = '/game.html?url=' + encodeURIComponent(game.url) + '&name=' + encodeURIComponent(game.name);
 }
 
 function startGame() {

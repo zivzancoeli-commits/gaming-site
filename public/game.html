@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google</title>
+  <link rel="icon" type="image/png" href="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    #game-frame {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    #back-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 36px;
+      background: rgba(10,11,26,0.92);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 10px;
+      z-index: 9999;
+      transform: translateY(-100%);
+      transition: transform 0.2s;
+    }
+    body:hover #back-bar { transform: translateY(0); }
+    #back-bar a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-family: system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      background: #7c3aed;
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+    #back-bar span {
+      color: #94a3b8;
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div id="back-bar">
+    <a href="/">← Home</a>
+    <span id="game-title"></span>
+  </div>
+  <iframe id="game-frame" allowfullscreen allow="fullscreen *; autoplay *; pointer-lock *; clipboard-read *; clipboard-write *"></iframe>
+
+  <script>
+    // Apply tab cloak from settings
+    try {
+      const s = JSON.parse(localStorage.getItem('gs-settings') || '{}');
+      if (s.tabTitle) document.title = s.tabTitle;
+      if (s.tabFavicon) {
+        const FAVICON_MAP = {
+          docs: 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico',
+          classroom: 'https://ssl.gstatic.com/classroom/favicon.png',
+          drive: 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png',
+          slides: 'https://ssl.gstatic.com/docs/presentations/images/favicon5.ico',
+          sheets: 'https://ssl.gstatic.com/docs/spreadsheets/favicon3.ico',
+          forms: 'https://ssl.gstatic.com/docs/forms/device_home/android_192.png',
+          meet: 'https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-32dp/logo_meet_2020q4_color_2x_web_32dp.png',
+          khan: 'https://cdn.kastatic.org/images/favicon.ico',
+          studentvue: 'https://www.studentvue.com/favicon.ico',
+          bigideas: 'https://www.bigideasmath.com/favicon.ico',
+          ixl: 'https://www.ixl.com/favicon.ico',
+          desmos: 'https://www.desmos.com/favicon.ico',
+          quizlet: 'https://quizlet.com/favicon.ico',
+          canvas: 'https://du11hjcvx0ubn.cloudfront.net/dist/images/favicon-e10d657a73.ico',
+          schoology: 'https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico',
+          duolingo: 'https://www.duolingo.com/favicon.ico',
+          wikipedia: 'https://www.wikipedia.org/static/favicon/wikipedia.ico',
+        };
+        const link = document.querySelector("link[rel~='icon']");
+        if (link && FAVICON_MAP[s.tabFavicon]) link.href = FAVICON_MAP[s.tabFavicon];
+      }
+    } catch {}
+
+    // Panic key
+    try {
+      const s = JSON.parse(localStorage.getItem('gs-settings') || '{}');
+      const panicKey = s.panicKey || 'Escape';
+      const panicUrl = s.panicUrl || 'https://drive.google.com';
+      document.addEventListener('keydown', e => {
+        if (e.key === panicKey) window.location.replace(panicUrl);
+      });
+    } catch {}
+
+    // Load game from ?url= param
+    const params = new URLSearchParams(location.search);
+    const url = params.get('url');
+    const name = params.get('name') || '';
+    if (url) {
+      document.getElementById('game-frame').src = url;
+      document.getElementById('game-title').textContent = name;
+    } else {
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>
