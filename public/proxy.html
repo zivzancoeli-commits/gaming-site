@@ -251,6 +251,10 @@
   <iframe id="proxy-frame" src="" allowfullscreen allow="fullscreen *; autoplay *; clipboard-read *; clipboard-write *"></iframe>
 
   <script>
+    // Clear any old about:blank cloak flags
+    localStorage.removeItem('gsAboutBlank');
+    localStorage.removeItem('aboutBlank');
+
     // Register UV service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/uv/sw.js', { scope: '/service/' })

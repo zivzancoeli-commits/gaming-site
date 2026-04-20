@@ -1,3 +1,7 @@
+/* ── Clean up old about:blank cloak flag if present ────────── */
+localStorage.removeItem('gsAboutBlank');
+localStorage.removeItem('aboutBlank');
+
 /* ── Settings & cloaking ────────────────────────────────────── */
 const DEFAULT_SETTINGS = {
   panicKey: 'Escape',
