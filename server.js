@@ -1,5 +1,6 @@
 import { createServer } from 'http';
 import express from 'express';
+import compression from 'compression';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { existsSync } from 'fs';
@@ -8,6 +9,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+// Compress all responses (gzip/brotli) — biggest single speed win
+app.use(compression({ level: 6 }));
 
 // Try to load bare server (proxy support) — optional, site works without it
 let bareServer = null;
@@ -94,8 +98,16 @@ const epoxyPath   = join(__dirname, 'node_modules/@mercuryworkshop/epoxy-transpo
 if (existsSync(baremuxPath)) { app.use('/baremux/', express.static(baremuxPath)); console.log('bare-mux served'); }
 if (existsSync(epoxyPath))   { app.use('/epoxy/',   express.static(epoxyPath));   console.log('epoxy served'); }
 
-// Serve public files
-app.use(express.static(join(__dirname, 'public')));
+// Serve public files — cache images/fonts/JS/CSS for 1 hour, HTML never cached
+app.use(express.static(join(__dirname, 'public'), {
+  setHeaders(res, filePath) {
+    if (/\.(js|css|png|webp|jpg|jpeg|gif|ico|woff2|woff|ttf)$/i.test(filePath)) {
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+    } else {
+      res.setHeader('Cache-Control', 'no-cache');
+    }
+  }
+}));
 
 // Routes
 app.get('/', (req, res) =>
