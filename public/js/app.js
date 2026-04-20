@@ -1,26 +1,30 @@
 /* ── About:blank site cloak ─────────────────────────────────── */
-// If the user enabled stealth mode, load the whole site inside an
-// about:blank popup and send the original tab to Google.
+// Automatically fires on every page load (unless disabled in Settings).
+// Opens the entire site inside an about:blank popup titled "Google Drive"
+// and sends the original tab to google.com — GoGuardian sees nothing blockable.
 (function () {
   let inFrame;
   try { inFrame = window !== window.top; } catch (e) { inFrame = true; }
+  // Don't run inside an iframe (prevents infinite loop) or Firefox
   if (inFrame || navigator.userAgent.includes('Firefox')) return;
+  // Default to enabled on first visit
+  if (localStorage.getItem('gsAboutBlank') === null) {
+    localStorage.setItem('gsAboutBlank', 'true');
+  }
   if (localStorage.getItem('gsAboutBlank') !== 'true') return;
 
   const popup = window.open('about:blank', '_blank');
-  if (!popup || popup.closed) {
-    alert('Please allow popups for this site, then click "Open Popup" in Settings again.');
-    return;
-  }
+  if (!popup || popup.closed) return; // popup blocked — fail silently, site still works
+
   popup.document.title = 'My Drive - Google Drive';
   const ico = popup.document.createElement('link');
   ico.rel = 'icon';
   ico.href = 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png';
   popup.document.head.appendChild(ico);
+  popup.document.body.style.cssText = 'margin:0;padding:0;overflow:hidden;background:#000;';
   const iframe = popup.document.createElement('iframe');
   iframe.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:none;margin:0;';
   iframe.src = location.href;
-  popup.document.body.style.cssText = 'margin:0;padding:0;overflow:hidden;';
   popup.document.body.appendChild(iframe);
   location.replace('https://www.google.com');
 })();
@@ -311,11 +315,23 @@ function openSettings() {
 
 settingsBtn.addEventListener('click', (e) => { e.preventDefault(); openSettings(); });
 
-// Stealth mode button — sets flag then reloads so the cloak fires on fresh load
-document.getElementById('open-popup-btn').addEventListener('click', () => {
-  localStorage.setItem('gsAboutBlank', 'true');
-  settingsModal.classList.remove('open');
-  location.reload();
+// Stealth mode toggle button
+const popupBtn = document.getElementById('open-popup-btn');
+function updatePopupBtn() {
+  const on = localStorage.getItem('gsAboutBlank') !== 'false';
+  popupBtn.textContent = on ? '🕵️ Stealth Mode: ON' : '🕵️ Stealth Mode: OFF';
+  popupBtn.style.background = on ? '#16a34a' : '#475569';
+}
+updatePopupBtn();
+popupBtn.addEventListener('click', () => {
+  const current = localStorage.getItem('gsAboutBlank') !== 'false';
+  localStorage.setItem('gsAboutBlank', current ? 'false' : 'true');
+  updatePopupBtn();
+  if (!current) {
+    // Just turned ON — reload so it fires immediately
+    settingsModal.classList.remove('open');
+    location.reload();
+  }
 });
 closeSettings.addEventListener('click', () => settingsModal.classList.remove('open'));
 settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) settingsModal.classList.remove('open'); });
