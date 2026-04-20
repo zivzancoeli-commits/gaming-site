@@ -1,40 +1,9 @@
-/* ── About:blank site cloak ─────────────────────────────────── */
-// Automatically fires on every page load (unless disabled in Settings).
-// Opens the entire site inside an about:blank popup titled "Google Drive"
-// and sends the original tab to google.com — GoGuardian sees nothing blockable.
-(function () {
-  let inFrame;
-  try { inFrame = window !== window.top; } catch (e) { inFrame = true; }
-  // Don't run inside an iframe (prevents infinite loop) or Firefox
-  if (inFrame || navigator.userAgent.includes('Firefox')) return;
-  // Default to enabled on first visit
-  if (localStorage.getItem('gsAboutBlank') === null) {
-    localStorage.setItem('gsAboutBlank', 'true');
-  }
-  if (localStorage.getItem('gsAboutBlank') !== 'true') return;
-
-  const popup = window.open('about:blank', '_blank');
-  if (!popup || popup.closed) return; // popup blocked — fail silently, site still works
-
-  popup.document.title = 'My Drive - Google Drive';
-  const ico = popup.document.createElement('link');
-  ico.rel = 'icon';
-  ico.href = 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png';
-  popup.document.head.appendChild(ico);
-  popup.document.body.style.cssText = 'margin:0;padding:0;overflow:hidden;background:#000;';
-  const iframe = popup.document.createElement('iframe');
-  iframe.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:none;margin:0;';
-  iframe.src = location.href;
-  popup.document.body.appendChild(iframe);
-  location.replace('https://www.google.com');
-})();
-
 /* ── Settings & cloaking ────────────────────────────────────── */
 const DEFAULT_SETTINGS = {
   panicKey: 'Escape',
-  panicUrl: 'https://classroom.google.com',
-  tabTitle: 'Google Classroom',
-  tabFavicon: 'classroom',
+  panicUrl: 'https://drive.google.com',
+  tabTitle: 'My Drive - Google Drive',
+  tabFavicon: 'drive',
 };
 
 const FAVICON_MAP = {
@@ -199,28 +168,18 @@ let currentGameUrl = '';
 let currentProxyUrl = '';
 
 function openGame(game) {
-  // HTTP URLs on an HTTPS site are blocked by mixed-content policy — open in new tab
+  // HTTP URLs on an HTTPS site can't be proxied — open in new tab
   if (game.url.startsWith('http://')) {
     window.open(game.url, '_blank', 'noopener,noreferrer');
     return;
   }
-
-  currentGameUrl = game.url;
-  const mustProxy = game.embed !== true;
-  currentProxyUrl = mustProxy ? encodeProxyUrl(game.url) : game.url;
-
-  gameFrame.src = '';
-  gameFrame.classList.remove('active');
-  gameOverlay.classList.remove('hidden');
-
-  modalTitle.textContent = game.name;
-  overlayTitle.textContent = game.name;
-  overlayThumb.src = game.img || '';
-  overlayThumb.onerror = () => { overlayThumb.style.display = 'none'; };
-
-  gameModal.classList.add('open');
-  modalBackdrop.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  // External links (Requests form, etc.) — open directly in new tab
+  if (game.embed === false && game.url.startsWith('https://docs.google.com')) {
+    window.open(game.url, '_blank', 'noopener,noreferrer');
+    return;
+  }
+  // Send all games through the proxy page so it looks like normal browsing
+  window.location.href = '/proxy.html?url=' + encodeURIComponent(game.url);
 }
 
 function startGame() {
@@ -315,24 +274,6 @@ function openSettings() {
 
 settingsBtn.addEventListener('click', (e) => { e.preventDefault(); openSettings(); });
 
-// Stealth mode toggle button
-const popupBtn = document.getElementById('open-popup-btn');
-function updatePopupBtn() {
-  const on = localStorage.getItem('gsAboutBlank') !== 'false';
-  popupBtn.textContent = on ? '🕵️ Stealth Mode: ON' : '🕵️ Stealth Mode: OFF';
-  popupBtn.style.background = on ? '#16a34a' : '#475569';
-}
-updatePopupBtn();
-popupBtn.addEventListener('click', () => {
-  const current = localStorage.getItem('gsAboutBlank') !== 'false';
-  localStorage.setItem('gsAboutBlank', current ? 'false' : 'true');
-  updatePopupBtn();
-  if (!current) {
-    // Just turned ON — reload so it fires immediately
-    settingsModal.classList.remove('open');
-    location.reload();
-  }
-});
 closeSettings.addEventListener('click', () => settingsModal.classList.remove('open'));
 settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) settingsModal.classList.remove('open'); });
 
