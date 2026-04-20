@@ -2,8 +2,8 @@
 const DEFAULT_SETTINGS = {
   panicKey: 'Escape',
   panicUrl: 'https://classroom.google.com',
-  tabTitle: 'Study Hub',
-  tabFavicon: 'docs',
+  tabTitle: 'Google Classroom',
+  tabFavicon: 'classroom',
 };
 
 const FAVICON_MAP = {
