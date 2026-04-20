@@ -255,11 +255,35 @@
     localStorage.removeItem('gsAboutBlank');
     localStorage.removeItem('aboutBlank');
 
-    // Register UV service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/uv/sw.js', { scope: '/service/' })
-        .catch(err => console.warn('SW registration failed:', err));
+    // Register UV service worker and wait until it's active before loading any URL
+    let swReady = false;
+    async function registerSW() {
+      if (!('serviceWorker' in navigator)) { swReady = true; return; }
+      try {
+        const reg = await navigator.serviceWorker.register('/uv/sw.js', { scope: '/service/' });
+        // If a controller is already active (page refreshed), we're good immediately
+        if (navigator.serviceWorker.controller) { swReady = true; return; }
+        // Otherwise wait for the SW to activate
+        await new Promise(resolve => {
+          const worker = reg.installing || reg.waiting || reg.active;
+          if (!worker) { resolve(); return; }
+          if (worker.state === 'activated') { resolve(); return; }
+          worker.addEventListener('statechange', function handler() {
+            if (worker.state === 'activated') {
+              worker.removeEventListener('statechange', handler);
+              resolve();
+            }
+          });
+          // Fallback: resolve after 3s regardless
+          setTimeout(resolve, 3000);
+        });
+        swReady = true;
+      } catch(err) {
+        console.warn('SW registration failed:', err);
+        swReady = true;
+      }
     }
+    const swPromise = registerSW();
 
     // Configure bare-mux transport (required by UV v3)
     async function initTransport() {
@@ -321,13 +345,15 @@
       return '/proxy?url=' + encodeURIComponent(url);
     }
 
-    function navigate(raw) {
+    async function navigate(raw) {
       const encoded = encodeUrl(raw);
       if (!encoded) return;
-      urlInput.value = raw.startsWith('http') ? raw : raw;
-      proxyFrame.src = encoded;
+      urlInput.value = raw;
       quickLinks.classList.remove('visible');
       proxyFrame.style.display = 'block';
+      // Wait for service worker to be ready so the first load never fails
+      await swPromise;
+      proxyFrame.src = encoded;
     }
 
     goBtn.addEventListener('click', () => navigate(urlInput.value));

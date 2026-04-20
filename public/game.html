@@ -97,6 +97,11 @@
       });
     } catch {}
 
+    // Pre-register UV service worker in the background (so Browse page is ready if they visit next)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/uv/sw.js', { scope: '/service/' }).catch(() => {});
+    }
+
     // Load game from ?url= param
     const params = new URLSearchParams(location.search);
     const url = params.get('url');
