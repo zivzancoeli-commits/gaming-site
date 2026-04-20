@@ -1,3 +1,30 @@
+/* ── About:blank site cloak ─────────────────────────────────── */
+// If the user enabled stealth mode, load the whole site inside an
+// about:blank popup and send the original tab to Google.
+(function () {
+  let inFrame;
+  try { inFrame = window !== window.top; } catch (e) { inFrame = true; }
+  if (inFrame || navigator.userAgent.includes('Firefox')) return;
+  if (localStorage.getItem('gsAboutBlank') !== 'true') return;
+
+  const popup = window.open('about:blank', '_blank');
+  if (!popup || popup.closed) {
+    alert('Please allow popups for this site, then click "Open Popup" in Settings again.');
+    return;
+  }
+  popup.document.title = 'My Drive - Google Drive';
+  const ico = popup.document.createElement('link');
+  ico.rel = 'icon';
+  ico.href = 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png';
+  popup.document.head.appendChild(ico);
+  const iframe = popup.document.createElement('iframe');
+  iframe.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:none;margin:0;';
+  iframe.src = location.href;
+  popup.document.body.style.cssText = 'margin:0;padding:0;overflow:hidden;';
+  popup.document.body.appendChild(iframe);
+  location.replace('https://www.google.com');
+})();
+
 /* ── Settings & cloaking ────────────────────────────────────── */
 const DEFAULT_SETTINGS = {
   panicKey: 'Escape',
@@ -174,47 +201,9 @@ function openGame(game) {
     return;
   }
 
-  // Build absolute proxy URL — relative paths don't resolve in about:blank context
-  const rawProxy = encodeProxyUrl(game.url);
-  const proxyUrl = rawProxy.startsWith('http') ? rawProxy : window.location.origin + rawProxy;
-
-  // ── About:blank cloaking ──────────────────────────────────────────
-  // Open an about:blank popup and write the game iframe into it.
-  // GoGuardian only sees "about:blank" — no URL to block or flag.
-  // The current tab then navigates to Google Classroom as a cover.
-  const popup = window.open('about:blank', '_blank');
-  if (popup) {
-    popup.document.open();
-    popup.document.write(`<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Google Classroom</title>
-<link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
-  iframe { width: 100%; height: 100%; border: none; display: block; }
-</style>
-</head>
-<body>
-<iframe
-  src="${proxyUrl}"
-  allowfullscreen
-  allow="fullscreen *; autoplay *; clipboard-read *; clipboard-write *; pointer-lock *"
-></iframe>
-</body>
-</html>`);
-    popup.document.close();
-
-    // Navigate current tab to Google Classroom as a cover
-    window.location.href = 'https://classroom.google.com';
-    return;
-  }
-
-  // ── Fallback: popup was blocked — use the built-in modal instead ──
   currentGameUrl = game.url;
-  currentProxyUrl = proxyUrl;
+  const mustProxy = game.embed !== true;
+  currentProxyUrl = mustProxy ? encodeProxyUrl(game.url) : game.url;
 
   gameFrame.src = '';
   gameFrame.classList.remove('active');
@@ -321,6 +310,13 @@ function openSettings() {
 }
 
 settingsBtn.addEventListener('click', (e) => { e.preventDefault(); openSettings(); });
+
+// Stealth mode button — sets flag then reloads so the cloak fires on fresh load
+document.getElementById('open-popup-btn').addEventListener('click', () => {
+  localStorage.setItem('gsAboutBlank', 'true');
+  settingsModal.classList.remove('open');
+  location.reload();
+});
 closeSettings.addEventListener('click', () => settingsModal.classList.remove('open'));
 settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) settingsModal.classList.remove('open'); });
 
