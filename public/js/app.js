@@ -174,17 +174,50 @@ function openGame(game) {
     return;
   }
 
-  currentGameUrl = game.url;
-  // embed:true → load directly in iframe; embed:false → route through UV proxy
-  const mustProxy = game.embed !== true;
-  currentProxyUrl = mustProxy ? encodeProxyUrl(game.url) : game.url;
+  const proxyUrl = encodeProxyUrl(game.url);
 
-  // Reset to overlay state
+  // ── About:blank cloaking ──────────────────────────────────────────
+  // Open an about:blank popup and write the game iframe into it.
+  // GoGuardian only sees "about:blank" — no URL to block or flag.
+  // The current tab then navigates to Google Classroom as a cover.
+  const popup = window.open('', '_blank');
+  if (popup) {
+    popup.document.open();
+    popup.document.write(`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Google Classroom</title>
+<link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+  iframe { width: 100%; height: 100%; border: none; display: block; }
+</style>
+</head>
+<body>
+<iframe
+  src="${proxyUrl}"
+  allowfullscreen
+  allow="fullscreen *; autoplay *; clipboard-read *; clipboard-write *; pointer-lock *"
+></iframe>
+</body>
+</html>`);
+    popup.document.close();
+
+    // Navigate current tab to Google Classroom as a cover
+    window.location.href = 'https://classroom.google.com';
+    return;
+  }
+
+  // ── Fallback: popup was blocked — use the built-in modal instead ──
+  currentGameUrl = game.url;
+  currentProxyUrl = proxyUrl;
+
   gameFrame.src = '';
   gameFrame.classList.remove('active');
   gameOverlay.classList.remove('hidden');
 
-  // Set overlay content
   modalTitle.textContent = game.name;
   overlayTitle.textContent = game.name;
   overlayThumb.src = game.img || '';
